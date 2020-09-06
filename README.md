@@ -1,4 +1,4 @@
-# summative-fitness
+# core-fitness-app
 
 ## Project setup
 ```
