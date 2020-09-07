@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h3 style="">Hello | Nav</h3>
     <div id="nav">
       <router-link to="/">Dashboard</router-link> |
       <router-link to="/about">About</router-link> |
@@ -27,6 +28,7 @@
 
 #nav {
   padding: 30px;
+  display: none;
 
   a {
     font-weight: bold;
