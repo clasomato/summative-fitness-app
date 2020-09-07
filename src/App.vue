@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
+      <router-link to="/landing">Landing Page</router-link> |
       <router-link to="/">Dashboard</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/sign-up">Sign Up</router-link> |
@@ -15,6 +16,18 @@
     <router-view/>
   </div>
 </template>
+
+<script type="text/javascript">
+import db from './firebase.js'
+console.log(db)
+export default {
+  name: 'App',
+  data () {
+    return {
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
