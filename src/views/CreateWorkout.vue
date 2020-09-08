@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="create-workout">
     <div class="specificNav">
-      <span><a>Go Back</a></span>
+      <span><router-link to="/">Go Back</router-link></span>
     </div>
 
     <div class="createWorkoutContainer">
@@ -24,7 +24,7 @@
         <!-- <h3>Your Workout</h3> <br> -->
         <br>
         <h4>No Activities In Workout</h4>
-        <img src="../assets/plus-solid.svg" alt="">
+        <img src="../assets/plus-solid.svg" alt="" @click="openAddActivity">
       </div>
     </div>
 
@@ -45,14 +45,25 @@
     </div>
 
     <!-- Search for new activity modal -->
-    <div class="searchForActivity">
+    <div class="searchForActivity" id="activityContainer">
       <div class="searchArea">
-        <button type="button" name="button">Close</button>
+        <button type="button" name="button" @click="goBackToCreateWorkout">Close</button>
         <input type="search" name="" value="">
       </div>
 
-      <div class="searchResults">
+      <div class="searchResults" style="margin-top:20%">
+        <ul>
+          <li>
+            <div class="">
+              <img src="" alt="" width="10%">
+              <p>Back Squat - 8x 5x 3x <br> Strength</p>
+            </div>
 
+            <div class="" style="position:absolute;">
+              <input type="checkbox" name="" value="">
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -72,6 +83,9 @@ export default {
   },
   methods: {
     // Hide/show STARTS
+    openAddActivity: function () {
+      $('#activityContainer').show(100)
+    },
     openDeleteConfirmModal: function () {
       $('#confirmDeleteModal').show(100)
     },
@@ -85,6 +99,9 @@ export default {
     },
     confirmWorkoutChnages: function () {
       console.log('user has confirmed changes to workout')
+    },
+    goBackToCreateWorkout: function () {
+      $('#activityContainer').hide(100)
     }
   }
 }
@@ -210,6 +227,7 @@ export default {
     top: 0;
     left: 0;
     padding: 5%;
+    display: none;
   }
 
   .searchArea {
@@ -226,6 +244,22 @@ export default {
     button, input {
       margin:0;
       padding-right: 3%;
+    }
+  }
+
+  .searchResults {
+
+    input {
+      margin: 0;
+      display: flex-end;
+      font-size: 2em;
+      text-align: center;
+    }
+    ul {
+      li {
+        display: flex;
+        justify-content: space-between;
+      }
     }
   }
 </style>
