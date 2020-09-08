@@ -45,9 +45,9 @@
     </div>
 
     <!-- Search for new activity modal -->
-    <div class="searchForActivity">
+    <div class="searchForActivity" id="activityContainer">
       <div class="searchArea">
-        <button type="button" name="button">Close</button>
+        <button type="button" name="button" @click="closeActivitys">Close</button>
         <input type="search" name="" value="">
       </div>
 
@@ -74,6 +74,9 @@ export default {
     // Hide/show STARTS
     openDeleteConfirmModal: function () {
       $('#confirmDeleteModal').show(100)
+    },
+    closeActivitys: function () {
+      $('#activityContainer').hide()
     },
     deleteModalGoBack: function () {
       $('#confirmDeleteModal').hide(100)
