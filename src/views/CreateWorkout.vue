@@ -31,7 +31,7 @@
     <!-- Buttons to confirm changes or to delete the workout set -->
     <div class="buttons">
       <button type="button" name="button" @click="openDeleteConfirmModal()" id="deleteWorkoutButton">Delete</button>
-      <button type="button" name="button" id="confirmWorkoutButton">Confirm</button>
+      <button type="button" name="button" @click="confirmWorkoutChnages()" id="confirmWorkoutButton">Confirm</button>
     </div>
 
     <!-- Modals -->
@@ -41,6 +41,18 @@
 
         <button type="button" name="button" @click="deleteCurrentItem">Yes</button>
         <button type="button" name="button" @click="deleteModalGoBack">No</button>
+      </div>
+    </div>
+
+    <!-- Search for new activity modal -->
+    <div class="searchForActivity">
+      <div class="searchArea">
+        <button type="button" name="button">Close</button>
+        <input type="search" name="" value="">
+      </div>
+
+      <div class="searchResults">
+
       </div>
     </div>
 
@@ -70,6 +82,9 @@ export default {
       console.log('delete please')
 
       $('#confirmDeleteModal').hide(100)
+    },
+    confirmWorkoutChnages: function () {
+      console.log('user has confirmed changes to workout')
     }
   }
 }
@@ -184,5 +199,33 @@ export default {
     padding: 5%;
     margin: 10%;
     background-color: lightgrey;
+  }
+
+  .searchForActivity {
+    width: 100%;
+    height: 100vh;
+    overflow: scroll;
+    background-color: grey;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5%;
+  }
+
+  .searchArea {
+    padding:5%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: darkgrey;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    button, input {
+      margin:0;
+      padding-right: 3%;
+    }
   }
 </style>
