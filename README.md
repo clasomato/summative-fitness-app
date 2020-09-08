@@ -46,6 +46,7 @@ Bootstrap, jQuery and popper.js are installed to the latest version via npm on t
 ##### CSS Reset
 
 Includes box sizing rules, default padding, default margin, default body, list styles, default styles, images, articles, inputs, buttons, animations, and transitions. (Found via /r/code on Reddit).
+
 Link: https://hankchizljaw.com/wrote/a-modern-css-reset/
 
 #### Group Specific Rules
