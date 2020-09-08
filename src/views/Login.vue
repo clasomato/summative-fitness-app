@@ -9,9 +9,8 @@
 </template>
 
 <script>
-// import store from '../store'
-
 import firebase from 'firebase'
+import db from '../firebase.js'
 
 export default {
   name: 'Login',
@@ -19,19 +18,21 @@ export default {
     return {
       userEmail: false,
       userPw: false,
-      errorMessage: false
+      errorMessage: false,
+      userData: false
     }
   },
   methods: {
     logUserIn () {
       const v = this
       firebase.auth().signInWithEmailAndPassword(v.userEmail, v.userPw).then(function () {
-        // NOTE: Get users first and last names plus profile image here
-        //       Then add uncomment:
-        // this.$store.commit('setUserFirstName', v.userFirstName)
-        // this.$store.commit('setUserLastName', v.userLastName)
-        // this.$store.commit('setUserPicture', v.userPicture)
-        this.$store.commit('setUserEmail', v.userEmail)
+        db.collection('users').doc(v.userEmail).get().then(function (doc) {
+          v.userData = doc.data()
+          v.$store.commit('setUserFirstName', v.userData.firstName)
+          v.$store.commit('setUserLastName', v.userData.lastName)
+          // v.$store.commit('setUserPicture', v.userPicture)
+          v.$store.commit('setUserEmail', v.userData.userEmail)
+        })
       }).catch(function (error) {
         v.errorMessage = error.message
       })
@@ -40,5 +41,5 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style scoped lang="scss">
 </style>
