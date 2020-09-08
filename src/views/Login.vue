@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="login-cont">
     <h2>Login</h2>
-    <p v-if="errorMessage">{{errorMessage}}</p>
+    <p class="error-message" v-if="errorMessage">{{errorMessage}}</p>
     <input type="email" placeholder="Email" v-model="userEmail">
     <input type="password" placeholder="Password" v-model="userPw">
     <button type="button" @click="logUserIn">Login</button>
@@ -28,11 +28,12 @@ export default {
       firebase.auth().signInWithEmailAndPassword(v.userEmail, v.userPw).then(function () {
         // NOTE: Get users first and last names plus profile image here
         //       Then add uncomment:
-        // this.$store.commit('setUserFirstName', v.userFirstName)
-        // this.$store.commit('setUserLastName', v.userLastName)
-        // this.$store.commit('setUserPicture', v.userPicture)
-        this.$store.commit('setUserEmail', v.userEmail)
-      }).catch(function (error) {
+        // v.$store.commit('setUserFirstName', v.userFirstName)
+        // v.$store.commit('setUserLastName', v.userLastName)
+        // v.$store.commit('setUserPicture', v.userPicture)
+        v.$store.commit('setUserEmail', v.userEmail)
+        v.$router.push('profile-setup')
+      }, function (error) {
         v.errorMessage = error.message
       })
     }
@@ -40,5 +41,8 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style scoped lang="scss">
+.error-message {
+  text-transform: capitalize;
+}
 </style>

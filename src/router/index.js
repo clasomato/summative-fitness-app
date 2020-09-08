@@ -9,6 +9,7 @@ import EditWorkout from '../views/EditWorkout.vue'
 import PreviewWorkout from '../views/PreviewWorkout.vue'
 import ActiveWorkout from '../views/ActiveWorkout.vue'
 import WorkoutList from '../views/WorkoutList.vue'
+import LandingPage from '../views/LandingPage.vue'
 
 Vue.use(VueRouter)
 
@@ -62,6 +63,11 @@ const routes = [
     path: '/workout-list',
     name: 'WorkoutList',
     component: WorkoutList
+  },
+  {
+    path: '/landing',
+    name: 'LandingPage',
+    component: LandingPage
   }
 ]
 
