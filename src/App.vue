@@ -1,20 +1,34 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Dashboard</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/sign-up">Sign Up</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/profile-setup">Profile Setup</router-link> |
-      <router-link to="/create-workout">Create Workout</router-link> |
-      <router-link to="/edit-workout">Edit Workout</router-link> |
-      <router-link to="/preview-workout">Preview Workout</router-link> |
-      <router-link to="/active-workout">Active Workout</router-link> |
-      <router-link to="/workout-list">Workout List</router-link>
-    </div>
+    <Navigation/>
     <router-view/>
   </div>
 </template>
+
+<script type="text/javascript">
+import Navigation from './components/Navigation.vue'
+
+export default {
+  name: 'App',
+  data () {
+    return {
+      hamIsActive: false
+    }
+  },
+  components: {
+    Navigation
+  },
+  methods: {
+    hamToggle () {
+      if (this.hamIsActive === false) {
+        this.hamIsActive = true
+      } else {
+        this.hamIsActive = false
+      }
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -23,18 +37,149 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  overflow-x: hidden;
+  max-width: 100vw;
+  position: relative;
 }
 
 #nav {
+  background: transparent;
   padding: 30px;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  @charset "UTF-8";
+  $hamburger-padding-x           : 15px !default;
+  $hamburger-padding-y           : 15px !default;
+  $hamburger-layer-width         : 40px !default;
+  $hamburger-layer-height        : 4px !default;
+  $hamburger-layer-spacing       : 6px !default;
+  $hamburger-layer-color         : #E65A6E !default;
+  $hamburger-layer-border-radius : 4px !default;
+  $hamburger-hover-opacity       : 0.7 !default;
+  $hamburger-active-layer-color  : #fff !default;
+  $hamburger-active-hover-opacity: $hamburger-hover-opacity !default;
 
-    &.router-link-exact-active {
-      color: #42b983;
+  $hamburger-types: (
+    spin
+  ) !default;
+
+  .hamburger {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    outline: none;
+    padding: $hamburger-padding-y $hamburger-padding-x;
+    display: inline-block;
+    cursor: pointer;
+
+    transition-property: opacity, filter;
+    transition-duration: 0.15s;
+    transition-timing-function: linear;
+
+    // Normalize (<button>)
+    font: inherit;
+    color: inherit;
+    text-transform: none;
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    overflow: visible;
+
+    &:hover {
+      opacity: $hamburger-hover-opacity;
+    }
+
+    &.isActive {
+      &:hover {
+        opacity: $hamburger-active-hover-opacity;
+      }
+
+      .hamburger-inner,
+      .hamburger-inner::before,
+      .hamburger-inner::after {
+        background-color: $hamburger-active-layer-color;
+      }
     }
   }
-}
+
+  .hamburger-box {
+    width: $hamburger-layer-width;
+    height: $hamburger-layer-height * 3 + $hamburger-layer-spacing * 2;
+    display: inline-block;
+    position: relative;
+  }
+
+  .hamburger-inner {
+    display: block;
+    top: 50%;
+    margin-top: $hamburger-layer-height / -2;
+
+    &,
+    &::before,
+    &::after {
+      width: $hamburger-layer-width;
+      height: $hamburger-layer-height;
+      background-color: $hamburger-layer-color;
+      border-radius: $hamburger-layer-border-radius;
+      position: absolute;
+      transition-property: transform;
+      transition-duration: 0.15s;
+      transition-timing-function: ease;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+    }
+
+    &::before {
+      top: ($hamburger-layer-spacing + $hamburger-layer-height) * -1;
+    }
+
+    &::after {
+      bottom: ($hamburger-layer-spacing + $hamburger-layer-height) * -1;
+    }
+  }
+  @if index($hamburger-types, spin) {
+    .hamburger--spin {
+      .hamburger-inner {
+        transition-duration: 0.22s;
+        transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+        &::before {
+          transition: top 0.1s 0.25s ease-in,
+                      opacity 0.1s ease-in;
+        }
+
+        &::after {
+          transition: bottom 0.1s 0.25s ease-in,
+                      transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        }
+      }
+
+      &.isActive {
+        .hamburger-inner {
+          transform: rotate(225deg);
+          transition-delay: 0.12s;
+          transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+          &::before {
+            top: 0;
+            opacity: 0;
+            transition: top 0.1s ease-out,
+                        opacity 0.1s 0.12s ease-out;
+          }
+
+          &::after {
+            bottom: 0;
+            transform: rotate(-90deg);
+            transition: bottom 0.1s ease-out,
+                        transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+          }
+        }
+      }
+    }
+  }
 </style>
