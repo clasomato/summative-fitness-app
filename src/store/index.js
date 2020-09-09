@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     userFirstName: false,
     userLastName: false,
-    userEmail: false,
+    userEmail: 'jfclimo@gmail.com',
     userPicture: false
   },
   getters: {

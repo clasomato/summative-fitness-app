@@ -73,6 +73,10 @@
 <script>
 // Imports
 import $ from 'jquery'
+import db from '../firebase.js'
+import store from '../store/index.js'
+
+console.log(db, store)
 
 export default {
   name: 'CreateWorkout',
@@ -99,6 +103,8 @@ export default {
     },
     confirmWorkoutChnages: function () {
       console.log('user has confirmed changes to workout')
+
+      console.log(store.getters.getUserEmail)
     },
     goBackToCreateWorkout: function () {
       $('#activityContainer').hide(100)
