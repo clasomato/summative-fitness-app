@@ -7,9 +7,9 @@
     <div class="createWorkoutContainer">
       <h1>Create Workout</h1>
 
-      <input type="text" name="" value="" placeholder="Name">
+      <input type="text" name="" value="" id="userNameOfWorkout" placeholder="Name">
 
-      <input type="text" name="" value="" placeholder="Description">
+      <input type="text" name="" value="" id="userDescriptionOfWorkout" placeholder="Description">
     </div>
 
     <div class="activitySection">
@@ -48,20 +48,84 @@
     <div class="searchForActivity" id="activityContainer">
       <div class="searchArea">
         <button type="button" name="button" @click="goBackToCreateWorkout">Close</button>
-        <input type="search" name="" value="">
+        <input type="text" id="myInput" name="" value="" v-on:keyup="search()">
       </div>
 
       <div class="searchResults" style="margin-top:20%">
-        <ul>
+        <ul id="myUL">
           <li>
-            <div class="">
-              <img src="" alt="" width="10%">
-              <p>Back Squat - 8x 5x 3x <br> Strength</p>
-            </div>
+              <label for=""><a>Back Squat</a></label>
+              <input type="checkbox" name="Back Squat" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
 
-            <div class="" style="position:absolute;">
-              <input type="checkbox" name="" value="">
-            </div>
+          <li>
+            <label for=""><a>Quail</a></label>
+            <input type="checkbox" name="Quail" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Side Lunge</a></label>
+            <input type="checkbox" name="Side Lunge" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Chest Press</a></label>
+            <input type="checkbox" name="Chest Press" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Skipping</a></label>
+            <input type="checkbox" name="Skipping" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Chest Fly</a></label>
+            <input type="checkbox" name="Chest Fly" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Bicep Curl</a></label>
+            <input type="checkbox" name="Bicep Curl" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Burpee</a></label>
+            <input type="checkbox" name="Burpee" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Horizontal Row</a></label>
+            <input type="checkbox" name="Horizontal Row" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Squat Jumps</a></label>
+            <input type="checkbox" name="Squat Jumps" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Crunch</a></label>
+            <input type="checkbox" name="Crunch" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Running the stairs</a></label>
+            <input type="checkbox" name="Running the stairs" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Shoulder Press</a></label>
+            <input type="checkbox" name="Shoulder Press" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Leg Raise</a></label>
+            <input type="checkbox" name="Leg Raise" id="check1" value="workoutThings" @click="bigger($event)"> <br>
+          </li>
+
+          <li>
+            <label for=""><a>Push Ups</a></label>
+            <input type="checkbox" name="Push Ups" id="check1" value="workoutThings" @click="bigger($event)"> <br>
           </li>
         </ul>
       </div>
@@ -82,7 +146,9 @@ export default {
   name: 'CreateWorkout',
   data () {
     return {
-
+      i: 0,
+      checkBoxes: false,
+      workoutActivitys: []
     }
   },
   methods: {
@@ -101,13 +167,68 @@ export default {
 
       $('#confirmDeleteModal').hide(100)
     },
-    confirmWorkoutChnages: function () {
-      console.log('user has confirmed changes to workout')
+    bigger: function (e) {
+      // getting Vue
+      var v = this
 
-      console.log(store.getters.getUserEmail)
+      // This gets the checked item and appends it to the vue data array
+      if (e.target.checked === true) {
+        v.workoutActivitys.push(e.target.name)
+      } else {
+
+      }
+    },
+    confirmWorkoutChnages: function () {
+      // Grbbing Vue
+      const v = this
+
+      // Getting the required variables
+      var user = store.getters.getUserEmail
+      var workoutName = document.getElementById('userNameOfWorkout').value
+      var workoutDescripton = document.getElementById('userDescriptionOfWorkout').value
+      var userWorkouts = v.workoutActivitys
+
+      console.log(v)
+
+      // Checking if the user has added the name and description
+      if (workoutName !== '' && workoutDescripton !== '') {
+        // Adding the data to firebase
+        db.collection('users').doc(user).collection('workouts').doc(workoutName).set({
+          workoutName: workoutName,
+          description: workoutDescripton,
+          workouts: userWorkouts,
+          repetitions: 8,
+          sets: 4,
+          timePerSet: 60,
+          breakTime: 30,
+          totalTime: (60 * 4) + (30 * (4 - 1)),
+          picture: ''
+        })
+      } else {
+        alert('No mf name or desc')
+      }
     },
     goBackToCreateWorkout: function () {
       $('#activityContainer').hide(100)
+    },
+    search: function () {
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue
+      input = document.getElementById('myInput')
+      filter = input.value.toUpperCase()
+      ul = document.getElementById('myUL')
+      li = ul.getElementsByTagName('li')
+
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName('a')[0]
+        txtValue = a.textContent || a.innerText
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = ''
+        } else {
+          li[i].style.display = 'none'
+        }
+      }
     }
   }
 }
@@ -255,17 +376,17 @@ export default {
 
   .searchResults {
 
-    input {
-      margin: 0;
-      display: flex-end;
-      font-size: 2em;
-      text-align: center;
-    }
-    ul {
-      li {
-        display: flex;
-        justify-content: space-between;
-      }
-    }
+    // input {
+    //   margin: 0;
+    //   display: flex-end;
+    //   font-size: 2em;
+    //   text-align: center;
+    // }
+    // ul {
+    //   li {
+    //     display: flex;
+    //     justify-content: space-between;
+    //   }
+    // }
   }
 </style>
