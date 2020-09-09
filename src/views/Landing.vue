@@ -1,7 +1,15 @@
 <template lang="html">
-  <div class="container landing-page">
-    <button type="button" name="button" class="btn btn-primary">Login</button>
-    <button type="button" name="button" class="btn btn-primary">Sign Up</button>
+  <div class="container flex-column landing-page d-flex justifyEvenly">
+    <div>
+      <img src="../assets/core-logo.png" alt="" class="logo padding">
+    </div>
+    <div class="paraTextStyle padding">
+      <p>Welcome to CORE</p>
+    </div>
+    <div class="align-self-center d-flex flex-column">
+      <button type="button" class="btn text-center btnStyle">Login</button>
+      <button type="button" class="btn text-center btnStyle btnMargin">Sign Up</button>
+    </div>
   </div>
 </template>
 
@@ -11,4 +19,32 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.btnStyle {
+  width: 150px;
+  color: #FFFFFF;
+  background-color: #343A40;
+  border-radius: 30px;
+  font-family: 'Roboto', sans-serif;
+  width: 250px;
+}
+.btnMargin {
+  margin-top: 25px;
+}
+.logo {
+  width: 250px;
+  height: auto;
+}
+.paraTextStyle {
+  font-family: 'Roboto', sans-serif;
+  color: #6C757D;
+  font-size: 20px;
+}
+.justifyEvenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.container {
+  height: 100vh;
+  background-color: #DADADA;
+}
 </style>

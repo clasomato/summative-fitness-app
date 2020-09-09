@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Dashboard</router-link> |
+      <router-link to="/landing">Landing</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/sign-up">Sign Up</router-link> |
       <router-link to="/login">Login</router-link> |
@@ -11,7 +12,7 @@
       <router-link to="/preview-workout">Preview Workout</router-link> |
       <router-link to="/active-workout">Active Workout</router-link> |
       <router-link to="/workout-list">Workout List</router-link>
-    </div>
+    </div> -->
     <router-view/>
   </div>
 </template>
