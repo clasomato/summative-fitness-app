@@ -1,11 +1,14 @@
-# core-but-fixed-again
+# CORE Fitness App
 
 ## Project setup
 ```
 npm install
 ```
+```
+npm install bootstrap popper.js jquery
+```
 
-### Compiles and hot-reloads for development
+## Compiles and hot-reloads for development
 ```
 npm run serve
 ```
