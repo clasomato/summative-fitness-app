@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <h1 style="">Choose your <br> workout today</h1>
+    <h1 style="">Choose your <br> workout today, {{userFirstName}}</h1>
     <div class="cards">
       <div class="card">
         <router-link to="/create-workout"><img src="../assets/plus-solid.svg" alt=""></router-link>
@@ -39,11 +39,20 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import store from '../store/index.js'
 
 export default {
   name: 'Dashboard',
   components: {
     HelloWorld
+  },
+  data () {
+    return {
+      userFirstName: false
+    }
+  },
+  created () {
+    this.userFirstName = store.getters.getUserFirstName
   }
 }
 </script>

@@ -298,7 +298,8 @@ export default {
   .activityHeaders {
     display: flex;
     justify-content: space-between;
-    // align-items: flex-start;
+    // align-items: flex-start;\
+    column-rule-color: green;
 
     h3 {
       padding: 0;
