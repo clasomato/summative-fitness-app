@@ -95,6 +95,7 @@ div.nav-inner {
   & a {
     font-size: 24px;
     color: white;
+    pointer-events: all;
     &.router-link-exact-active {
       color: #E65A6E;
       background-color: white;

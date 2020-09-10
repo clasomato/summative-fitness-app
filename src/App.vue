@@ -46,6 +46,7 @@ export default {
   width: 100%;
   height: 100%;
   padding: 30px;
+  pointer-events: none;
 }
 
   @charset "UTF-8";
