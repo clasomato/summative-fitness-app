@@ -6,6 +6,7 @@
 
     <div class="createWorkoutContainer">
       <h1>Create Workout</h1>
+      <button type="button" @click="testFunction" name="button">Test Button</button>
 
       <input type="text" name="" value="" id="userNameOfWorkout" placeholder="Name">
 
@@ -15,8 +16,10 @@
     <div class="activitySection">
       <div class="activityHeaders">
         <h3>Level</h3>
-        <select class="" name="options">
+        <select class="" name="options" id="dificultyOptions">
           <option value="0">Beginner</option>
+          <option value="1">Intermediate</option>
+          <option value="2">Advanced</option>
         </select>
       </div>
 
@@ -187,6 +190,7 @@ export default {
       var workoutName = document.getElementById('userNameOfWorkout').value
       var workoutDescripton = document.getElementById('userDescriptionOfWorkout').value
       var userWorkouts = v.workoutActivitys
+      var userDifficultyChoice = document.getElementById('dificultyOptions').value
 
       console.log(v)
 
@@ -197,6 +201,7 @@ export default {
           workoutName: workoutName,
           description: workoutDescripton,
           workouts: userWorkouts,
+          difficulty: userDifficultyChoice,
           repetitions: 8,
           sets: 4,
           timePerSet: 60,
@@ -229,6 +234,9 @@ export default {
           li[i].style.display = 'none'
         }
       }
+    },
+    testFunction: function () {
+      console.log(document.getElementById('dificultyOptions').value)
     }
   }
 }
