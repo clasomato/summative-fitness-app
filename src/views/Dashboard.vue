@@ -4,7 +4,7 @@
     <h1 style="">Choose your <br> workout today, {{userFirstName}}</h1>
     <div class="cards">
       <div class="card">
-        <router-link to="/create-workout"><img src="../assets/plus-solid.svg" alt=""></router-link>
+        <router-link to="/create-workout"><i class="fas fa-plus" style="font-size:5em; color:#FE5864;"></i></router-link>
       </div>
 
       <!-- <div class="card">
@@ -136,6 +136,7 @@ export default {
     align-items: center;
     justify-content: center;
     height: 200px;
+    padding: 3%;
 
     a {
       display: flex;
@@ -183,7 +184,7 @@ export default {
   .circle {
     padding: 4%;
     border-radius: 100em;
-    background-color: lightgrey;
+    background-color: #FE5864;
     width: 1%
   }
 </style>
