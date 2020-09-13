@@ -35,16 +35,13 @@ export default {
       activePage: ''
     }
   },
-  computed: {
-    // currentRouteName () {
-    // this.activePage =
-    // }
-  },
   created () {
     this.activePage = this.$route.name
   },
-  updated () {
-    this.activePage = this.$route.name
+  watch: {
+    $route () {
+      this.activePage = this.$route.name
+    }
   },
   methods: {
     hamToggle () {

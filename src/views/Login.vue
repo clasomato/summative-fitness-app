@@ -52,7 +52,7 @@ export default {
           localStorage.setItem('userEmail', v.userData.userEmail)
           localStorage.setItem('isLoggedIn', 'true')
           v.$router.push('/')
-          location.reload()
+          // location.reload()
         })
       }).catch(function (error) {
         v.errorMessage = error.message

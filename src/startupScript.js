@@ -1,15 +1,16 @@
-const store = require('./store/index.js')
+const store = require('./store')
+// import store from './store/index.js'
 
 var storageObj = {
   checkLocalStorage: function () {
     const isLoggedIn = localStorage.getItem('isLoggedIn')
-    console.log(isLoggedIn)
+    console.log(store)
     if (isLoggedIn === 'true') {
       console.log(store)
-      store.commit('setLoggedIn', true)
-      store.commit('setUserFirstName', localStorage.getItem('userFirstName'))
-      store.commit('setUserLastName', localStorage.getItem('userLastName'))
-      store.commit('setUserEmail', localStorage.getItem('userEmail'))
+      store.default.commit('setLoggedIn', true)
+      store.default.commit('setUserFirstName', localStorage.getItem('userFirstName'))
+      store.default.commit('setUserLastName', localStorage.getItem('userLastName'))
+      store.default.commit('setUserEmail', localStorage.getItem('userEmail'))
       console.log('working')
     } else {
       console.log('connected')
