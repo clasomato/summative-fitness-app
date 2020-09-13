@@ -1,58 +1,62 @@
 <template>
   <div class="dashboard">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <h1 style="">Choose your <br> workout today, {{userFirstName}}</h1>
-    <div class="cards">
-      <div class="card">
-        <router-link to="/create-workout"><img src="../assets/plus-solid.svg" alt=""></router-link>
-      </div>
-
-      <div class="card">
-        <h3>Workout <br> <span>legblast</span> </h3>
-      </div>
-    </div>
-
-    <!-- This is the workout master container -->
-    <div class="workout">
-      <!-- Name of selected workout -->
-      <h2>Workout <span id="workoutName" style="font-weight:bold">Leg Blast</span></h2>
-
-      <!-- Container for the workout items -->
-      <div class="workoutItems">
-        <!-- Individual workout item -->
-        <div class="workoutItem">
-          <div class="circle"></div>
-          <h2>Leg Bridge</h2>
-          <h3>40 sec</h3>
+    <div v-if="isLoggedIn">
+      <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <h1 style="">Choose your <br> workout today, {{userFirstName}}</h1>
+      <div class="cards">
+        <div class="card">
+          <router-link to="/create-workout"><img src="../assets/plus-solid.svg" alt=""></router-link>
         </div>
 
-        <div class="workoutItem">
-          <div class="circle"></div>
-          <h2>Sumo Squat</h2>
-          <h3>60 sec</h3>
+        <div class="card">
+          <h3>Workout <br> <span>legblast</span> </h3>
+        </div>
+      </div>
+
+      <!-- This is the workout master container -->
+      <div class="workout">
+        <!-- Name of selected workout -->
+        <h2>Workout <span id="workoutName" style="font-weight:bold">Leg Blast</span></h2>
+
+        <!-- Container for the workout items -->
+        <div class="workoutItems">
+          <!-- Individual workout item -->
+          <div class="workoutItem">
+            <div class="circle"></div>
+            <h2>Leg Bridge</h2>
+            <h3>40 sec</h3>
+          </div>
+
+          <div class="workoutItem">
+            <div class="circle"></div>
+            <h2>Sumo Squat</h2>
+            <h3>60 sec</h3>
+          </div>
         </div>
       </div>
     </div>
+    <p else>You must <router-link to="/login">Login</router-link> or <router-link to="/sign-up">Signup</router-link> to view this page.</p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import store from '../store/index.js'
+// import store from '../store/index.js'
+import startupScript from '../startupScript.js'
 
 export default {
   name: 'Dashboard',
-  components: {
-    HelloWorld
-  },
   data () {
     return {
-      userFirstName: false
+      userFirstName: false,
+      isLoggedIn: false
     }
   },
   created () {
-    this.userFirstName = store.getters.getUserFirstName
+    this.isLoggedIn = this.$store.getters.getLoginStatus
+    if (this.isLoggedIn === false) {
+      startupScript.checkLocalStorage()
+    }
+    this.userFirstName = this.$store.getters.getUserFirstName
   }
 }
 </script>

@@ -9,7 +9,7 @@
         <form class="col col-12">
           <div class="form-group text-left formTextStyle formPadding">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" placeholder="myfitness@gmail..." v-model="userEmail">
+            <input type="email" class="form-control" v-model="userEmail" placeholder="myfitness@gmail...">
           </div>
           <div class="form-group text-left formTextStyle formPadding">
             <label for="password">Password</label>
@@ -28,13 +28,10 @@ import db from '../firebase.js'
 
 export default {
   name: 'Login',
-  // components: {
-  //   SignIn
-  // },
   data () {
     return {
-      userEmail: false,
-      userPw: false,
+      userEmail: '',
+      userPw: '',
       errorMessage: false,
       userData: false
     }
@@ -45,10 +42,17 @@ export default {
       firebase.auth().signInWithEmailAndPassword(v.userEmail, v.userPw).then(function () {
         db.collection('users').doc(v.userEmail).get().then(function (doc) {
           v.userData = doc.data()
-          v.$store.commit('setUserFirstName', v.userData.firstName)
-          v.$store.commit('setUserLastName', v.userData.lastName)
+          // v.$store.commit('setUserFirstName', v.userData.firstName)
+          // v.$store.commit('setUserLastName', v.userData.lastName)
           // v.$store.commit('setUserPicture', v.userPicture)
-          v.$store.commit('setUserEmail', v.userData.userEmail)
+          // v.$store.commit('setUserEmail', v.userData.userEmail)
+          // v.$store.commit('setLoggedIn', true)
+          localStorage.setItem('userFirstName', v.userData.firstName)
+          localStorage.setItem('userLastName', v.userData.lastName)
+          localStorage.setItem('userEmail', v.userData.userEmail)
+          localStorage.setItem('isLoggedIn', 'true')
+          v.$router.push('/')
+          location.reload()
         })
       }).catch(function (error) {
         v.errorMessage = error.message

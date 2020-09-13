@@ -32,8 +32,19 @@ export default {
   data () {
     return {
       hamIsActive: false,
-      activePage: 'Dashboard'
+      activePage: ''
     }
+  },
+  computed: {
+    // currentRouteName () {
+    // this.activePage =
+    // }
+  },
+  created () {
+    this.activePage = this.$route.name
+  },
+  updated () {
+    this.activePage = this.$route.name
   },
   methods: {
     hamToggle () {
@@ -44,7 +55,6 @@ export default {
       }
     },
     navUpdateData (page) {
-      this.activePage = page
       if (this.hamIsActive === true) {
         this.hamIsActive = false
       } else {
