@@ -167,14 +167,14 @@ export default {
       $('#confirmDeleteModal').hide(100)
     }, // Hide/show ENDS
     deleteCurrentItem: function () {
-      console.log('delete please')
+      // console.log('delete please')
 
       $('#confirmDeleteModal').hide(100)
     },
     bigger: function (e) {
       // getting Vue
       var v = this
-      console.log(e.target)
+      // console.log(e.target)
       // This gets the checked item and appends it to the vue data array
       if (e.target.checked === true) {
         v.workoutActivitys.push(e.target.name)
@@ -199,9 +199,9 @@ export default {
       }
 
       var id = getRandomInt(10000)
-      console.log(id)
+      // console.log(id)
 
-      console.log(v)
+      // console.log(v)
 
       // Checking if the user has added the name and description
       if (workoutName !== '' && workoutDescripton !== '') {
@@ -255,7 +255,7 @@ export default {
       }
     },
     testFunction: function () {
-      console.log(document.getElementById('dificultyOptions').value)
+      // console.log(document.getElementById('dificultyOptions').value)
     }
   }
 }

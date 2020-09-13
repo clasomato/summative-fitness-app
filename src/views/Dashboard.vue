@@ -7,9 +7,9 @@
         <router-link to="/create-workout"><img src="../assets/plus-solid.svg" alt=""></router-link>
       </div>
 
-      <div class="card">
+      <!-- <div class="card">
         <h3>Workout <br> <span>legblast</span> </h3>
-      </div>
+      </div> -->
 
       <div v-for="item in items" :key="item.workoutName" class="card" @click="showWorkout($event, item.id, item.workoutName, item.workouts)">
         <h3>Workout <br> <span>{{ item.workoutName }}</span> </h3>
@@ -25,29 +25,11 @@
       <!-- Container for the workout items -->
       <div class="workoutItems">
         <!-- Individual workout item -->
-        <!-- <div class="workoutItem">
-          <div class="circle"></div>
-          <h2>Leg Bridge</h2>
-          <h3>40 sec</h3>
-        </div>
-
-        <div class="workoutItem">
-          <div class="circle"></div>
-          <h2>Sumo Squat</h2>
-          <h3>60 sec</h3>
-        </div> -->
-
         <div class="workoutItem" v-for="item in selectedWorkoutItems" :key="item.name">
           <div class="circle"></div>
           <h2>{{ item.name }}</h2>
           <h3>{{ item.timePerSet }} Sec</h3>
         </div>
-
-        <!-- <ul id="example-1">
-          <li v-for="item in selectedWorkoutItems" :key="item.name">
-            {{ item.name }}
-          </li>
-        </ul> -->
       </div>
     </div>
   </div>
@@ -75,8 +57,8 @@ export default {
   methods: {
     showWorkout: function (e, id, workoutName, workouts) {
       const v = this
-      console.log(id)
-      console.log(workouts)
+      // console.log(id)
+      // console.log(workouts)
 
       var i
       // var array = workouts
@@ -90,13 +72,6 @@ export default {
         })
       }
       v.selectedWorkoutItems = blankArray
-
-      // v.selectedWorkoutItems = workouts
-      //
-      // v.selectedWorkout = {
-      //   name: workoutName,
-      //   workouts: workouts
-      // }
     }
   },
   created () {
@@ -113,7 +88,7 @@ export default {
       })
     })
     v.items = data
-    console.log(v.items)
+    // console.log(v.items)
   }
 }
 </script>
