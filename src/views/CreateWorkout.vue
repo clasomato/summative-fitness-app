@@ -194,12 +194,20 @@ export default {
       var userWorkouts = v.workoutActivitys
       var userDifficultyChoice = document.getElementById('dificultyOptions').value
 
+      function getRandomInt (max) {
+        return Math.floor(Math.random() * Math.floor(max))
+      }
+
+      var id = getRandomInt(10000)
+      console.log(id)
+
       console.log(v)
 
       // Checking if the user has added the name and description
       if (workoutName !== '' && workoutDescripton !== '') {
         // Adding the data to firebase
         db.collection('users').doc(user).collection('workouts').doc(workoutName).set({
+          id: id,
           workoutName: workoutName,
           description: workoutDescripton,
           workouts: userWorkouts,
@@ -215,7 +223,9 @@ export default {
             picture: '',
             repetitions: 2,
             sets: 4,
-            timePerSet: 4
+            timePerSet: 4,
+            id: id,
+            name: v.workoutActivitys[i]
           })
         }
       } else {

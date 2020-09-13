@@ -10,17 +10,22 @@
       <div class="card">
         <h3>Workout <br> <span>legblast</span> </h3>
       </div>
+
+      <div v-for="item in items" :key="item.workoutName" class="card" @click="showWorkout($event, item.id, item.workoutName, item.workouts)">
+        <h3>Workout <br> <span>{{ item.workoutName }}</span> </h3>
+        <!-- <p>{{ item.id }}</p> -->
+      </div>
     </div>
 
     <!-- This is the workout master container -->
     <div class="workout">
       <!-- Name of selected workout -->
-      <h2>Workout <span id="workoutName" style="font-weight:bold">Leg Blast</span></h2>
+      <h2>Workout <span id="workoutName" style="font-weight:bold">{{selectedWorkout.name}}</span></h2>
 
       <!-- Container for the workout items -->
       <div class="workoutItems">
         <!-- Individual workout item -->
-        <div class="workoutItem">
+        <!-- <div class="workoutItem">
           <div class="circle"></div>
           <h2>Leg Bridge</h2>
           <h3>40 sec</h3>
@@ -30,7 +35,19 @@
           <div class="circle"></div>
           <h2>Sumo Squat</h2>
           <h3>60 sec</h3>
+        </div> -->
+
+        <div class="workoutItem" v-for="item in selectedWorkoutItems" :key="item.name">
+          <div class="circle"></div>
+          <h2>{{ item.name }}</h2>
+          <h3>{{ item.timePerSet }} Sec</h3>
         </div>
+
+        <!-- <ul id="example-1">
+          <li v-for="item in selectedWorkoutItems" :key="item.name">
+            {{ item.name }}
+          </li>
+        </ul> -->
       </div>
     </div>
   </div>
@@ -40,6 +57,7 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import store from '../store/index.js'
+import db from '../firebase.js'
 
 export default {
   name: 'Dashboard',
@@ -48,11 +66,54 @@ export default {
   },
   data () {
     return {
-      userFirstName: false
+      userFirstName: false,
+      items: false,
+      selectedWorkout: false,
+      selectedWorkoutItems: false
+    }
+  },
+  methods: {
+    showWorkout: function (e, id, workoutName, workouts) {
+      const v = this
+      console.log(id)
+      console.log(workouts)
+
+      var i
+      // var array = workouts
+      var blankArray = []
+      for (i = 0; i < 1; i++) {
+        db.collection('users').doc('jason@climostudios.online').collection('workouts').doc(workoutName).collection('workoutDetails').get().then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            const eachDoc = doc.data()
+            blankArray.push(eachDoc)
+          })
+        })
+      }
+      v.selectedWorkoutItems = blankArray
+
+      // v.selectedWorkoutItems = workouts
+      //
+      // v.selectedWorkout = {
+      //   name: workoutName,
+      //   workouts: workouts
+      // }
     }
   },
   created () {
     this.userFirstName = store.getters.getUserFirstName
+  },
+  mounted () {
+    const v = this
+    var data = []
+    // var user = store.getters.getUserEmail
+    db.collection('users').doc('jason@climostudios.online').collection('workouts').get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        const eachDoc = doc.data()
+        data.push(eachDoc)
+      })
+    })
+    v.items = data
+    console.log(v.items)
   }
 }
 </script>
