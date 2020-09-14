@@ -8,7 +8,8 @@ export default new Vuex.Store({
     userFirstName: false,
     userLastName: false,
     userEmail: false,
-    userPicture: false
+    userPicture: false,
+    isLoggedIn: false
   },
   getters: {
     getUserFirstName: function (state) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     getUserPicture: function (state) {
       return state.userPicture
+    },
+    getLoginStatus: function (state) {
+      return state.isLoggedIn
     }
   },
   mutations: {
@@ -36,6 +40,9 @@ export default new Vuex.Store({
     },
     setUserEmail (state, payload) {
       state.userEmail = payload
+    },
+    setLoggedIn (state, payload) {
+      state.isLoggedIn = payload
     }
   },
   actions: {

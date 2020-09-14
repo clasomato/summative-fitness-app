@@ -32,7 +32,15 @@ export default {
   data () {
     return {
       hamIsActive: false,
-      activePage: 'Dashboard'
+      activePage: ''
+    }
+  },
+  created () {
+    this.activePage = this.$route.name
+  },
+  watch: {
+    $route () {
+      this.activePage = this.$route.name
     }
   },
   methods: {
@@ -44,7 +52,6 @@ export default {
       }
     },
     navUpdateData (page) {
-      this.activePage = page
       if (this.hamIsActive === true) {
         this.hamIsActive = false
       } else {

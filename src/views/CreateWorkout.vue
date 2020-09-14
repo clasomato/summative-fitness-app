@@ -1,139 +1,141 @@
 <template lang="html">
   <div class="create-workout">
-    <div class="specificNav">
-      <span><router-link to="/">Go Back</router-link></span>
-    </div>
-
-    <div class="createWorkoutContainer">
-      <h1>Create Workout</h1>
-      <button type="button" @click="testFunction" name="button">Test Button</button>
-
-      <input type="text" name="" value="" id="userNameOfWorkout" placeholder="Name">
-
-      <input type="text" name="" value="" id="userDescriptionOfWorkout" placeholder="Description">
-    </div>
-
-    <div class="activitySection">
-      <div class="activityHeaders">
-        <h3>Level</h3>
-        <select class="" name="options" id="dificultyOptions">
-          <option value="0">Beginner</option>
-          <option value="1">Intermediate</option>
-          <option value="2">Advanced</option>
-        </select>
+    <div v-if="isLoggedIn">
+      <div class="specificNav">
+        <span><router-link to="/">Go Back</router-link></span>
       </div>
 
-      <div class="activityContent">
-        <!-- <h3>Your Workout</h3> <br> -->
-        <br>
-        <h4>No Activities In Workout</h4>
-        <img src="../assets/plus-solid.svg" alt="" @click="openAddActivity">
-      </div>
-    </div>
+      <div class="createWorkoutContainer">
+        <h1>Create Workout</h1>
+        <button type="button" @click="testFunction" name="button">Test Button</button>
 
-    <!-- Buttons to confirm changes or to delete the workout set -->
-    <div class="buttons">
-      <button type="button" name="button" @click="openDeleteConfirmModal()" id="deleteWorkoutButton">Delete</button>
-      <button type="button" name="button" @click="confirmWorkoutChnages()" id="confirmWorkoutButton">Confirm</button>
-    </div>
+        <input type="text" name="" value="" id="userNameOfWorkout" placeholder="Name">
 
-    <!-- Modals -->
-    <div class="modalBackgroundContainer" id="confirmDeleteModal">
-      <div class="customModal">
-        <h1>Are you sure you want to delete this?</h1>
-
-        <button type="button" name="button" @click="deleteCurrentItem">Yes</button>
-        <button type="button" name="button" @click="deleteModalGoBack">No</button>
-      </div>
-    </div>
-
-    <!-- Search for new activity modal -->
-    <div class="searchForActivity" id="activityContainer">
-      <div class="searchArea">
-        <button type="button" name="button" @click="goBackToCreateWorkout">Close</button>
-        <input type="text" id="myInput" name="" value="" v-on:keyup="search()">
+        <input type="text" name="" value="" id="userDescriptionOfWorkout" placeholder="Description">
       </div>
 
-      <div class="searchResults" style="margin-top:20%">
-        <ul id="myUL">
-          <li>
-              <label for=""><a>Back Squat</a></label>
-              <input type="checkbox" name="Back Squat" id="check1" value="0" @click="bigger($event)"> <br>
-          </li>
+      <div class="activitySection">
+        <div class="activityHeaders">
+          <h3>Level</h3>
+          <select class="" name="options" id="dificultyOptions">
+            <option value="0">Beginner</option>
+            <option value="1">Intermediate</option>
+            <option value="2">Advanced</option>
+          </select>
+        </div>
 
-          <li>
-            <label for=""><a>Quail</a></label>
-            <input type="checkbox" name="Quail" id="check1" value="1" @click="bigger($event)"> <br>
-          </li>
+        <div class="activityContent">
+          <!-- <h3>Your Workout</h3> <br> -->
+          <br>
+          <h4>No Activities In Workout</h4>
+          <img src="../assets/plus-solid.svg" alt="" @click="openAddActivity">
+        </div>
+      </div>
 
-          <li>
-            <label for=""><a>Side Lunge</a></label>
-            <input type="checkbox" name="Side Lunge" id="check1" value="2" @click="bigger($event)"> <br>
-          </li>
+      <!-- Buttons to confirm changes or to delete the workout set -->
+      <div class="buttons">
+        <button type="button" name="button" @click="openDeleteConfirmModal()" id="deleteWorkoutButton">Delete</button>
+        <button type="button" name="button" @click="confirmWorkoutChnages()" id="confirmWorkoutButton">Confirm</button>
+      </div>
 
-          <li>
-            <label for=""><a>Chest Press</a></label>
-            <input type="checkbox" name="Chest Press" id="check1" value="3" @click="bigger($event)"> <br>
-          </li>
+      <!-- Modals -->
+      <div class="modalBackgroundContainer" id="confirmDeleteModal">
+        <div class="customModal">
+          <h1>Are you sure you want to delete this?</h1>
 
-          <li>
-            <label for=""><a>Skipping</a></label>
-            <input type="checkbox" name="Skipping" id="check1" value="4" @click="bigger($event)"> <br>
-          </li>
+          <button type="button" name="button" @click="deleteCurrentItem">Yes</button>
+          <button type="button" name="button" @click="deleteModalGoBack">No</button>
+        </div>
+      </div>
 
-          <li>
-            <label for=""><a>Chest Fly</a></label>
-            <input type="checkbox" name="Chest Fly" id="check1" value="5" @click="bigger($event)"> <br>
-          </li>
+      <!-- Search for new activity modal -->
+      <div class="searchForActivity" id="activityContainer">
+        <div class="searchArea">
+          <button type="button" name="button" @click="goBackToCreateWorkout">Close</button>
+          <input type="text" id="myInput" name="" value="" v-on:keyup="search()">
+        </div>
 
-          <li>
-            <label for=""><a>Bicep Curl</a></label>
-            <input type="checkbox" name="Bicep Curl" id="check1" value="6" @click="bigger($event)"> <br>
-          </li>
+        <div class="searchResults" style="margin-top:20%">
+          <ul id="myUL">
+            <li>
+                <label for=""><a>Back Squat</a></label>
+                <input type="checkbox" name="Back Squat" id="check1" value="0" @click="bigger($event)"> <br>
+            </li>
 
-          <li>
-            <label for=""><a>Burpee</a></label>
-            <input type="checkbox" name="Burpee" id="check1" value="7" @click="bigger($event)"> <br>
-          </li>
+            <li>
+              <label for=""><a>Quail</a></label>
+              <input type="checkbox" name="Quail" id="check1" value="1" @click="bigger($event)"> <br>
+            </li>
 
-          <li>
-            <label for=""><a>Horizontal Row</a></label>
-            <input type="checkbox" name="Horizontal Row" id="check1" value="8" @click="bigger($event)"> <br>
-          </li>
+            <li>
+              <label for=""><a>Side Lunge</a></label>
+              <input type="checkbox" name="Side Lunge" id="check1" value="2" @click="bigger($event)"> <br>
+            </li>
 
-          <li>
-            <label for=""><a>Squat Jumps</a></label>
-            <input type="checkbox" name="Squat Jumps" id="check1" value="9" @click="bigger($event)"> <br>
-          </li>
+            <li>
+              <label for=""><a>Chest Press</a></label>
+              <input type="checkbox" name="Chest Press" id="check1" value="3" @click="bigger($event)"> <br>
+            </li>
 
-          <li>
-            <label for=""><a>Crunch</a></label>
-            <input type="checkbox" name="Crunch" id="check1" value="10" @click="bigger($event)"> <br>
-          </li>
+            <li>
+              <label for=""><a>Skipping</a></label>
+              <input type="checkbox" name="Skipping" id="check1" value="4" @click="bigger($event)"> <br>
+            </li>
 
-          <li>
-            <label for=""><a>Running the stairs</a></label>
-            <input type="checkbox" name="Running the stairs" id="check1" value="11" @click="bigger($event)"> <br>
-          </li>
+            <li>
+              <label for=""><a>Chest Fly</a></label>
+              <input type="checkbox" name="Chest Fly" id="check1" value="5" @click="bigger($event)"> <br>
+            </li>
 
-          <li>
-            <label for=""><a>Shoulder Press</a></label>
-            <input type="checkbox" name="Shoulder Press" id="check1" value="12" @click="bigger($event)"> <br>
-          </li>
+            <li>
+              <label for=""><a>Bicep Curl</a></label>
+              <input type="checkbox" name="Bicep Curl" id="check1" value="6" @click="bigger($event)"> <br>
+            </li>
 
-          <li>
-            <label for=""><a>Leg Raise</a></label>
-            <input type="checkbox" name="Leg Raise" id="check1" value="13" @click="bigger($event)"> <br>
-          </li>
+            <li>
+              <label for=""><a>Burpee</a></label>
+              <input type="checkbox" name="Burpee" id="check1" value="7" @click="bigger($event)"> <br>
+            </li>
 
-          <li>
-            <label for=""><a>Push Ups</a></label>
-            <input type="checkbox" name="Push Ups" id="check1" value="14" @click="bigger($event)"> <br>
-          </li>
-        </ul>
+            <li>
+              <label for=""><a>Horizontal Row</a></label>
+              <input type="checkbox" name="Horizontal Row" id="check1" value="8" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Squat Jumps</a></label>
+              <input type="checkbox" name="Squat Jumps" id="check1" value="9" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Crunch</a></label>
+              <input type="checkbox" name="Crunch" id="check1" value="10" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Running the stairs</a></label>
+              <input type="checkbox" name="Running the stairs" id="check1" value="11" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Shoulder Press</a></label>
+              <input type="checkbox" name="Shoulder Press" id="check1" value="12" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Leg Raise</a></label>
+              <input type="checkbox" name="Leg Raise" id="check1" value="13" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Push Ups</a></label>
+              <input type="checkbox" name="Push Ups" id="check1" value="14" @click="bigger($event)"> <br>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-
+    <p else>You must <router-link to="/login">Login</router-link> or <router-link to="/sign-up">Signup</router-link> to view this page.</p>
   </div>
 </template>
 
@@ -152,8 +154,12 @@ export default {
       i: 0,
       checkBoxes: false,
       workoutActivitys: [],
-      workoutDefaultRefrence: []
+      workoutDefaultRefrence: [],
+      isLoggedIn: false
     }
+  },
+  created () {
+    this.isLoggedIn = store.getters.getLoginStatus
   },
   methods: {
     // Hide/show STARTS
