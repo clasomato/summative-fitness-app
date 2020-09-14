@@ -7,10 +7,6 @@
         <router-link to="/create-workout"><i class="fas fa-plus" style="font-size:5em; color:#FE5864;"></i></router-link>
       </div>
 
-      <!-- <div class="card">
-        <h3>Workout <br> <span>legblast</span> </h3>
-      </div> -->
-
       <div v-for="item in items" :key="item.workoutName" class="card" @click="showWorkout($event, item.id, item.workoutName, item.workouts)">
         <h3>Workout <br> <span>{{ item.workoutName }}</span> </h3>
         <!-- <p>{{ item.id }}</p> -->
