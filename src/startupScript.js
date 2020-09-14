@@ -11,9 +11,9 @@ var storageObj = {
       store.default.commit('setUserFirstName', localStorage.getItem('userFirstName'))
       store.default.commit('setUserLastName', localStorage.getItem('userLastName'))
       store.default.commit('setUserEmail', localStorage.getItem('userEmail'))
-      console.log('working')
+      console.log('working b')
     } else {
-      console.log('connected')
+      console.log('connected c')
     }
   }
 }

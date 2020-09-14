@@ -1,7 +1,6 @@
 <template>
   <div class="dashboard">
     <div v-if="isLoggedIn">
-      <HelloWorld msg="Welcome to Your Vue.js App"/>
       <h1 style="">Choose your <br> workout today, {{userFirstName}}</h1>
       <div class="cards">
         <div class="card">
@@ -52,11 +51,20 @@ export default {
     }
   },
   created () {
-    this.isLoggedIn = this.$store.getters.getLoginStatus
-    if (this.isLoggedIn === false) {
-      startupScript.checkLocalStorage()
+    this.checkLoggedIn()
+  },
+  updated () {
+    this.checkLoggedIn()
+  },
+  methods: {
+    checkLoggedIn () {
+      this.isLoggedIn = this.$store.getters.getLoginStatus
+      if (this.isLoggedIn === false) {
+        startupScript.checkLocalStorage()
+        this.isLoggedIn = true
+      }
+      this.userFirstName = this.$store.getters.getUserFirstName
     }
-    this.userFirstName = this.$store.getters.getUserFirstName
   }
 }
 </script>
