@@ -1,0 +1,51 @@
+@import 'variables';
+
+.oswaldLight {
+  font-family: 'Oswald';
+  font-weight: 300;
+}
+.oswaldReg {
+  font-family: 'Oswald';
+  font-weight: 400;
+}
+.oswaldMed {
+  font-family: 'Oswald';
+  font-weight: 500;
+}
+.oswaldSemiBold {
+  font-family: 'Oswald';
+  font-weight: 600;
+}
+.oswaldBold {
+  font-family: 'Oswald';
+  font-weight: 700;
+}
+
+.ralewayLight {
+  font-family: 'Raleway';
+  font-weight: 300;
+}
+.ralewayReg {
+  font-family: 'Raleway';
+  font-weight: 400;
+}
+.ralewayMed {
+  font-family: 'Raleway';
+  font-weight: 500;
+}
+.ralewaySemiBold {
+  font-family: 'Raleway';
+  font-weight: 600;
+}
+.ralewayBold {
+  font-family: 'Raleway';
+  font-weight: 700;
+}
+
+.boxShadow {
+  box-shadow: 10px, 10px, 10px, $lightGreyColor;
+}
+
+.borderRadius {
+  border-radius: 30px;
+}
