@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <!-- This is the workout master container -->
+    <!-- This is the workout master container -->
       <div class="workout">
         <!-- Name of selected workout -->
         <h2>Workout <span id="workoutName" style="font-weight:bold">{{selectedWorkout.name}}</span></h2>
@@ -30,8 +30,8 @@
           </div>
         </div>
       </div>
+      <p else>You must <router-link to="/login">Login</router-link> or <router-link to="/sign-up">Signup</router-link> to view this page.</p>
     </div>
-    <p else>You must <router-link to="/login">Login</router-link> or <router-link to="/sign-up">Signup</router-link> to view this page.</p>
   </div>
 </template>
 
@@ -146,6 +146,19 @@ span {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 200px;
+    padding: 3%;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      width: 70%;
+      padding: 5%;
+    }
   }
 
   img {
@@ -183,11 +196,11 @@ span {
   }
 }
 
-.circle {
-  padding: 80%;
-  border-radius: 100em;
-  background-color: #FE5864;
-  width: 100%;
-  margin-right: 10%;
-}
+  .circle {
+    padding: 80%;
+    border-radius: 100em;
+    background-color: #FE5864;
+    width: 100%;
+    margin-right: 10%;
+  }
 </style>

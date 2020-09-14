@@ -180,7 +180,6 @@ export default {
     bigger: function (e) {
       // getting Vue
       var v = this
-      // console.log(e.target)
       // This gets the checked item and appends it to the vue data array
       if (e.target.checked === true) {
         v.workoutActivitys.push(e.target.name)
@@ -409,18 +408,5 @@ export default {
   }
 
   .searchResults {
-
-    // input {
-    //   margin: 0;
-    //   display: flex-end;
-    //   font-size: 2em;
-    //   text-align: center;
-    // }
-    // ul {
-    //   li {
-    //     display: flex;
-    //     justify-content: space-between;
-    //   }
-    // }
   }
 </style>
