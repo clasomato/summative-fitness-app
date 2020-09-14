@@ -26,7 +26,10 @@
       <div class="workoutItems">
         <!-- Individual workout item -->
         <div class="workoutItem" v-for="item in selectedWorkoutItems" :key="item.name">
-          <div class="circle"></div>
+          <div style="display:flex; justify-content:space-between;">
+            <div class="circle" style="margin-right:2%"></div>
+            <i class="far fa-edit" style="padding:5%"></i>
+          </div>
           <h2>{{ item.name }}</h2>
           <h3>{{ item.timePerSet }} Sec</h3>
         </div>
@@ -80,8 +83,9 @@ export default {
   mounted () {
     const v = this
     var data = []
+    var user = store.getters.getUserEmail
     // var user = store.getters.getUserEmail
-    db.collection('users').doc('jason@climostudios.online').collection('workouts').get().then(function (querySnapshot) {
+    db.collection('users').doc(user).collection('workouts').get().then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         const eachDoc = doc.data()
         data.push(eachDoc)
@@ -182,9 +186,10 @@ export default {
   }
 
   .circle {
-    padding: 4%;
+    padding: 80%;
     border-radius: 100em;
     background-color: #FE5864;
-    width: 1%
+    width: 100%;
+    margin-right: 10%;
   }
 </style>
