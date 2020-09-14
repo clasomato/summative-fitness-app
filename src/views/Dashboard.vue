@@ -83,8 +83,9 @@ export default {
       const v = this
       var i
       var blankArray = []
+      var user = store.getters.getUserEmail
       for (i = 0; i < 1; i++) {
-        db.collection('users').doc(v.userEmail).collection('workouts').doc(workoutName).collection('workoutDetails').get().then(function (querySnapshot) {
+        db.collection('users').doc(user).collection('workouts').doc(workoutName).collection('workoutDetails').get().then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             const eachDoc = doc.data()
             blankArray.push(eachDoc)
