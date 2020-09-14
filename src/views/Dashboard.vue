@@ -55,8 +55,8 @@ export default {
     box-sizing: border-box;
   }
   body {
-    background-color: #FFFFFF;
     margin: 0;
+    background-color: #FFFFFF;
   }
   p, h1, h2, h3, h4 {
     color: #6C757D;
