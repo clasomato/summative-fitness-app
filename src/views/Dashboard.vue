@@ -8,6 +8,7 @@
         </div>
 
         <div v-for="item in items" :key="item.workoutName" class="card" @click="showWorkout($event, item.id, item.workoutName, item.workouts)">
+          <a class="editButton">Edit</a>
           <h3>Workout <br> <span>{{ item.workoutName }}</span> </h3>
         </div>
       </div>
@@ -105,7 +106,7 @@ export default {
   box-sizing: border-box;
 }
 body {
-  background-color: #FFFFFF;
+  background-color: #F0F4F7;
   margin: 0;
 }
 p, h1, h2, h3, h4 {
@@ -132,16 +133,20 @@ span {
 
 .card {
   // padding: 21% 6%;
-  border: 1px solid black;
+  border: 0px solid black;
   width: 35%;
   float: left;
-  margin: 1%;
+  margin: 5%;
   border-radius: 1em;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 200px;
   padding: 3%;
+  overflow: hidden;
+  -webkit-box-shadow: 10px 10px 36px -16px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 36px -16px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 36px -16px rgba(0,0,0,0.75);
 
   a {
     display: flex;
@@ -178,7 +183,7 @@ span {
 
 .workoutItem {
   width: 100%;
-  background-color: darkgrey;
+  background-color: white;
   padding: 3%;
   margin: 5% 0%;
   border-bottom-left-radius: 10em;
@@ -190,6 +195,10 @@ span {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  -webkit-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
 
   h2,h3 {
     padding: 0;
@@ -203,5 +212,17 @@ span {
     background-color: #FE5864;
     width: 100%;
     margin-right: 10%;
+  }
+
+  .editButton {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: auto !important;
+    width: 100%;
+    background-color: #FE5864;
+    // border-top-right-radius: 10em;
+    // border-top-left-radius: 10em;
+    color: white;
   }
 </style>
