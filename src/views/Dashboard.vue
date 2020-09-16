@@ -1,15 +1,17 @@
 <template>
   <div class="dashboard">
+    <!-- <Navigation/> -->
     <div v-if="isLoggedIn">
       <h1 style="">Choose your <br> workout today, {{userFirstName}}</h1>
       <div class="cards">
-        <div class="card">
-          <router-link to="/create-workout"><i class="fas fa-plus" style="font-size:5em; color:#FE5864;"></i></router-link>
-        </div>
-
-        <div v-for="item in items" :key="item.workoutName" class="card">
-          <a class="editButton" @click="showWorkout($event, item.id, item.workoutName, item.workouts)">Edit</a>
-          <h3>Workout <br> <span>{{ item.workoutName }}</span> </h3>
+        <div class="inner">
+          <div class="card">
+            <router-link to="/create-workout"><i class="fas fa-plus" style="font-size:5em; color:#FE5864;"></i></router-link>
+          </div>
+          <div v-for="item in items" :key="item.workoutName" class="card">
+            <a class="editButton" @click="showWorkout($event, item.id, item.workoutName, item.workouts)">Edit</a>
+            <h3>Workout <br> <span>{{ item.workoutName }}</span> </h3>
+          </div>
         </div>
       </div>
 
@@ -272,13 +274,12 @@ export default {
       v.items = data
       this.$forceUpdate()
     }
-  },
-  computed: {
   }
 }
 </script>
 
 <style scoped lang="scss">
+
 #app {
   padding: 0;
   margin: 0;
@@ -305,9 +306,23 @@ span {
 }
 
 .cards {
-  overflow: hidden;
+  overflow-x: scroll;
   // width: 100%;
   padding-left: 5%;
+  & > .inner {
+    padding-bottom: 8%;
+    width: 216%;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+}
+
+::-webkit-scrollbar {
+  overflow: -moz-scrollbars-none;
+  width: 0px !important;
+  display: none !important;
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }
 
 .card {
@@ -315,7 +330,7 @@ span {
   border: 0px solid black;
   width: 35%;
   float: left;
-  margin: 5%;
+  margin: 1%;
   border-radius: 1em;
   display: flex;
   align-items: center;
