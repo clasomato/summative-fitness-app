@@ -10,6 +10,7 @@
     </div>
     <div id="nav">
       <div class="nav-inner" v-bind:class="{isActive: hamIsActive}">
+        <span @click="navUpdateData('Landing')"><router-link to="/landing">Landing</router-link></span>
         <span @click="navUpdateData('Dashboard')"><router-link to="/">Dashboard</router-link></span>
         <span @click="navUpdateData('About')"><router-link to="/about">About</router-link></span>
         <span @click="navUpdateData('Sign Up')"><router-link to="/sign-up">Sign Up</router-link></span>
