@@ -1,0 +1,34 @@
+.container {
+  height: 100vh;
+}
+.btn {
+  width: 150px;
+  color: #FFFFFF;
+  background-color: $thirdRed;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.headingStyle {
+  font-size: $largeText;
+  color: $secondRed;
+  // margin-bottom: 16px;
+}
+.formTextStyle {
+  color: $darkGreyColor;
+  font-size: $extraSmallText;
+}
+.bgColor {
+  height: 100vh;
+  background-color: $offWhite;
+}
+.formPadding {
+  padding-top: 30px;
+  // padding-bottom: 8px;
+}
+.justifyEvenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.formFontSize {
+  font-size: $extraSmallText;
+}
