@@ -7,8 +7,8 @@
           <router-link to="/create-workout"><i class="fas fa-plus" style="font-size:5em; color:#FE5864;"></i></router-link>
         </div>
 
-        <div v-for="item in items" :key="item.workoutName" class="card" @click="showWorkout($event, item.id, item.workoutName, item.workouts)">
-          <a class="editButton">Edit</a>
+        <div v-for="item in items" :key="item.workoutName" class="card">
+          <a class="editButton" @click="showWorkout($event, item.id, item.workoutName, item.workouts)">Edit</a>
           <h3>Workout <br> <span>{{ item.workoutName }}</span> </h3>
         </div>
       </div>
@@ -23,15 +23,107 @@
           <!-- Individual workout item -->
           <div class="workoutItem" v-for="item in selectedWorkoutItems" :key="item.name">
             <div style="display:flex; justify-content:space-between;">
-              <div class="circle" style="margin-right:2%"></div>
-              <i class="far fa-edit" style="padding:5%"></i>
+              <a @click="deleteIndividualActivity(item.name)"><i class="fas fa-times-circle" style="color:#FE5864; font-size:2em"></i></a>
+              <!-- <div class="circle" style="margin-right:2%"></div> -->
+              <!-- <i class="far fa-edit" style="padding:5%"></i> -->
             </div>
             <h2>{{ item.name }}</h2>
             <h3>{{ item.timePerSet }} Sec</h3>
           </div>
+          <a @click="showAddNewActivity()"><i id="addButton" class="fas fa-plus-circle" style="color:#FE5864; font-size:3.5em; display:none"></i></a>
         </div>
       </div>
       <p else>You must <router-link to="/login">Login</router-link> or <router-link to="/sign-up">Signup</router-link> to view this page.</p>
+
+      <div class="addActivityModalContainer">
+        <div class="addActivityModal">
+          <div class="searchForActivity" id="activityContainer">
+            <div class="searchArea">
+              <button type="button" name="button" @click="goBackToCreateWorkout">Close</button>
+              <input type="text" id="myInput" name="" value="" v-on:keyup="search()">
+            </div>
+
+            <div class="searchResults" style="margin-top:20%">
+              <ul id="myUL">
+                <li>
+                    <label for=""><a>Back Squat</a></label>
+                    <input type="checkbox" name="Back Squat" id="check1" value="0" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Quail</a></label>
+                  <input type="checkbox" name="Quail" id="check1" value="1" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Side Lunge</a></label>
+                  <input type="checkbox" name="Side Lunge" id="check1" value="2" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Chest Press</a></label>
+                  <input type="checkbox" name="Chest Press" id="check1" value="3" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Skipping</a></label>
+                  <input type="checkbox" name="Skipping" id="check1" value="4" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Chest Fly</a></label>
+                  <input type="checkbox" name="Chest Fly" id="check1" value="5" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Bicep Curl</a></label>
+                  <input type="checkbox" name="Bicep Curl" id="check1" value="6" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Burpee</a></label>
+                  <input type="checkbox" name="Burpee" id="check1" value="7" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Horizontal Row</a></label>
+                  <input type="checkbox" name="Horizontal Row" id="check1" value="8" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Squat Jumps</a></label>
+                  <input type="checkbox" name="Squat Jumps" id="check1" value="9" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Crunch</a></label>
+                  <input type="checkbox" name="Crunch" id="check1" value="10" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Running the stairs</a></label>
+                  <input type="checkbox" name="Running the stairs" id="check1" value="11" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Shoulder Press</a></label>
+                  <input type="checkbox" name="Shoulder Press" id="check1" value="12" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Leg Raise</a></label>
+                  <input type="checkbox" name="Leg Raise" id="check1" value="13" @click="bigger($event)"> <br>
+                </li>
+
+                <li>
+                  <label for=""><a>Push Ups</a></label>
+                  <input type="checkbox" name="Push Ups" id="check1" value="14" @click="bigger($event)"> <br>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +132,7 @@
 import store from '../store/index.js'
 import db from '../firebase.js'
 import startupScript from '../startupScript.js'
+import $ from 'jquery'
 
 export default {
   name: 'Dashboard',
@@ -85,6 +178,7 @@ export default {
       var i
       var blankArray = []
       var user = store.getters.getUserEmail
+      v.selectedWorkout = workoutName
       for (i = 0; i < 1; i++) {
         db.collection('users').doc(user).collection('workouts').doc(workoutName).collection('workoutDetails').get().then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
@@ -94,6 +188,40 @@ export default {
         })
       }
       v.selectedWorkoutItems = blankArray
+      $('#addButton').show()
+    },
+    deleteIndividualActivity: function (name) {
+      var v = this
+      var user = store.getters.getUserEmail
+      var workoutName = v.selectedWorkout
+      console.log(name)
+      db.collection('users').doc(user).collection('workouts').doc(workoutName).collection('workoutDetails').doc(name).delete().then(function () {
+        console.log('Document successfully deleted!')
+      }).catch(function (error) {
+        console.error('Error removing document: ', error)
+      })
+    },
+    showAddNewActivity: function () {
+      console.log('add item')
+    },
+    search: function () {
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue
+      input = document.getElementById('myInput')
+      filter = input.value.toUpperCase()
+      ul = document.getElementById('myUL')
+      li = ul.getElementsByTagName('li')
+
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName('a')[0]
+        txtValue = a.textContent || a.innerText
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = ''
+        } else {
+          li[i].style.display = 'none'
+        }
+      }
     }
   }
 }
@@ -224,5 +352,29 @@ span {
     // border-top-right-radius: 10em;
     // border-top-left-radius: 10em;
     color: white;
+  }
+
+  #addButton {
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+  }
+
+  .addActivityModalContainer {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+  }
+
+  .addActivityModal {
+    width: 80%;
+    height: 90vh;
+    background-color: white;
+    margin: 10%;
+    overflow: scroll;
   }
 </style>
