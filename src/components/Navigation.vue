@@ -74,9 +74,9 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #E65A6E;
+    background: #ffffff;
     & > h1 {
-      color: white;
+      color: #E65A6E;
       font-size: 30px;
       margin: 0 0 0 5%;
     }
