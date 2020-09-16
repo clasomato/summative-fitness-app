@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="container d-flex justifyEvenly bgColor p-4">
-    <div class="col-12 my-auto">
+  <div class="container d-flex bgColor p-4">
+    <div class="col-12 justifyEvenly flex-column">
       <div class="text-left headingStyle oswaldReg formPadding">
         <h2>Sign Up...</h2>
         <p v-if="errorMessage">{{errorMessage}}</p>
@@ -29,8 +29,10 @@
             <label for="confirmPassword">Confirm Password:</label>
             <input type="password" class="form-control formFontSize" placeholder="Confirm Password" v-model="userPwConfirm">
           </div>
-            <button type="button" class="btn text-center ralewayReg borderRadius" @click="signUp">Continue</button>
         </form>
+      </div>
+      <div class="row justify-content-center">
+        <button type="button" class="btn text-center ralewayReg borderRadius" @click="signUp">Continue</button>
       </div>
     </div>
   </div>
