@@ -35,12 +35,12 @@
       </div>
       <p else>You must <router-link to="/login">Login</router-link> or <router-link to="/sign-up">Signup</router-link> to view this page.</p>
 
-      <div class="addActivityModalContainer">
+      <div class="addActivityModalContainer" style="display:none" id="activityContainerP">
         <div class="addActivityModal">
           <div class="searchForActivity" id="activityContainer">
             <div class="searchArea">
-              <button type="button" name="button" @click="goBackToCreateWorkout">Close</button>
-              <input type="text" id="myInput" name="" value="" v-on:keyup="search()">
+              <button type="button" name="button" @click="closeAndSendActivitys()">Close</button>
+              <input type="text" id="myInput" name="" value="" v-on:keyup="search()" placeholder="Search...">
             </div>
 
             <div class="searchResults" style="margin-top:20%">
@@ -143,7 +143,9 @@ export default {
       items: false,
       selectedWorkout: false,
       selectedWorkoutItems: false,
-      userEmail: this.$store.getters.getUserEmail
+      userEmail: this.$store.getters.getUserEmail,
+      workoutActivitys: [],
+      workoutDefaultRefrence: []
     }
   },
   created () {
@@ -197,12 +199,15 @@ export default {
       console.log(name)
       db.collection('users').doc(user).collection('workouts').doc(workoutName).collection('workoutDetails').doc(name).delete().then(function () {
         console.log('Document successfully deleted!')
+        v.onChange()
       }).catch(function (error) {
         console.error('Error removing document: ', error)
       })
     },
     showAddNewActivity: function () {
       console.log('add item')
+      window.scrollTo(0, 0)
+      $('#activityContainerP').show(100)
     },
     search: function () {
       // Declare variables
@@ -222,7 +227,53 @@ export default {
           li[i].style.display = 'none'
         }
       }
+    },
+    bigger: function (e) {
+      // getting Vue
+      var v = this
+      // This gets the checked item and appends it to the vue data array
+      if (e.target.checked === true) {
+        v.workoutActivitys.push(e.target.name)
+        v.workoutDefaultRefrence.push(e.target.value)
+      } else {
+
+      }
+    },
+    closeAndSendActivitys: function () {
+      console.log('add item')
+      var i
+      var v = this
+      var array = v.workoutActivitys
+      var user = store.getters.getUserEmail
+      // var workoutName = document.getElementById('userNameOfWorkout').value
+      for (i = 0; i < array.length; i++) {
+        db.collection('users').doc(user).collection('workouts').doc(v.selectedWorkout).collection('workoutDetails').doc(array[i]).set({
+          picture: '',
+          repetitions: 2,
+          sets: 4,
+          timePerSet: 4,
+          name: v.workoutActivitys[i]
+        })
+      }
+      $('#activityContainerP').hide(100)
+      this.onChange()
+    },
+    onChange: function () {
+      console.log('updating local data')
+      const v = this
+      var data = []
+      var user = store.getters.getUserEmail
+      db.collection('users').doc(user).collection('workouts').get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          const eachDoc = doc.data()
+          data.push(eachDoc)
+        })
+      })
+      v.items = data
+      this.$forceUpdate()
     }
+  },
+  computed: {
   }
 }
 </script>
@@ -376,5 +427,46 @@ span {
     background-color: white;
     margin: 10%;
     overflow: scroll;
+    border-radius: 1em;
+    padding: 5%;
+  }
+
+  .searchArea {
+    display: flex;
+    justify-content: space-between;
+
+    button, input {
+      color: white;
+      background-color: #FE5864;
+      border: none;
+      font-size: 1.25em;
+      padding: 1%;
+      border-radius: 0.5em;
+    }
+  }
+
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+  }
+
+  .searchResults {
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style: none;
+      margin: 1%;
+      border-bottom: 2px solid pink;
+      font-size: 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      input {
+        zoom: 1.5;
+      }
+    }
   }
 </style>
