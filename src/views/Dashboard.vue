@@ -4,7 +4,7 @@
     <div v-if="isLoggedIn">
       <h1 style="">Choose your <br> workout today, {{userFirstName}}</h1>
       <div class="cards">
-        <div class="inner">
+        <div class="inner" id="card-cont" v-bind:style="{ width: totalCards + '%'}">
           <div class="card">
             <router-link to="/create-workout"><i class="fas fa-plus" style="font-size:5em; color:#FE5864;"></i></router-link>
           </div>
@@ -147,7 +147,8 @@ export default {
       selectedWorkoutItems: false,
       userEmail: this.$store.getters.getUserEmail,
       workoutActivitys: [],
-      workoutDefaultRefrence: []
+      workoutDefaultRefrence: [],
+      totalCards: 1
     }
   },
   created () {
@@ -165,6 +166,8 @@ export default {
         const eachDoc = doc.data()
         data.push(eachDoc)
       })
+      console.log(data.length)
+      v.totalCards = (data.length + 1) * 36
     })
     v.items = data
   },
