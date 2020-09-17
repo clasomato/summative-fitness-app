@@ -7,7 +7,6 @@
 
       <div class="createWorkoutContainer">
         <h1>Create Workout</h1>
-        <button type="button" @click="testFunction" name="button">Test Button</button>
 
         <input type="text" name="" value="" id="userNameOfWorkout" placeholder="Name">
 
@@ -27,8 +26,17 @@
         <div class="activityContent">
           <!-- <h3>Your Workout</h3> <br> -->
           <br>
-          <h4>No Activities In Workout</h4>
-          <img src="../assets/plus-solid.svg" alt="" @click="openAddActivity">
+          <h4 id="noActivitysInWorkout">No Activities In Workout</h4> <br>
+          <!-- <h4 style="display:none" id="activityList">{{workoutActivitys}}</h4> -->
+          <ul id="activityList">
+            <li v-for="item in workoutActivitys" :key="item.name">
+              {{ item }}
+              <hr>
+            </li>
+          </ul> <br>
+
+          <!-- <img src="../assets/plus-solid.svg" alt="" > -->
+          <a @click="openAddActivity"><i class="fas fa-plus" style="font-size:5em; color:#FE5864;"></i></a>
         </div>
       </div>
 
@@ -52,7 +60,7 @@
       <div class="searchForActivity" id="activityContainer">
         <div class="searchArea">
           <button type="button" name="button" @click="goBackToCreateWorkout">Close</button>
-          <input type="text" id="myInput" name="" value="" v-on:keyup="search()">
+          <input type="text" id="myInput" name="" value="" v-on:keyup="search()" placeholder="Search...">
         </div>
 
         <div class="searchResults" style="margin-top:20%">
@@ -155,7 +163,9 @@ export default {
       checkBoxes: false,
       workoutActivitys: [],
       workoutDefaultRefrence: [],
-      isLoggedIn: false
+      isLoggedIn: false,
+      noActivitys: true,
+      oActivitys: false
     }
   },
   created () {
@@ -238,7 +248,16 @@ export default {
       }
     },
     goBackToCreateWorkout: function () {
+      var v = this
+
       $('#activityContainer').hide(100)
+      var array = v.workoutActivitys
+      if (array.length > 0) {
+        console.log('fasdasas')
+        console.log(array)
+        $('#noActivitysInWorkout').hide()
+        $('#activityList').show()
+      }
     },
     search: function () {
       // Declare variables
@@ -273,29 +292,32 @@ export default {
 
   input {
     border: none;
-    background-color: white;
+    background-color: inherit;
     font-size: 2em;
-    border-bottom: 1px solid darkgrey;
+    border-bottom: 2px solid #FE5864;
     margin-bottom: 10%;
   }
 
   select {
     border: none;
-    background-color: white;
+    background-color: inherit;
     font-size: 1.2em;
-    border-bottom: 1px solid darkgrey;
+    border-bottom: 2px solid #FE5864;
     margin-bottom: 10%;
   }
 
   button {
-    background-color: darkgrey;
-    color: white;
+    background-color: white;
+    color:#FE5864;
     border: 0;
     width: 80%;
     text-align: center;
     border-radius: 100px;
     font-size: 1.5em;
     margin-top: 5%;
+    -webkit-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
   }
 
   #confirmDeleteModal {
@@ -324,7 +346,7 @@ export default {
 
   .activityContent {
     width: 100%;
-    background-color: darkgrey;
+    background-color: white;
     padding: 5%;
     border-radius: 0.5em;
     text-align: center;
@@ -333,8 +355,12 @@ export default {
     justify-content: center;
     flex-wrap: wrap;
 
+    -webkit-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+
     h3 {
-      background-color: red;
+      background-color: blue;
       padding: 0;
       margin: 0;
       width: 100%;
@@ -348,6 +374,21 @@ export default {
       padding: 5%;
       border-radius: 1em;
     }
+
+    ul {
+      width: 100%;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    li {
+      list-style: none;
+      font-size: 1.5em;
+    }
+
+    hr {
+      color:#FE5864;
+    }
   }
 
   .buttons {
@@ -358,6 +399,9 @@ export default {
     button {
       width: 45%;
       font-size: 1.4em;
+      -webkit-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+      -moz-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+      box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
     }
   }
 
@@ -382,12 +426,13 @@ export default {
     width: 100%;
     height: 100vh;
     overflow: scroll;
-    background-color: grey;
+    background-color: white;
     position: absolute;
     top: 0;
     left: 0;
     padding: 5%;
     display: none;
+    z-index: 10000;
   }
 
   .searchArea {
@@ -395,7 +440,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: darkgrey;
+    background-color: white;
     width: 100%;
 
     display: flex;
@@ -404,9 +449,72 @@ export default {
     button, input {
       margin:0;
       padding-right: 3%;
+      width: 40%;
+    }
+  }
+
+  #addButton {
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+  }
+
+  .addActivityModalContainer {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+  }
+
+  .addActivityModal {
+    width: 80%;
+    height: 90vh;
+    background-color: white;
+    margin: 10%;
+    overflow: scroll;
+    border-radius: 1em;
+    padding: 5%;
+
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: white;
+      opacity: 1; /* Firefox */
+    }
+  }
+
+  .searchArea {
+    display: flex;
+    justify-content: space-between;
+
+    button, input {
+      color: white;
+      background-color: #FE5864;
+      border: none;
+      font-size: 1.25em;
+      padding: 1%;
+      border-radius: 0.5em;
     }
   }
 
   .searchResults {
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style: none;
+      margin: 1%;
+      border-bottom: 2px solid pink;
+      font-size: 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      input {
+        zoom: 1.5;
+      }
+    }
   }
 </style>
