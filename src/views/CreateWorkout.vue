@@ -75,12 +75,16 @@
 
         <div class="searchResults" style="margin-top:20%">
           <ul id="myUL">
-            <li>
-                <label for=""><a>Back Squat</a></label>
-                <input type="checkbox" name="Back Squat" id="check1" value="0" @click="bigger($event)"> <br>
+            <li v-for="(item, index) in activityList" :key="item.name">
+              <div class="activityImage" v-bind:style="{background: 'url(' + item.image + ') no-repeat center center'}"></div>
+              <div class="inner">
+                <label><a>{{item.name}}</a></label>
+                <label>Category</label>
+              </div>
+                <input type="checkbox" v-bind:name="item.name" :value="index" @click="bigger($event)">
             </li>
 
-            <li>
+            <!-- <li>
               <label for=""><a>Quail</a></label>
               <input type="checkbox" name="Quail" id="check1" value="1" @click="bigger($event)"> <br>
             </li>
@@ -148,7 +152,7 @@
             <li>
               <label for=""><a>Push Ups</a></label>
               <input type="checkbox" name="Push Ups" id="check1" value="14" @click="bigger($event)"> <br>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -177,11 +181,22 @@ export default {
       userFirstName: '',
       noActivitys: true,
       oActivitys: false,
-      nameOfWorkout: 'Your Workout'
+      nameOfWorkout: 'Your Workout',
+      activityList: false
     }
   },
   created () {
     this.checkLoggedIn()
+    var blankArray = []
+    const v = this
+    db.collection('preset-workouts').doc('activities').collection('list-of-activities').get().then(function (snapshot) {
+      snapshot.forEach(function (doc) {
+        const eachDoc = doc.data()
+        blankArray.push(eachDoc)
+      })
+      v.activityList = blankArray
+      console.log(v.activityList)
+    })
   },
   updated () {
     this.checkLoggedIn()
@@ -213,12 +228,15 @@ export default {
     bigger: function (e) {
       // getting Vue
       var v = this
+      const name = e.target.name
+      const value = e.target.value
       // This gets the checked item and appends it to the vue data array
       if (e.target.checked === true) {
-        v.workoutActivitys.push(e.target.name)
-        v.workoutDefaultRefrence.push(e.target.value)
-      } else {
-
+        v.workoutActivitys.push(name)
+        v.workoutDefaultRefrence.push(value)
+      } else if (e.target.checked === false) {
+        v.workoutActivitys = v.workoutActivitys.filter(e => e !== name)
+        v.workoutDefaultRefrence = v.workoutDefaultRefrence.filter(e => e !== value)
       }
     },
     confirmWorkoutChnages: function () {
@@ -324,11 +342,16 @@ export default {
     padding: 0px 20px 12px 0px;
     margin-bottom: 10%;
     width: 100%;
-    color: #000000;
+    color: grey;
+    &:focus {
+      outline: none;
+      color: #000000;
+    }
   }
 
   label {
     color: #000000;
+    font-size: 15px;
   }
 
   select {
@@ -336,7 +359,6 @@ export default {
     background-color: inherit;
     font-size: 1.2em;
     border-bottom: 2px solid #FE5864;
-    margin-bottom: 10%;
   }
 
   button {
@@ -364,9 +386,9 @@ export default {
   .activityHeaders {
     display: flex;
     justify-content: space-between;
-    // align-items: flex-start;\
+    align-items: center;
     column-rule-color: green;
-
+    margin-bottom: 10%;
     h3 {
       padding: 0;
       margin: 0;
@@ -435,19 +457,22 @@ export default {
       justify-content: space-between;
       align-items: center;
       & .inner-cont {
-        flex-basis: 50%;
+        flex: 1;
+        // flex-basis: 50%;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         & div.activityImage {
-          border-radius: 100%;
+          border-radius: 100px;
           background: url('../assets/background.jpg') no-repeat center center;
           background-size: cover;
-          width: 2em;
+          min-width: 2em;
           height: 2em;
           margin-right: 10%;
+          flex: 0;
         }
         & div.activityTitle {
+          flex: 1;
           & > * {
             margin: 0;
           }
@@ -462,7 +487,9 @@ export default {
         }
       }
       & > p {
-        flex-basis: 50%;
+        flex: 1;
+        max-width: 20%;
+        // flex-basis: 50%;
         font-size: 16px;
         color: grey;
         text-align: right;
@@ -560,6 +587,41 @@ export default {
     padding: 5%;
     display: none;
     z-index: 10000;
+    & > .searchResults {
+      & > ul {
+        & > li {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 5px;
+          & > .activityImage {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            background-size: cover !important;
+          }
+          & > .inner {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            & > :last-child {
+              color: grey;
+            }
+            & > label {
+              font-size: 18px;
+              flex: 1;
+              margin: 0;
+            }
+          }
+          & > input {
+            flex: 0;
+            margin: 0;
+          }
+        }
+      }
+    }
   }
 
   .searchArea {
