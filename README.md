@@ -112,6 +112,54 @@ Babel JavaScript transcompiler [Babel][babl].
 ## Customize configuration
 See [Configuration Reference][vcli].
 
+## Firebase Data Layout & Preset Queries
+### Structure
+The Database structure for core uses a lot of what we call 'sub-collections' which are collections inside of documents. A good real life example of this would be a recipe, you have the document with the name 'Crab Rangoon' and for example the prep time is '20 minutes' but inside the recipe you have another collection of data which is 'ingredients' which include their own sets of data such as how much you need, for example '200g'.
+
+Now that we have explained sub-collections here are the main paths for Cores DB (database)
+
+The users collection is the main collection that 90% of our team will be working with and includes all the user specific data such as age, DOB and most importantly the users workouts. Inside of the users individual custom workout there is a sub-collection called workout details which holds the individual activities/exercises the user has chosen to be in their workout such as: push ups, crunches, etc.
+users(**collection**) --> jason@climostudios.online(**document**) --> workouts(**collection**) --> workout1(**document**) --> workout-details(**collection**) --> pushup
+
+
+
+## Create
+Here is a basic create function for firebase that is making a document inside of the users workouts called **workout1**.
+**users**(collection) --> **exampleuser@email.com**(doc) --> **workouts**(collection) --> **workout1**(doc)
+
+```javascript
+// Add a new document in collection "cities"  
+db.collection('users').doc('exampleuser@email.com').collection('workouts').doc('workout1').set({ 
+	name:  'Core Workout', 
+	time:  30, 
+	active:  false
+})  
+.then(function()  { console.log('Document successfully written!') 
+})  
+.catch(function(error)  { console.error('Error writing document: ', error)
+})
+```
+## Read
+Here we are getting the list of preset activities from the activities doc inside of the preset-workout collection then console logging each one.
+**preset-workouts**(collection) --> **activities**(doc) --> **list-of-activities**(collection)
+```javascript
+db.collection('preset-workouts').doc('activities').collection('list-of-activities').get().then(function (snapshot) {
+  snapshot.forEach(function (doc) {
+    const eachDoc = doc.data()
+    console.log(eachDoc)
+  })
+})
+```
+## Update
+## Delete
+Here we are deleting **workout1** from the workouts collection which is inside of the users doc which is inside of the root users collection
+**users**(collection) --> **exampleuser@email.com**(doc) --> **workouts**(collection) --> **workout1**(doc)
+```javascript
+db.collection('users').doc('exampleuser@email.com').collection('workouts').doc('workout1')delete().then(function()  { console.log('Document successfully deleted!')
+}).catch(function(error)  { console.error('Error removing document: ', error)
+})
+```
+
 License
 ----
 
