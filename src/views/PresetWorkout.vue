@@ -186,6 +186,8 @@ $largeText: 30px;
   }
 
   .PlayButton {
+      position: fixed;
+      bottom: 5%;
       height: 75px;
       width: 77px;
       background-color: $thirdRed;
@@ -231,7 +233,7 @@ $largeText: 30px;
   .white-box {
     height: auto;
     width: 344px;
-    background-color: white;
+    margin-bottom: 30%;
   }
 
   .workout {
@@ -244,12 +246,12 @@ $largeText: 30px;
     display: flex;
     padding: 10px 10px 0px 20px;
     background-color: #f8f9fa;
-    border-radius: 30px 0px 0px 30px;
+    border-radius: 100px;
   }
 
   .spacing{
     height: 20px;
-    background-color: white;
+    // background-color: white;
   }
 
   .image {
