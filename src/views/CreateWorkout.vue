@@ -16,11 +16,13 @@
       <div class="activitySection">
         <div class="activityHeaders">
           <h3>Level</h3>
-          <select class="" name="options" id="dificultyOptions">
-            <option value="0">Beginner</option>
-            <option value="1">Intermediate</option>
-            <option value="2">Advanced</option>
-          </select>
+          <div class="custom-select">
+            <select class="" name="options" id="dificultyOptions">
+              <option value="0">Beginner</option>
+              <option value="1">Intermediate</option>
+              <option value="2">Advanced</option>
+            </select>
+          </div>
         </div>
 
         <div class="activityContent">
@@ -69,11 +71,19 @@
       <!-- Search for new activity modal -->
       <div class="searchForActivity" id="activityContainer">
         <div class="searchArea">
-          <button type="button" name="button" @click="goBackToCreateWorkout">Close</button>
-          <input type="text" id="myInput" name="" value="" v-on:keyup="search()">
+          <span class="searchInput">
+            <input type="text" id="myInput" placeholder="Search exercises" v-on:keyup="search()">
+            <i class="fas fa-search"></i>
+          </span>
+          <span class="exit" @click="goBackToCreateWorkout"><i class="fas fa-times"></i></span>
+          <div class="filters">
+            <button type="button">Strength</button>
+            <button type="button">Cardio</button>
+            <button type="button">At Home</button>
+          </div>
         </div>
 
-        <div class="searchResults" style="margin-top:20%">
+        <div class="searchResults" style="margin-top:35%">
           <ul id="myUL">
             <li v-for="(item, index) in activityList" :key="item.name">
               <div class="activityImage" v-bind:style="{background: 'url(' + item.image + ') no-repeat center center'}"></div>
@@ -318,6 +328,93 @@ export default {
           li[i].style.display = 'none'
         }
       }
+    },
+    dropdown: function () {
+      var x, i, j, l, ll, selElmnt, a, b, c
+      /* Look for any elements with the class 'custom-select': */
+      x = document.getElementsByClassName('custom-select')
+      l = x.length
+      for (i = 0; i < l; i++) {
+        selElmnt = x[i].getElementsByTagName('select')[0]
+        ll = selElmnt.length
+        /* For each element, create a new DIV that will act as the selected item: */
+        a = document.createElement('DIV')
+        a.setAttribute('class', 'select-selected')
+        a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML
+        x[i].appendChild(a)
+        /* For each element, create a new DIV that will contain the option list: */
+        b = document.createElement('DIV')
+        b.setAttribute('class', 'select-items select-hide')
+        for (j = 1; j < ll; j++) {
+          /* For each option in the original select element,
+          create a new DIV that will act as an option item: */
+          c = document.createElement('DIV')
+          c.innerHTML = selElmnt.options[j].innerHTML
+          c.addEventListener('click', function (e) {
+            /* When an item is clicked, update the original select box,
+            and the selected item: */
+            var y, i, k, s, h, sl, yl
+            s = this.parentNode.parentNode.getElementsByTagName('select')[0]
+            sl = s.length
+            h = this.parentNode.previousSibling
+            for (i = 0; i < sl; i++) {
+              if (s.options[i].innerHTML === this.innerHTML) {
+                s.selectedIndex = i
+                h.innerHTML = this.innerHTML
+                y = this.parentNode.getElementsByClassName('same-as-selected')
+                yl = y.length
+                for (k = 0; k < yl; k++) {
+                  y[k].removeAttribute('class')
+                }
+                this.setAttribute('class', 'same-as-selected')
+                break
+              }
+            }
+            h.click()
+          })
+          b.appendChild(c)
+        }
+        x[i].appendChild(b)
+        a.addEventListener('click', function (e) {
+          /* When the select box is clicked, close any other select boxes,
+          and open/close the current select box: */
+          e.stopPropagation()
+          closeAllSelect(this)
+          this.nextSibling.classList.toggle('select-hide')
+          this.classList.toggle('select-arrow-active')
+        })
+      }
+
+      function closeAllSelect (elmnt) {
+        /* A function that will close all select boxes in the document,
+        except the current select box: */
+        var x
+        var y
+        var i
+        var xl
+        var yl
+        var arrNo = []
+        x = document.getElementsByClassName('select-items')
+        y = document.getElementsByClassName('select-selected')
+        xl = x.length
+        yl = y.length
+        for (i = 0; i < yl; i++) {
+          if (elmnt === y[i]) {
+            arrNo.push(i)
+          } else {
+            y[i].classList.remove('select-arrow-active')
+          }
+        }
+        for (i = 0; i < xl; i++) {
+          if (arrNo.indexOf(i)) {
+            x[i].classList.add('select-hide')
+          }
+        }
+      }
+
+      /* If the user clicks anywhere outside the select box,
+      then close all select boxes: */
+      document.addEventListener('click', closeAllSelect)
     }
   }
 }
@@ -354,11 +451,53 @@ export default {
     font-size: 15px;
   }
 
-  select {
-    border: none;
-    background-color: inherit;
-    font-size: 1.2em;
-    border-bottom: 2px solid #FE5864;
+  .custom-select {
+    position: relative;
+    & select {
+      display: none;
+      border: none;
+      background-color: inherit;
+      font-size: 1.2em;
+      border-bottom: 2px solid #FE5864;
+    }
+    & .select-selected {
+      background-color: red;
+      &:after {
+        position: absolute;
+        content: "";
+        top: 14px;
+        right: 10px;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-color: #fff transparent transparent transparent;
+      }
+      &.select-arrow-active:after {
+        border-color: transparent transparent #fff transparent;
+        top: 7px;
+      }
+    }
+    & .select-items {
+      position: absolute;
+      background-color: DodgerBlue;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      & div, .select-selected {
+        color: #ffffff;
+        padding: 8px 16px;
+        border: 1px solid transparent;
+        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+        cursor: pointer;
+      }
+      & div:hover, .same-as-selected {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+    & .select-hide {
+      display: none;
+    }
   }
 
   button {
@@ -586,7 +725,7 @@ export default {
     left: 0;
     padding: 5%;
     display: none;
-    z-index: 10000;
+    z-index: 50;
     & > .searchResults {
       & > ul {
         & > li {
@@ -624,24 +763,6 @@ export default {
     }
   }
 
-  .searchArea {
-    padding:5%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: white;
-    width: 100%;
-
-    display: flex;
-    justify-content: space-between;
-
-    button, input {
-      margin:0;
-      padding-right: 3%;
-      width: 40%;
-    }
-  }
-
   #addButton {
     width: 100%;
     text-align: center;
@@ -655,7 +776,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 10000;
+    z-index: 50;
   }
 
   .addActivityModal {
@@ -678,12 +799,69 @@ export default {
     justify-content: space-between;
 
     button, input {
-      color: white;
-      background-color: #FE5864;
-      border: none;
-      font-size: 1.25em;
-      padding: 1%;
-      border-radius: 0.5em;
+
+    }
+  }
+
+  .searchArea {
+    padding:5%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #FE5864;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    & > .searchInput {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      & > svg {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+      & > input {
+        border-radius: 100px;
+        padding: 6px 35px;
+        color: #000000;
+        background-color: #ffffff;
+        border: none;
+        margin: 0;
+     }
+    }
+    & > span.exit {
+      cursor: pointer;
+      &:hover > svg {
+        transform: rotate(180deg);
+      }
+      & > svg {
+        color: #ffffff;
+        font-size: 30px;
+        z-index: 10000;
+        transform: rotate(0deg);
+        transition: all 0.3s ease;
+      }
+    }
+    & > .filters {
+      flex-basis: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      & > button {
+        background: #FE5864;
+        color: white;
+        flex: 0 1 5em;
+        font-size: 16px;
+        padding: 2px 5px;
+        margin-right: 12px;
+      }
     }
   }
 
