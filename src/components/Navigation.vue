@@ -21,6 +21,7 @@
         <span @click="navUpdateData('Preview Workout')"><router-link to="/preview-workout">Preview Workout</router-link></span>
         <span @click="navUpdateData('Active Workout')"><router-link to="/active-workout">Active Workout</router-link></span>
         <span @click="navUpdateData('Workout List')"><router-link to="/workout-list">Workout List</router-link></span>
+        <span @click="navUpdateData('Preset Workout')"><router-link to="/preset-Workout">Preset Workout</router-link></span>
       </div>
     </div>
     <div @click="hamToggle" id="overlay" v-bind:class="{isActive: hamIsActive}"></div>

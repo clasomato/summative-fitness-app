@@ -52,11 +52,11 @@
   font-family: 'Raleway';
   font-weight: 700;
 }
-
 .boxShadow {
-  box-shadow: 10px, 10px, 10px, $lightGreyColor;
-}
+  -webkit-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
 
 .borderRadius {
   border-radius: 30px;
-}
+}}

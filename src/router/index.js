@@ -10,6 +10,7 @@ import PreviewWorkout from '../views/PreviewWorkout.vue'
 import ActiveWorkout from '../views/ActiveWorkout.vue'
 import WorkoutList from '../views/WorkoutList.vue'
 import Landing from '../views/Landing.vue'
+import PresetWorkout from '../views/PresetWorkout.vue'
 
 Vue.use(VueRouter)
 
@@ -68,6 +69,11 @@ const routes = [
     path: '/landing',
     name: 'Landing',
     component: Landing
+  },
+  {
+    path: '/preset-workout',
+    name: 'PresetWorkout',
+    component: PresetWorkout
   }
 ]
 
