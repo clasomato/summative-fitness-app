@@ -83,6 +83,19 @@ export default {
     }
   },
   created () {
+    this.checkLoggedIn()
+    var blankArray = []
+    const v = this
+    db.collection('preset-workouts').doc('activities').collection('list-of-activities').get().then(function (snapshot) {
+      snapshot.forEach(function (doc) {
+        const eachDoc = doc.data()
+        blankArray.push(eachDoc)
+      })
+      v.activityList = blankArray
+    })
+  },
+  updated () {
+    this.checkLoggedIn()
   },
   mounted () {
     console.log($('#dropdown'))
@@ -107,6 +120,16 @@ export default {
     })
   },
   methods: {
+    checkLoggedIn () {
+      this.isLoggedIn = this.$store.getters.getLoginStatus
+      if (this.isLoggedIn === false) {
+        startupScript.checkLocalStorage()
+        this.isLoggedIn = true
+      } else {
+        console.log('not loggenin')
+      }
+      this.userFirstName = this.$store.getters.getUserFirstName
+    },
     getAllInfo: function () {
       var user = store.getters.getUserEmail
       var dateInfo = document.getElementById('birthday').value
@@ -135,6 +158,7 @@ export default {
       })
         .then(function () {
           console.log('Document successfully written!')
+          this.$router.push('/')
         })
         .catch(function (error) {
           console.error('Error writing document: ', error)
