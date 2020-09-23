@@ -34,7 +34,7 @@
                   </div>
                   <div class="workout">
                   <div class="white-box borderRadius boxShadow">
-                    <div class="spacing">
+                    <div class="spacing-top">
                     </div>
                     <div class="activity">
                       <div class="activity-one-image image">
@@ -109,7 +109,7 @@
                       </div>
                       </div>
                     </div>
-                    <div class="spacing">
+                    <div class="spacing-bottom">
                     </div>
                   </div>
               </div>
@@ -186,8 +186,6 @@ $largeText: 30px;
   }
 
   .PlayButton {
-      position: fixed;
-      bottom: 5%;
       height: 75px;
       width: 77px;
       background-color: $thirdRed;
@@ -233,7 +231,8 @@ $largeText: 30px;
   .white-box {
     height: auto;
     width: 344px;
-    margin-bottom: 30%;
+    background-color: white;
+    border-radius: 30px;
   }
 
   .workout {
@@ -245,13 +244,26 @@ $largeText: 30px;
   .activity {
     display: flex;
     padding: 10px 10px 0px 20px;
-    background-color: #f8f9fa;
-    border-radius: 100px;
+    border-radius: 30px 0px 0px 30px;
+    background-color: $offWhite;
+    margin-left: 10px;
   }
 
   .spacing{
     height: 20px;
-    // background-color: white;
+    background-color: white;
+  }
+
+  .spacing-top{
+    height: 20px;
+    background-color: white;
+    border-radius: 30px 30px 0px 0px;
+  }
+
+  .spacing-bottom{
+    height: 20px;
+    background-color: white;
+    border-radius: 0px 0px 30px 30px;
   }
 
   .image {

@@ -63,7 +63,7 @@
         <div class="customModal">
           <h1>Are you sure you want to delete this?</h1>
 
-          <button type="button" name="button" @click="deleteCurrentItem">Yes</button>
+          <button type="button" name="button" @click="deleteCurrentItem()">Yes</button>
           <button type="button" name="button" @click="deleteModalGoBack">No</button>
         </div>
       </div>
@@ -93,76 +93,6 @@
               </div>
                 <input type="checkbox" v-bind:name="item.name" :value="index" @click="bigger($event)">
             </li>
-
-            <!-- <li>
-              <label for=""><a>Quail</a></label>
-              <input type="checkbox" name="Quail" id="check1" value="1" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Side Lunge</a></label>
-              <input type="checkbox" name="Side Lunge" id="check1" value="2" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Chest Press</a></label>
-              <input type="checkbox" name="Chest Press" id="check1" value="3" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Skipping</a></label>
-              <input type="checkbox" name="Skipping" id="check1" value="4" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Chest Fly</a></label>
-              <input type="checkbox" name="Chest Fly" id="check1" value="5" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Bicep Curl</a></label>
-              <input type="checkbox" name="Bicep Curl" id="check1" value="6" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Burpee</a></label>
-              <input type="checkbox" name="Burpee" id="check1" value="7" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Horizontal Row</a></label>
-              <input type="checkbox" name="Horizontal Row" id="check1" value="8" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Squat Jumps</a></label>
-              <input type="checkbox" name="Squat Jumps" id="check1" value="9" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Crunch</a></label>
-              <input type="checkbox" name="Crunch" id="check1" value="10" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Running the stairs</a></label>
-              <input type="checkbox" name="Running the stairs" id="check1" value="11" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Shoulder Press</a></label>
-              <input type="checkbox" name="Shoulder Press" id="check1" value="12" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Leg Raise</a></label>
-              <input type="checkbox" name="Leg Raise" id="check1" value="13" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Push Ups</a></label>
-              <input type="checkbox" name="Push Ups" id="check1" value="14" @click="bigger($event)"> <br>
-            </li> -->
           </ul>
         </div>
       </div>
@@ -230,8 +160,21 @@ export default {
     deleteModalGoBack: function () {
       $('#confirmDeleteModal').hide(100)
     }, // Hide/show ENDS
+    // ---- delete function for deleting a workout - Alex Bull's code STARTS ---
     deleteCurrentItem: function () {
-      // console.log('delete please')
+      // setting variables for function to grab
+      // var workoutName = document.getElementById('userNameOfWorkout').value
+      // var workoutName =
+      var user = store.getters.getUserEmail
+      // deleting the wokout that the user has created
+      db.collection('users').doc(user).collection('workouts').doc(this.nameOfWorkout).delete().then(function () {
+        //  consloe message commuincating that the workout has been deleted
+        console.log('Workout has been successfully deleted!')
+      }).catch(function (error) {
+        console.error('Error removing workout', error)
+        //  consloe catch message commuincating that there has been an error in deleting the workout
+        // --- Alex Bull's code ENDS -----
+      })
 
       $('#confirmDeleteModal').hide(100)
     },
