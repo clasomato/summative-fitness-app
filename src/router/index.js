@@ -12,6 +12,7 @@ import WorkoutList from '../views/WorkoutList.vue'
 import Landing from '../views/Landing.vue'
 import PresetWorkout from '../views/PresetWorkout.vue'
 import Admin from '../views/Admin.vue'
+import PlayWorkout from '../views/PlayWorkout.vue'
 
 Vue.use(VueRouter)
 
@@ -75,6 +76,11 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: Admin
+  },
+  {
+    path: '/play-workout',
+    name: 'PlayWorkout',
+    component: PlayWorkout
   },
   {
     path: '/preset-workout',
