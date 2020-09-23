@@ -3,7 +3,7 @@
     <a href="https://placeholder.com"><img src="https://via.placeholder.com/375x230" alt="placeholder video"></a>
     <div class="activityContent d-flex flex-column">
       <div class="header-cont">
-        <h4 class="oswaldMed">Workout Name</h4>
+        <h4 id="activityName" class="oswaldMed">{{activityName}}</h4>
       </div>
       <div class="add-activity-cont d-flex justify-content-end">
         <i class="fas fa-signal"></i>
@@ -66,3 +66,18 @@
     </div>
   </div>
 </template>
+
+<!-- Sophie's Javascript -->
+<script>
+export default {
+  name: 'EditActivity',
+  data () {
+    return {
+      activityName: 'Skipping'
+    }
+  },
+  created () {
+    this.checkLoggedIn()
+  }
+}
+</script>

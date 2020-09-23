@@ -33,7 +33,7 @@
               <div class="inner-cont">
                 <div class="activityImage"></div>
                 <div class="activityTitle">
-                  <h5>{{ item }}</h5>
+                  <h5 v-on:click="navigate()">{{ item }}</h5>
                   <p>Category</p>
                 </div>
               </div>
@@ -53,7 +53,7 @@
       <!-- Buttons to confirm changes or to delete the workout set -->
       <div class="buttons">
         <button type="button" name="button" @click="openDeleteConfirmModal()" id="deleteWorkoutButton"><i class="fas fa-trash"></i>Delete</button>
-        <button type="button" name="button" @click="confirmWorkoutChnages()" id="confirmWorkoutButton">Confirm</button>
+        <button type="button" name="button" @click="confirmWorkoutChanges()" id="confirmWorkoutButton">Confirm</button>
       </div>
 
       <!-- Modals -->
@@ -162,6 +162,7 @@ import $ from 'jquery'
 import db from '../firebase.js'
 import store from '../store/index.js'
 import startupScript from '../startupScript.js'
+import router from '../router'
 
 console.log(db, store)
 
@@ -221,7 +222,7 @@ export default {
 
       }
     },
-    confirmWorkoutChnages: function () {
+    confirmWorkoutChanges: function () {
       // Grbbing Vue
       const v = this
 
@@ -279,7 +280,7 @@ export default {
         console.log('fasdasas')
         console.log(array)
         $('#noActivitysInWorkout').hide()
-        $('#activityList').show()
+        $('#').show()
       }
     },
     search: function () {
@@ -300,7 +301,12 @@ export default {
           li[i].style.display = 'none'
         }
       }
+    },
+    // Sophie's Code
+    navigate () {
+      router.push({ name: 'EditActivity' })
     }
+    // Sophie's Code ENDS
   }
 }
 </script>
