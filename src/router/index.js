@@ -24,9 +24,9 @@ const routes = [
     component: Dashboard
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
+    path: '/edit-activity',
+    name: 'EditActivity',
+    component: () => import('../views/EditActivity.vue')
   },
   {
     path: '/sign-up',
