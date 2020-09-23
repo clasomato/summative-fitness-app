@@ -90,7 +90,7 @@ export default {
       })
       // pushing data to vue object data "items"
       v.items = data
-      // Calling the function after the mounted function has finished.
+      // Calling the function after the mounted function has finished
       v.calculateProgressBarPercentage()
     })
   },
@@ -126,7 +126,7 @@ export default {
     },
     // This function incrementally changes the value of the progress bar percentage,
     // It takes the indexReferenceCounter to create a reference of the listNumber and mulitiplies that
-    // number by the percentageMultiplier
+    // number by the percentageMultiplier //
     updateProgressBarPercentageOnClick (percentageValue) {
       const v = this
       // creating a variable that is equal to indexReferenceCounter + 1
