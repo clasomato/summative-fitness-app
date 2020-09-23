@@ -72,7 +72,7 @@
         <div class="customModal">
           <h1>Are you sure you want to delete this?</h1>
 
-          <button type="button" name="button" @click="deleteCurrentItem">Yes</button>
+          <button type="button" name="button" @click="deleteCurrentItem()">Yes</button>
           <button type="button" name="button" @click="deleteModalGoBack">No</button>
         </div>
       </div>
@@ -168,8 +168,21 @@ export default {
     deleteModalGoBack: function () {
       $('#confirmDeleteModal').hide(100)
     }, // Hide/show ENDS
+    // ---- delete function for deleting a workout - Alex Bull's code STARTS ---
     deleteCurrentItem: function () {
-      // console.log('delete please')
+      // setting variables for function to grab
+      // var workoutName = document.getElementById('userNameOfWorkout').value
+      // var workoutName =
+      var user = store.getters.getUserEmail
+      // deleting the wokout that the user has created
+      db.collection('users').doc(user).collection('workouts').doc(this.nameOfWorkout).delete().then(function () {
+        //  consloe message commuincating that the workout has been deleted
+        console.log('Workout has been successfully deleted!')
+      }).catch(function (error) {
+        console.error('Error removing workout', error)
+        //  consloe catch message commuincating that there has been an error in deleting the workout
+        // --- Alex Bull's code ENDS -----
+      })
 
       $('#confirmDeleteModal').hide(100)
     },
