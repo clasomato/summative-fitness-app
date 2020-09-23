@@ -6,7 +6,7 @@
     <div class='row ralewayReg highlightPoints'>
       <div class='col-6 d-flex justify-content-end'>
         <div class='boxes borderRadius boxShadow'>
-          <p class='highlightText oswaldSemiBold'>{{usersGoal}}</p>
+          <p class='highlightText oswaldSemiBold'>{{userGoalWeight}}</p>
           <p>Goal (in kg)</p>
         </div>
       </div>
@@ -53,8 +53,7 @@ export default {
     return {
       userFirstName: false,
       isLoggedIn: false,
-      usersGoal: '65',
-      usersWorkouts: '',
+      userGoalWeight: '65',
       items: false,
       totalWorkouts: false
     }
@@ -88,6 +87,7 @@ export default {
         this.isLoggedIn = true
       }
       this.userFirstName = this.$store.getters.getUserFirstName
+      this.userGoalWeight = this.$store.getters.getUserGoalWeight
     },
     showWorkout: function (workoutName) {
       const v = this
