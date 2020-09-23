@@ -120,7 +120,7 @@ export default {
       // pushing the percentageValue variable to the vue object data "progressBarPercentage"
       v.progressBarPercentage = percentageValue
       v.percentageMultiplier = percentageValue
-      // pushing the percentageValue variable to the vue object data "percentageValueWholeNumber",
+      // pushing the percentageValue variable to the vue object data .. "percentageValueWholeNumber",
       // after the percentageValue has been rounded up to a whole number and converted into a string
       v.percentageValueWholeNumber = Math.round(percentageValue).toString()
     },
