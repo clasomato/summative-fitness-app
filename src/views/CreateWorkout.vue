@@ -17,11 +17,20 @@
         <div class="activityHeaders">
           <h3>Level</h3>
           <div class="custom-select">
-            <select class="" name="options" id="dificultyOptions">
-              <option value="0">Beginner</option>
-              <option value="1">Intermediate</option>
-              <option value="2">Advanced</option>
-            </select>
+
+            <div class="custom-select-wrapper">
+                <div class="custom-select">
+                    <div class="custom-select__trigger"><span>Tesla</span>
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="custom-options">
+                        <span class="custom-option selected" data-value="tesla">Tesla</span>
+                        <span class="custom-option" data-value="volvo">Volvo</span>
+                        <span class="custom-option" data-value="mercedes">Mercedes</span>
+                    </div>
+                </div>
+            </div>
+
           </div>
         </div>
 
@@ -93,76 +102,6 @@
               </div>
                 <input type="checkbox" v-bind:name="item.name" :value="index" @click="bigger($event)">
             </li>
-
-            <!-- <li>
-              <label for=""><a>Quail</a></label>
-              <input type="checkbox" name="Quail" id="check1" value="1" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Side Lunge</a></label>
-              <input type="checkbox" name="Side Lunge" id="check1" value="2" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Chest Press</a></label>
-              <input type="checkbox" name="Chest Press" id="check1" value="3" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Skipping</a></label>
-              <input type="checkbox" name="Skipping" id="check1" value="4" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Chest Fly</a></label>
-              <input type="checkbox" name="Chest Fly" id="check1" value="5" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Bicep Curl</a></label>
-              <input type="checkbox" name="Bicep Curl" id="check1" value="6" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Burpee</a></label>
-              <input type="checkbox" name="Burpee" id="check1" value="7" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Horizontal Row</a></label>
-              <input type="checkbox" name="Horizontal Row" id="check1" value="8" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Squat Jumps</a></label>
-              <input type="checkbox" name="Squat Jumps" id="check1" value="9" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Crunch</a></label>
-              <input type="checkbox" name="Crunch" id="check1" value="10" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Running the stairs</a></label>
-              <input type="checkbox" name="Running the stairs" id="check1" value="11" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Shoulder Press</a></label>
-              <input type="checkbox" name="Shoulder Press" id="check1" value="12" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Leg Raise</a></label>
-              <input type="checkbox" name="Leg Raise" id="check1" value="13" @click="bigger($event)"> <br>
-            </li>
-
-            <li>
-              <label for=""><a>Push Ups</a></label>
-              <input type="checkbox" name="Push Ups" id="check1" value="14" @click="bigger($event)"> <br>
-            </li> -->
           </ul>
         </div>
       </div>
@@ -205,7 +144,6 @@ export default {
         blankArray.push(eachDoc)
       })
       v.activityList = blankArray
-      console.log(v.activityList)
     })
   },
   updated () {
@@ -330,91 +268,25 @@ export default {
       }
     },
     dropdown: function () {
-      var x, i, j, l, ll, selElmnt, a, b, c
-      /* Look for any elements with the class 'custom-select': */
-      x = document.getElementsByClassName('custom-select')
-      l = x.length
-      for (i = 0; i < l; i++) {
-        selElmnt = x[i].getElementsByTagName('select')[0]
-        ll = selElmnt.length
-        /* For each element, create a new DIV that will act as the selected item: */
-        a = document.createElement('DIV')
-        a.setAttribute('class', 'select-selected')
-        a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML
-        x[i].appendChild(a)
-        /* For each element, create a new DIV that will contain the option list: */
-        b = document.createElement('DIV')
-        b.setAttribute('class', 'select-items select-hide')
-        for (j = 1; j < ll; j++) {
-          /* For each option in the original select element,
-          create a new DIV that will act as an option item: */
-          c = document.createElement('DIV')
-          c.innerHTML = selElmnt.options[j].innerHTML
-          c.addEventListener('click', function (e) {
-            /* When an item is clicked, update the original select box,
-            and the selected item: */
-            var y, i, k, s, h, sl, yl
-            s = this.parentNode.parentNode.getElementsByTagName('select')[0]
-            sl = s.length
-            h = this.parentNode.previousSibling
-            for (i = 0; i < sl; i++) {
-              if (s.options[i].innerHTML === this.innerHTML) {
-                s.selectedIndex = i
-                h.innerHTML = this.innerHTML
-                y = this.parentNode.getElementsByClassName('same-as-selected')
-                yl = y.length
-                for (k = 0; k < yl; k++) {
-                  y[k].removeAttribute('class')
-                }
-                this.setAttribute('class', 'same-as-selected')
-                break
-              }
-            }
-            h.click()
-          })
-          b.appendChild(c)
-        }
-        x[i].appendChild(b)
-        a.addEventListener('click', function (e) {
-          /* When the select box is clicked, close any other select boxes,
-          and open/close the current select box: */
-          e.stopPropagation()
-          closeAllSelect(this)
-          this.nextSibling.classList.toggle('select-hide')
-          this.classList.toggle('select-arrow-active')
+      document.querySelector('.custom-select-wrapper').addEventListener('click', function () {
+        this.querySelector('.custom-select').classList.toggle('open')
+      })
+
+      for (const option of document.querySelectorAll('.custom-option')) {
+        option.addEventListener('click', function () {
+          if (!this.classList.contains('selected')) {
+            this.parentNode.querySelector('.custom-option.selected').classList.remove('selected')
+            this.classList.add('selected')
+            this.closest('.custom-select').querySelector('.custom-select__trigger span').textContent = this.textContent
+          }
         })
       }
-
-      function closeAllSelect (elmnt) {
-        /* A function that will close all select boxes in the document,
-        except the current select box: */
-        var x
-        var y
-        var i
-        var xl
-        var yl
-        var arrNo = []
-        x = document.getElementsByClassName('select-items')
-        y = document.getElementsByClassName('select-selected')
-        xl = x.length
-        yl = y.length
-        for (i = 0; i < yl; i++) {
-          if (elmnt === y[i]) {
-            arrNo.push(i)
-          } else {
-            y[i].classList.remove('select-arrow-active')
-          }
+      window.addEventListener('click', function (e) {
+        const select = document.querySelector('.custom-select')
+        if (!select.contains(e.target)) {
+          select.classList.remove('open')
         }
-        for (i = 0; i < xl; i++) {
-          if (arrNo.indexOf(i)) {
-            x[i].classList.add('select-hide')
-          }
-        }
-      }
-
-      /* If the user clicks anywhere outside the select box,
-      then close all select boxes: */
-      document.addEventListener('click', closeAllSelect)
+      })
     }
   }
 }
@@ -451,54 +323,107 @@ export default {
     font-size: 15px;
   }
 
-  .custom-select {
-    position: relative;
-    & select {
-      display: none;
-      border: none;
-      background-color: inherit;
-      font-size: 1.2em;
-      border-bottom: 2px solid #FE5864;
-    }
-    & .select-selected {
-      background-color: red;
-      &:after {
-        position: absolute;
-        content: "";
-        top: 14px;
-        right: 10px;
-        width: 0;
-        height: 0;
-        border: 6px solid transparent;
-        border-color: #fff transparent transparent transparent;
-      }
-      &.select-arrow-active:after {
-        border-color: transparent transparent #fff transparent;
-        top: 7px;
-      }
-    }
-    & .select-items {
-      position: absolute;
-      background-color: DodgerBlue;
-      top: 100%;
-      left: 0;
-      right: 0;
-      z-index: 99;
-      & div, .select-selected {
-        color: #ffffff;
-        padding: 8px 16px;
-        border: 1px solid transparent;
-        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-        cursor: pointer;
-      }
-      & div:hover, .same-as-selected {
-        background-color: rgba(0, 0, 0, 0.1);
-      }
-    }
-    & .select-hide {
-      display: none;
-    }
+  .custom-select-wrapper {
+       position: relative;
+       user-select: none;
+       width: 100%;
   }
+   .custom-select {
+       position: relative;
+       display: flex;
+       flex-direction: column;
+       border-width: 0 2px 0 2px;
+       border-style: solid;
+       border-color: #394a6d;
+  }
+   .custom-select__trigger {
+       position: relative;
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       padding: 0 22px;
+       font-size: 20px;
+       font-weight: 300;
+       color: #3b3b3b;
+       height: 60px;
+       line-height: 60px;
+       background: #ffffff;
+       cursor: pointer;
+       border-width: 2px 0 2px 0;
+       border-style: solid;
+       border-color: #394a6d;
+  }
+   .custom-options {
+       position: absolute;
+       display: block;
+       top: 100%;
+       left: 0;
+       right: 0;
+       border: 2px solid #394a6d;
+       border-top: 0;
+       background: #fff;
+       transition: all 0.5s;
+       opacity: 0;
+       visibility: hidden;
+       pointer-events: none;
+       z-index: 2;
+  }
+   .custom-select.open .custom-options {
+       opacity: 1;
+       visibility: visible;
+       pointer-events: all;
+  }
+   .custom-option {
+       position: relative;
+       display: block;
+       padding: 0 22px 0 22px;
+       font-size: 22px;
+       font-weight: 300;
+       color: #3b3b3b;
+       line-height: 60px;
+       cursor: pointer;
+       transition: all 0.5s;
+  }
+   .custom-option:hover {
+       cursor: pointer;
+       background-color: #b2b2b2;
+  }
+   .custom-option.selected {
+       color: #ffffff;
+       background-color: #305c91;
+  }
+
+.arrow {
+     position: relative;
+     height: 15px;
+     width: 15px;
+}
+ .arrow::before, .arrow::after {
+     content: "";
+     position: absolute;
+     bottom: 0px;
+     width: 0.15rem;
+     height: 100%;
+     transition: all 0.5s;
+}
+ .arrow::before {
+     left: -5px;
+     transform: rotate(45deg);
+     background-color: #394a6d;
+}
+ .arrow::after {
+     left: 5px;
+     transform: rotate(-45deg);
+     background-color: #394a6d;
+}
+ .open .arrow::before {
+     left: -5px;
+     transform: rotate(-45deg);
+}
+ .open .arrow::after {
+     left: 5px;
+     transform: rotate(45deg);
+}
 
   button {
     background-color: white;
@@ -791,15 +716,6 @@ export default {
     ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: white;
       opacity: 1; /* Firefox */
-    }
-  }
-
-  .searchArea {
-    display: flex;
-    justify-content: space-between;
-
-    button, input {
-
     }
   }
 

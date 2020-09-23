@@ -251,7 +251,6 @@ $largeText: 30px;
 
   .spacing{
     height: 20px;
-    // background-color: white;
   }
 
   .image {

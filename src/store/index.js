@@ -5,11 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userFirstName: false,
-    userLastName: false,
-    userEmail: false,
-    userPicture: false,
-    isLoggedIn: false
+    userFirstName: '',
+    userLastName: '',
+    userEmail: '',
+    userPicture: '',
+    isLoggedIn: false,
+    userWorkouts: ''
   },
   getters: {
     getUserFirstName: function (state) {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     getLoginStatus: function (state) {
       return state.isLoggedIn
+    },
+    getUserWorkouts: function (state) {
+      return state.userWorkouts
     }
   },
   mutations: {
@@ -43,6 +47,9 @@ export default new Vuex.Store({
     },
     setLoggedIn (state, payload) {
       state.isLoggedIn = payload
+    },
+    setUserWorkouts (state, payload) {
+      state.userWorkouts = payload
     }
   },
   actions: {

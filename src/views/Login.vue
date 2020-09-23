@@ -53,6 +53,15 @@ export default {
           localStorage.setItem('userLastName', v.userData.lastName)
           localStorage.setItem('userEmail', v.userData.userEmail)
           localStorage.setItem('isLoggedIn', 'true')
+          var blankArray = []
+          db.collection('users').doc(v.userEmail).collection('workouts').get().then(function (snapshot) {
+            snapshot.forEach(function (doc) {
+              const eachDoc = doc.data()
+              blankArray.push(eachDoc)
+            })
+            v.$store.commit('setUserWorkouts', blankArray)
+            // localStorage.setItem('userWorkouts', blankArray)
+          })
           v.$router.push('/')
           // location.reload()
         })

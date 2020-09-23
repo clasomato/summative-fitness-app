@@ -1,6 +1,4 @@
 const store = require('./store')
-// const router = require('./router/index.js')
-// import store from './store/index.js'
 
 var storageObj = {
   checkLocalStorage: function () {

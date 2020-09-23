@@ -4,10 +4,12 @@
     <div v-if="isLoggedIn">
       <h1 style="">Choose your <br> workout today, {{userFirstName}}</h1>
       <div class="cards">
-        <div class="inner" id="card-cont" v-bind:style="{ width: totalCards + '%'}">
-          <div class="card">
-            <router-link to="/create-workout"><i class="fas fa-plus" style="font-size:5em; color:#FE5864;"></i></router-link>
-          </div>
+        <div class="inner" id="card-cont" v-bind:style="{ width: totalCards + 'px'}">
+          <router-link to="/create-workout">
+            <div class="card add-new">
+              <i class="fas fa-plus"></i>
+            </div>
+          </router-link>
           <div v-for="item in items" :key="item.workoutName" class="card">
             <a class="editButton" @click="showWorkout($event, item.id, item.workoutName, item.workouts)">Edit</a>
             <h3>Workout <br> <span>{{ item.workoutName }}</span> </h3>
@@ -37,7 +39,7 @@
       </div>
       <p else>You must <router-link to="/login">Login</router-link> or <router-link to="/sign-up">Signup</router-link> to view this page.</p>
 
-      <div class="addActivityModalContainer" style="display:none" id="activityContainerP">
+      <!-- <div class="addActivityModalContainer" style="display:none" id="activityContainerP">
         <div class="addActivityModal">
           <div class="searchForActivity" id="activityContainer">
             <div class="searchArea">
@@ -45,85 +47,47 @@
               <input type="text" id="myInput" name="" value="" v-on:keyup="search()" placeholder="Search...">
             </div>
 
-            <div class="searchResults" style="margin-top:20%">
+            <div class="searchResults" style="margin-top:35%">
               <ul id="myUL">
-                <li>
-                    <label for=""><a>Back Squat</a></label>
-                    <input type="checkbox" name="Back Squat" id="check1" value="0" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Quail</a></label>
-                  <input type="checkbox" name="Quail" id="check1" value="1" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Side Lunge</a></label>
-                  <input type="checkbox" name="Side Lunge" id="check1" value="2" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Chest Press</a></label>
-                  <input type="checkbox" name="Chest Press" id="check1" value="3" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Skipping</a></label>
-                  <input type="checkbox" name="Skipping" id="check1" value="4" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Chest Fly</a></label>
-                  <input type="checkbox" name="Chest Fly" id="check1" value="5" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Bicep Curl</a></label>
-                  <input type="checkbox" name="Bicep Curl" id="check1" value="6" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Burpee</a></label>
-                  <input type="checkbox" name="Burpee" id="check1" value="7" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Horizontal Row</a></label>
-                  <input type="checkbox" name="Horizontal Row" id="check1" value="8" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Squat Jumps</a></label>
-                  <input type="checkbox" name="Squat Jumps" id="check1" value="9" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Crunch</a></label>
-                  <input type="checkbox" name="Crunch" id="check1" value="10" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Running the stairs</a></label>
-                  <input type="checkbox" name="Running the stairs" id="check1" value="11" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Shoulder Press</a></label>
-                  <input type="checkbox" name="Shoulder Press" id="check1" value="12" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Leg Raise</a></label>
-                  <input type="checkbox" name="Leg Raise" id="check1" value="13" @click="bigger($event)"> <br>
-                </li>
-
-                <li>
-                  <label for=""><a>Push Ups</a></label>
-                  <input type="checkbox" name="Push Ups" id="check1" value="14" @click="bigger($event)"> <br>
+                <li v-for="(item, index) in activityList" :key="item.name">
+                  <div class="activityImage" v-bind:style="{background: 'url(' + item.image + ') no-repeat center center'}"></div>
+                  <div class="inner">
+                    <label><a>{{item.name}}</a></label>
+                    <label>Category</label>
+                  </div>
+                    <input type="checkbox" v-bind:name="item.name" :value="index" @click="bigger($event)">
                 </li>
               </ul>
             </div>
           </div>
+        </div>
+      </div> -->
+      <!-- Search for new activity modal -->
+      <div class="searchForActivity" id="activityContainerP">
+        <div class="searchArea">
+          <span class="searchInput">
+            <input type="text" id="myInput" placeholder="Search exercises" v-on:keyup="search()">
+            <i class="fas fa-search"></i>
+          </span>
+          <span class="exit" @click="closeAndSendActivitys()"><i class="fas fa-times"></i></span>
+          <div class="filters">
+            <button type="button">Strength</button>
+            <button type="button">Cardio</button>
+            <button type="button">At Home</button>
+          </div>
+        </div>
+
+        <div class="searchResults" style="margin-top:35%">
+          <ul id="myUL">
+            <li v-for="(item, index) in activityList" :key="item.name">
+              <div class="activityImage" v-bind:style="{background: 'url(' + item.image + ') no-repeat center center'}"></div>
+              <div class="inner">
+                <label><a>{{item.name}}</a></label>
+                <label>Category</label>
+              </div>
+                <input type="checkbox" v-bind:name="item.name" :value="index" @click="bigger($event)">
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -142,21 +106,34 @@ export default {
     return {
       userFirstName: false,
       isLoggedIn: false,
-      items: false,
+      items: '',
       selectedWorkout: false,
       selectedWorkoutItems: false,
       userEmail: this.$store.getters.getUserEmail,
       workoutActivitys: [],
       workoutDefaultRefrence: [],
-      totalCards: 1
+      totalCards: '',
+      // noActivitys: true,
+      // oActivitys: false,
+      activityList: false
+      // userWorkouts: this.$store.getters.getUserWorkouts
     }
   },
   created () {
     this.checkLoggedIn()
+    var blankArray = []
+    const v = this
+    db.collection('preset-workouts').doc('activities').collection('list-of-activities').get().then(function (snapshot) {
+      snapshot.forEach(function (doc) {
+        const eachDoc = doc.data()
+        blankArray.push(eachDoc)
+      })
+      v.activityList = blankArray
+    })
   },
-  updated () {
-    this.checkLoggedIn()
-  },
+  // updated () {
+  //   this.checkLoggedIn()
+  // },
   mounted () {
     const v = this
     var data = []
@@ -166,10 +143,12 @@ export default {
         const eachDoc = doc.data()
         data.push(eachDoc)
       })
-      console.log(data.length)
-      v.totalCards = (data.length + 1) * 36
+      v.totalCards = (data.length + 1) * 155
     })
     v.items = data
+    // this.items = this.$store.getters.getUserWorkouts
+    // this.items = localStorage.getItem('userWorkouts')
+    // this.totalCards = (this.items.length + 1) * 155
   },
   methods: {
     checkLoggedIn () {
@@ -213,6 +192,8 @@ export default {
       console.log('add item')
       window.scrollTo(0, 0)
       $('#activityContainerP').show(100)
+      const app = document.getElementById('app')
+      app.style.maxHeight = '100vh'
     },
     search: function () {
       // Declare variables
@@ -236,12 +217,15 @@ export default {
     bigger: function (e) {
       // getting Vue
       var v = this
+      const name = e.target.name
+      const value = e.target.value
       // This gets the checked item and appends it to the vue data array
       if (e.target.checked === true) {
-        v.workoutActivitys.push(e.target.name)
-        v.workoutDefaultRefrence.push(e.target.value)
-      } else {
-
+        v.workoutActivitys.push(name)
+        v.workoutDefaultRefrence.push(value)
+      } else if (e.target.checked === false) {
+        v.workoutActivitys = v.workoutActivitys.filter(e => e !== name)
+        v.workoutDefaultRefrence = v.workoutDefaultRefrence.filter(e => e !== value)
       }
     },
     closeAndSendActivitys: function () {
@@ -261,6 +245,8 @@ export default {
         })
       }
       $('#activityContainerP').hide(100)
+      const app = document.getElementById('app')
+      app.style.maxHeight = 'auto'
       this.onChange()
     },
     onChange: function () {
@@ -301,7 +287,6 @@ span {
 .dashboard {
   box-sizing: border-box;
   text-align: left;
-  // padding: 5%;
 
   h1 {
     padding-left: 5%;
@@ -310,7 +295,6 @@ span {
 
 .cards {
   overflow-x: scroll;
-  // width: 100%;
   padding-left: 5%;
   & > .inner {
     padding-bottom: 8%;
@@ -329,27 +313,32 @@ span {
 }
 
 .card {
-  // padding: 21% 6%;
   border: 0px solid black;
-  width: 35%;
+  width: 140px;
   float: left;
-  margin: 1%;
+  margin: 15px;
   border-radius: 1em;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 200px;
-  padding: 3%;
+  padding: 1%;
   overflow: hidden;
   -webkit-box-shadow: 10px 10px 36px -16px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 36px -16px rgba(0,0,0,0.75);
   box-shadow: 10px 10px 36px -16px rgba(0,0,0,0.75);
 
+  & h3 {
+    font-size: 16px;
+    & span {
+      font-size: 24px;
+    }
+  }
+
   a {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px;
     padding: 3%;
 
     a {
@@ -367,6 +356,33 @@ span {
   img {
     width: 70%;
     padding: 5%;
+  }
+}
+
+#card-cont > a {
+  padding: 0;
+  & .card.add-new {
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid #FE5864;
+    width: 140px;
+    float: left;
+    margin: 15px;
+    border-radius: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    padding: 0%;
+    overflow: hidden;
+    -webkit-box-shadow: 0 0 0 -0 rgba(0,0,0,0);
+    -moz-box-shadow: 0 0 0 0 rgba(0,0,0,0);
+    box-shadow: 0px 0 0 0 rgba(0,0,0,0);
+    & svg {
+      width: 40px;
+      height: 40px;
+      color: #FE5864;
+    }
   }
 }
 
@@ -450,16 +466,116 @@ span {
   }
 
   .searchArea {
+    padding:5%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #FE5864;
+    width: 100%;
+
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
 
-    button, input {
-      color: white;
-      background-color: #FE5864;
-      border: none;
-      font-size: 1.25em;
-      padding: 1%;
-      border-radius: 0.5em;
+    & > .searchInput {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      & > svg {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+      & > input {
+        border-radius: 100px;
+        padding: 6px 35px;
+        color: #000000;
+        background-color: #ffffff;
+        border: none;
+        margin: 0;
+     }
+    }
+    & > span.exit {
+      cursor: pointer;
+      &:hover > svg {
+        transform: rotate(180deg);
+      }
+      & > svg {
+        color: #ffffff;
+        font-size: 30px;
+        z-index: 10000;
+        transform: rotate(0deg);
+        transition: all 0.3s ease;
+      }
+    }
+    & > .filters {
+      flex-basis: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      & > button {
+        border: 0;
+        text-align: center;
+        border-radius: 100px;
+        margin-top: 5%;
+        background: #FC7784;
+        color: white;
+        flex: 0 1 5em;
+        font-size: 16px;
+        padding: 2px 5px;
+        margin-right: 12px;
+      }
+    }
+  }
+
+  .searchForActivity {
+    width: 100%;
+    min-height: 100vh;
+    overflow-y: scroll;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5%;
+    display: none;
+    z-index: 100;
+    & > .searchResults {
+      & > ul {
+        & > li {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 5px;
+          & > .activityImage {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            background-size: cover !important;
+          }
+          & > .inner {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            & > :last-child {
+              color: grey;
+            }
+            & > label {
+              font-size: 18px;
+              flex: 1;
+              margin: 0;
+            }
+          }
+          & > input {
+            flex: 0;
+            margin: 0;
+          }
+        }
+      }
     }
   }
 
