@@ -152,7 +152,7 @@
 import $ from 'jquery'
 import db from '../firebase.js'
 import store from '../store/index.js'
-
+import startupScript from '../startupScript.js'
 console.log(db, store)
 
 export default {
@@ -169,9 +169,24 @@ export default {
     }
   },
   created () {
-    this.isLoggedIn = store.getters.getLoginStatus
+    // this.isLoggedIn = store.getters.getLoginStatus
+    this.checkLoggedIn()
+  },
+  updated () {
+    this.checkLoggedIn()
   },
   methods: {
+    checkLoggedIn () {
+      this.isLoggedIn = this.$store.getters.getLoginStatus
+      if (this.isLoggedIn === false) {
+        startupScript.checkLocalStorage()
+        this.isLoggedIn = true
+      } else {
+        console.log('not loggenin')
+        this.router.push('login')
+      }
+      this.userFirstName = this.$store.getters.getUserFirstName
+    },
     // Hide/show STARTS
     openAddActivity: function () {
       $('#activityContainer').show(100)
