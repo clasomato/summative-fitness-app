@@ -3,8 +3,8 @@
 
 @import 'signup';
 @import 'landing';
-
 @import 'signIn';
+@import 'profilePage';
 
 .oswaldLight {
   font-family: 'Oswald';
@@ -54,7 +54,7 @@
 }
 
 .boxShadow {
-  box-shadow: 10px, 10px, 10px, $lightGreyColor;
+  box-shadow: 10px 10px 20px $lightGreyColor;
 }
 
 .borderRadius {
