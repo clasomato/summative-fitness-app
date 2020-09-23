@@ -22,21 +22,13 @@
       <p>Your Workouts</p>
       <div class='fullBox borderRadius'>
         <div class='col-12 row p-3'>
-          <div class='col-6 text-left'>
-            <h5>Cardio Burn</h5>
-            <p class='workoutText text-left'>Cardio</p>
+          <div class='col-6 text-left' v-for="item in items" :key="item.workoutName">
+            <h5>{{ item.workoutName }}</h5>
+            <!-- <p class='workoutText text-left'>{{item.sets}} sets</p> -->
           </div>
-          <div class='col-6'>
-            <p class='workoutText text-right'>20 mins</p>
-          </div>
-        </div>
-        <div class='col-12 row'>
-          <div class='col-6 text-left'>
-            <h5>Leg Blast</h5>
-            <p class='workoutText text-left'>Strength</p>
-          </div>
-          <div class='col-6'>
-            <p class='workoutText text-right'>20 mins</p>
+          <div class='col-6' v-for="item in items" :key="item.timePerSet">
+            <p class='workoutText text-right'>{{item.sets}} sets</p>
+            <p class='workoutText text-right'>{{item.timePerSet}} seconds per set</p>
           </div>
         </div>
       </div>
@@ -47,6 +39,8 @@
   </div>
 </template>
 
+<!-- Zoe's Javascript and Vue Code, updating the profile page with their name-->
+<!-- how many workouts and will give them a list of their workouts underneath with some information on it. -->
 <script>
 import store from '../store/index.js'
 import db from '../firebase.js'
@@ -94,6 +88,21 @@ export default {
         this.isLoggedIn = true
       }
       this.userFirstName = this.$store.getters.getUserFirstName
+    },
+    showWorkout: function (workoutName) {
+      const v = this
+      var i
+      var blankArray = []
+      var user = store.getters.getUserEmail
+      v.selectedWorkout = workoutName
+      for (i = 0; i < 1; i++) {
+        db.collection('users').doc(user).collection('workouts').doc(workoutName).collection('workoutDetails').get().then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            const eachDoc = doc.data()
+            blankArray.push(eachDoc)
+          })
+        })
+      }
     }
   }
 }
