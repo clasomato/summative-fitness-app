@@ -4,6 +4,7 @@ import Dashboard from '../views/Dashboard.vue'
 import SignUp from '../views/SignUp.vue'
 import Login from '../views/Login.vue'
 import ProfileSetup from '../views/ProfileSetup.vue'
+import ProfilePage from '../views/ProfilePage.vue'
 import CreateWorkout from '../views/CreateWorkout.vue'
 import EditWorkout from '../views/EditWorkout.vue'
 import PreviewWorkout from '../views/PreviewWorkout.vue'
@@ -41,6 +42,11 @@ const routes = [
     path: '/profile-setup',
     name: 'ProfileSetup',
     component: ProfileSetup
+  },
+  {
+    path: '/profile-page',
+    name: 'ProfilePage',
+    component: ProfilePage
   },
   {
     path: '/create-workout',

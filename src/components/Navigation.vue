@@ -16,6 +16,7 @@
         <span @click="navUpdateData('Sign Up')"><router-link to="/sign-up">Sign Up</router-link></span>
         <span @click="navUpdateData('Login')"><router-link to="/login">Login</router-link></span>
         <span @click="navUpdateData('Profile Setup')"><router-link to="/profile-setup">Profile Setup</router-link></span>
+        <span @click="navUpdateData('Profile Page')"><router-link to="/profile-page">Profile Page</router-link></span>
         <span @click="navUpdateData('Create Workout')"><router-link to="/create-workout">Create Workout</router-link></span>
         <span @click="navUpdateData('Edit Workout')"><router-link to="/edit-workout">Edit Workout</router-link></span>
         <span @click="navUpdateData('Preview Workout')"><router-link to="/preview-workout">Preview Workout</router-link></span>
