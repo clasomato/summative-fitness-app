@@ -11,6 +11,7 @@ import ActiveWorkout from '../views/ActiveWorkout.vue'
 import WorkoutList from '../views/WorkoutList.vue'
 import Landing from '../views/Landing.vue'
 import PresetWorkout from '../views/PresetWorkout.vue'
+import Admin from '../views/Admin.vue'
 
 Vue.use(VueRouter)
 
@@ -69,6 +70,11 @@ const routes = [
     path: '/landing',
     name: 'Landing',
     component: Landing
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
   },
   {
     path: '/preset-workout',

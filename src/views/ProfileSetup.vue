@@ -61,7 +61,30 @@
 </template>
 
 <script>
+import startupScript from '../startupScript.js'
+
 export default {
+  data () {
+    return {
+
+    }
+  },
+  created () {
+    this.checkLoggedIn()
+  },
+  updated () {
+    this.checkLoggedIn()
+  },
+  methods: {
+    checkLoggedIn () {
+      this.isLoggedIn = this.$store.getters.getLoginStatus
+      if (this.isLoggedIn === false) {
+        startupScript.checkLocalStorage()
+        this.isLoggedIn = true
+      }
+      this.userFirstName = this.$store.getters.getUserFirstName
+    }
+  }
 }
 </script>
 
