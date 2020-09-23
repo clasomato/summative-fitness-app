@@ -97,5 +97,12 @@ export default {
 
 <style scoped lang="scss">
 // @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+html, body, #app {
+  height: 100vh;
+  overflow: hidden;
+}
 
+.container {
+  height: 90vh;
+}
 </style>

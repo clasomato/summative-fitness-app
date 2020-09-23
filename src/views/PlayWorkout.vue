@@ -53,9 +53,9 @@ import ProgressBar from 'vue-simple-progress'
 import store from '../store/index.js'
 import db from '../firebase.js'
 import startupScript from '../startupScript.js'
-console.log(ProgressBar)
-console.log(store)
-console.log(db)
+// console.log(ProgressBar)
+// console.log(store)
+// console.log(db)
 
 export default {
   name: 'PlayWorkout',

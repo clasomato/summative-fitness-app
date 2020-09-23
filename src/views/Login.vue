@@ -43,16 +43,13 @@ export default {
       const v = this
       firebase.auth().signInWithEmailAndPassword(v.userEmail, v.userPw).then(function () {
         db.collection('users').doc(v.userEmail).get().then(function (doc) {
+          // console.log(doc.data())
           v.userData = doc.data()
-          // v.$store.commit('setUserFirstName', v.userData.firstName)
-          // v.$store.commit('setUserLastName', v.userData.lastName)
-          // v.$store.commit('setUserPicture', v.userPicture)
-          // v.$store.commit('setUserEmail', v.userData.userEmail)
-          // v.$store.commit('setLoggedIn', true)
           localStorage.setItem('userFirstName', v.userData.firstName)
           localStorage.setItem('userLastName', v.userData.lastName)
           localStorage.setItem('userEmail', v.userData.userEmail)
           localStorage.setItem('isLoggedIn', 'true')
+          // console.log(v.userData.userEmail)
           var blankArray = []
           db.collection('users').doc(v.userEmail).collection('workouts').get().then(function (snapshot) {
             snapshot.forEach(function (doc) {
@@ -75,4 +72,17 @@ export default {
 
 <style lang="scss" scoped>
 // @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+html, body, #app {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  height: 90vh;
+}
+
+// #mainContainer {
+//   max-height: 100vh;
+//   overflow: hidden;
+// }
 </style>

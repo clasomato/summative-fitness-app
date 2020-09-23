@@ -51,7 +51,7 @@
 import store from '../store/index.js'
 import db from '../firebase.js'
 import startupScript from '../startupScript.js'
-console.log(db)
+// console.log(db)
 
 export default {
   name: 'ProfilePage',
@@ -74,11 +74,11 @@ export default {
         const eachDoc = doc.data()
         data.push(eachDoc)
       })
-      console.log(data.length)
+      // console.log(data.length)
       v.totalWorkouts = data.length
     })
     v.items = data
-    console.log(v.items)
+    // console.log(v.items)
   },
   created () {
     this.checkLoggedIn()
@@ -98,3 +98,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.container {
+  height: auto !important;
+  min-height: 90vh !important;
+}
+</style>

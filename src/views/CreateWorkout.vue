@@ -115,7 +115,7 @@ import $ from 'jquery'
 import db from '../firebase.js'
 import store from '../store/index.js'
 import startupScript from '../startupScript.js'
-console.log(db, store)
+// console.log(db, store)
 
 export default {
   name: 'CreateWorkout',
@@ -155,7 +155,7 @@ export default {
         startupScript.checkLocalStorage()
         this.isLoggedIn = true
       } else {
-        console.log('not loggenin')
+        // console.log('not loggenin')
         this.router.push('login')
       }
       this.userFirstName = this.$store.getters.getUserFirstName

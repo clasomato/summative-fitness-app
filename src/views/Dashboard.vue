@@ -180,7 +180,7 @@ export default {
       var v = this
       var user = store.getters.getUserEmail
       var workoutName = v.selectedWorkout
-      console.log(name)
+      // console.log(name)
       db.collection('users').doc(user).collection('workouts').doc(workoutName).collection('workoutDetails').doc(name).delete().then(function () {
         console.log('Document successfully deleted!')
         v.onChange()
@@ -189,7 +189,7 @@ export default {
       })
     },
     showAddNewActivity: function () {
-      console.log('add item')
+      // console.log('add item')
       window.scrollTo(0, 0)
       $('#activityContainerP').show(100)
       const app = document.getElementById('app')
@@ -229,7 +229,7 @@ export default {
       }
     },
     closeAndSendActivitys: function () {
-      console.log('add item')
+      //    .log('add item')
       var i
       var v = this
       var array = v.workoutActivitys
@@ -250,7 +250,7 @@ export default {
       this.onChange()
     },
     onChange: function () {
-      console.log('updating local data')
+      // console.log('updating local data')
       const v = this
       var data = []
       var user = store.getters.getUserEmail

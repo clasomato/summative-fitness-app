@@ -68,7 +68,7 @@ import db from '../firebase.js'
 import startupScript from '../startupScript.js'
 import $ from 'jquery'
 
-console.log(store, db, startupScript, $)
+// console.log(store, db, startupScript, $)
 
 export default {
   name: 'Dashboard',
@@ -79,7 +79,8 @@ export default {
       currWeight: '',
       height: '',
       goalWeight: '',
-      activity: ''
+      activity: '',
+      isLoggedIn: false
     }
   },
   created () {
@@ -98,7 +99,7 @@ export default {
     this.checkLoggedIn()
   },
   mounted () {
-    console.log($('#dropdown'))
+    // console.log($('#dropdown'))
     $('#dropdown').on('click', function () { // On-click show menu
       $('.dropdown-menu').css('opacity', 1)
     }) // jQuery on-click function ENDS
@@ -125,40 +126,38 @@ export default {
       if (this.isLoggedIn === false) {
         startupScript.checkLocalStorage()
         this.isLoggedIn = true
-      } else {
-        console.log('not loggenin')
       }
       this.userFirstName = this.$store.getters.getUserFirstName
     },
     getAllInfo: function () {
       var user = store.getters.getUserEmail
-      var dateInfo = document.getElementById('birthday').value
-      console.log(dateInfo)
-      var genderInfo = document.getElementById('dropdown-1').value
-      console.dir(genderInfo.textContent)
-      var currentWeight = document.getElementById('weightinputid').value
-      console.log(currentWeight + 'kg')
-      var heightInfo = document.getElementById('heightinputid').value
-      console.log(heightInfo + 'cm')
-      var goalWeight = document.getElementById('goalinputid').value
-      console.log(goalWeight + 'kg')
-      var activityInfo = document.getElementById('dropdown-2').value
-      console.dir(activityInfo.textContent)
+      var userDateInfo = document.getElementById('birthday').value
+      // console.log(dateInfo)
+      var userGenderInfo = document.getElementById('dropdown-1').textContent
+      // console.dir(genderInfo)
+      var userCurrentWeight = document.getElementById('weightinputid').value
+      // console.log(currentWeight + 'kg')
+      var userHeightInfo = document.getElementById('heightinputid').value
+      // console.log(heightInfo + 'cm')
+      var userGoalWeight = document.getElementById('goalinputid').value
+      // console.log(goalWeight + 'kg')
+      var userActivityInfo = document.getElementById('dropdown-2').textContent
+      // console.dir(activityInfo)
 
-      console.log(user)
-
+      // console.log(user)
+      const v = this
       // Add a new document in collection "cities"
-      db.collection('users').doc(user).set({
-        age: dateInfo,
-        gender: genderInfo,
-        currWeight: currentWeight,
-        height: heightInfo,
-        goalWeight: goalWeight,
-        activity: activityInfo
+      db.collection('users').doc(user).update({
+        age: userDateInfo,
+        gender: userGenderInfo,
+        currWeight: userCurrentWeight,
+        height: userHeightInfo,
+        goalWeight: userGoalWeight,
+        activity: userActivityInfo
       })
         .then(function () {
           console.log('Document successfully written!')
-          this.$router.push('/')
+          v.$router.push('/')
         })
         .catch(function (error) {
           console.error('Error writing document: ', error)
@@ -171,6 +170,15 @@ export default {
 
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+.container {
+  height: 90vh;
+  overflow: hidden;
+}
+
+#mainContainer {
+  max-height: 100vh;
+  overflow: hidden;
+}
 // Color Palette
 $firstRed: #FA505B;
 $secondRed: #FE5864;
@@ -194,8 +202,9 @@ $largeText: 30px;
   width: 125px;
   height: 40px;
   font-size: 16px;
-  color: #495057;
+  color: #495057 !important;
   border: 1px solid #ced4da;
+  background-color: #ffffff;
   text-align: center;
 }
 
@@ -226,8 +235,9 @@ $largeText: 30px;
   padding-right: 105px;
 }
 .genderselect {
+  margin-top: -25px;
   padding-right: 50px;
-  margin-top: 5px;
+  height: 10px;
 }
 
 .currentweight {
@@ -263,8 +273,9 @@ $largeText: 30px;
 }
 
 .activityselect {
-  margin-top: 5px;
+  margin-top: -25px;
   padding-right: 50px;
+  height: 10px;
 }
 
 .skip {

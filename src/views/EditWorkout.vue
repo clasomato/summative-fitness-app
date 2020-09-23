@@ -37,7 +37,7 @@ import $ from 'jquery'
 import db from '../firebase.js'
 import startupScript from '../startupScript.js'
 
-console.log(startupScript)
+// console.log(startupScript)
 
 export default {
   name: 'EditWorkout',
@@ -54,9 +54,9 @@ export default {
       var i
       var blankArray = []
       var user = store.getters.getUserEmail
-      console.log(user)
+      // console.log(user)
       for (i = 0; i < 1; i++) {
-        db.collection('users').doc('jason@climostudios.online').collection('workouts').doc(workoutName).collection('workoutDetails').get().then(function (querySnapshot) {
+        db.collection('users').doc(user).collection('workouts').doc(workoutName).collection('workoutDetails').get().then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             const eachDoc = doc.data()
             blankArray.push(eachDoc)
@@ -65,24 +65,32 @@ export default {
         })
       }
       v.selectedWorkoutItems = blankArray
+    },
+    checkLoggedIn () {
+      this.isLoggedIn = this.$store.getters.getLoginStatus
+      if (this.isLoggedIn === false) {
+        startupScript.checkLocalStorage()
+        this.isLoggedIn = true
+      }
+      this.userFirstName = this.$store.getters.getUserFirstName
     }
   },
   created () {
-    this.isLoggedIn = store.getters.getLoginStatus
+    this.checkLoggedIn()
   },
   mounted () {
     const v = this
     var data = []
     var user = store.getters.getUserEmail
-    console.log(user)
-    db.collection('users').doc('jason@climostudios.online').collection('workouts').get().then(function (querySnapshot) {
+    // console.log(user)
+    db.collection('users').doc(user).collection('workouts').get().then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         const eachDoc = doc.data()
         data.push(eachDoc)
       })
     })
     v.items = data
-    console.log(v.items)
+    // console.log(v.items)
   }
 }
 </script>
