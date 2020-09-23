@@ -129,7 +129,7 @@ Here is a basic create function for firebase that is making a document inside of
 
 ```javascript
 // Add a new document in collection "cities"  
-db.collection('users').doc('exampleuser@email.com').collection('workouts').doc('workout1').set({ 
+db.collection('users').doc('exampleuser@email.com').collection('workouts').doc('workout1').add({ 
 	name:  'Core Workout', 
 	time:  30, 
 	active:  false
