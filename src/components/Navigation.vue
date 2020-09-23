@@ -11,13 +11,13 @@
     <div id="nav">
       <div class="nav-inner" v-bind:class="{isActive: hamIsActive}">
         <span @click="navUpdateData('Landing')"><router-link to="/landing">Landing</router-link></span>
-        <span @click="navUpdateData('Dashboard')"><router-link to="/">Dashboard</router-link></span>
-        <span @click="navUpdateData('About')"><router-link to="/about">About</router-link></span>
         <span @click="navUpdateData('Sign Up')"><router-link to="/sign-up">Sign Up</router-link></span>
         <span @click="navUpdateData('Login')"><router-link to="/login">Login</router-link></span>
+        <span @click="navUpdateData('Dashboard')"><router-link to="/">Dashboard</router-link></span>
         <span @click="navUpdateData('Profile Setup')"><router-link to="/profile-setup">Profile Setup</router-link></span>
         <span @click="navUpdateData('Create Workout')"><router-link to="/create-workout">Create Workout</router-link></span>
         <span @click="navUpdateData('Edit Workout')"><router-link to="/edit-workout">Edit Workout</router-link></span>
+        <span @click="navUpdateData('Edit Activity')"><router-link to="/edit-activity">Edit Activity</router-link></span>
         <span @click="navUpdateData('Preview Workout')"><router-link to="/preview-workout">Preview Workout</router-link></span>
         <span @click="navUpdateData('Active Workout')"><router-link to="/active-workout">Active Workout</router-link></span>
         <span @click="navUpdateData('Workout List')"><router-link to="/workout-list">Workout List</router-link></span>
