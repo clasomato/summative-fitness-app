@@ -1,0 +1,30 @@
+.btn {
+  width: 150px;
+  color: #FFFFFF;
+  background-color: $thirdRed;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.headingStyle {
+  font-size: $largeText;
+  color: $secondRed;
+}
+.formTextStyle {
+  font-size: $extraSmallText;
+  color: $darkGreyColor;
+}
+.bgColor {
+  background-color: $offWhite;
+  height: 100vh;
+}
+.formPadding {
+  padding-top: 30px;
+  // padding-bottom: 12px;
+}
+.justifyEvenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+.inputFormFont {
+  font-size: $extraSmallText;
+}

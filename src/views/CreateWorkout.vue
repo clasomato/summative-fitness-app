@@ -7,11 +7,10 @@
 
       <div class="createWorkoutContainer">
         <h1>Create Workout</h1>
-        <button type="button" @click="testFunction" name="button">Test Button</button>
-
-        <input type="text" name="" value="" id="userNameOfWorkout" placeholder="Name">
-
-        <input type="text" name="" value="" id="userDescriptionOfWorkout" placeholder="Description">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="userNameOfWorkout" v-model="nameOfWorkout">
+        <label for="desc">Description</label>
+        <input type="text" name="desc" id="userDescriptionOfWorkout">
       </div>
 
       <div class="activitySection">
@@ -25,17 +24,36 @@
         </div>
 
         <div class="activityContent">
-          <!-- <h3>Your Workout</h3> <br> -->
-          <br>
-          <h4>No Activities In Workout</h4>
-          <img src="../assets/plus-solid.svg" alt="" @click="openAddActivity">
+          <div class="header-cont">
+            <h4>{{nameOfWorkout}}</h4>
+          </div>
+
+          <ul id="activityList">
+            <li v-for="item in workoutActivitys" :key="item.name">
+              <div class="inner-cont">
+                <div class="activityImage"></div>
+                <div class="activityTitle">
+                  <h5 v-on:click="navigate()">{{ item }}</h5>
+                  <p>Category</p>
+                </div>
+              </div>
+              <p>60 sec</p>
+            </li>
+          </ul>
+
+          <!-- <img src="../assets/plus-solid.svg" alt="" > -->
+          <div class="add-activity-cont" @click="openAddActivity">
+            <i class="fas fa-plus"></i>
+            <h5>Add Activity</h5>
+          </div>
+          <h4 id="noActivitysInWorkout">No Activities In Workout</h4>
         </div>
       </div>
 
       <!-- Buttons to confirm changes or to delete the workout set -->
       <div class="buttons">
-        <button type="button" name="button" @click="openDeleteConfirmModal()" id="deleteWorkoutButton">Delete</button>
-        <button type="button" name="button" @click="confirmWorkoutChnages()" id="confirmWorkoutButton">Confirm</button>
+        <button type="button" name="button" @click="openDeleteConfirmModal()" id="deleteWorkoutButton"><i class="fas fa-trash"></i>Delete</button>
+        <button type="button" name="button" @click="confirmWorkoutChanges()" id="confirmWorkoutButton">Confirm</button>
       </div>
 
       <!-- Modals -->
@@ -135,7 +153,6 @@
         </div>
       </div>
     </div>
-    <p else>You must <router-link to="/login">Login</router-link> or <router-link to="/sign-up">Signup</router-link> to view this page.</p>
   </div>
 </template>
 
@@ -144,6 +161,8 @@
 import $ from 'jquery'
 import db from '../firebase.js'
 import store from '../store/index.js'
+import startupScript from '../startupScript.js'
+import router from '../router'
 
 console.log(db, store)
 
@@ -155,13 +174,29 @@ export default {
       checkBoxes: false,
       workoutActivitys: [],
       workoutDefaultRefrence: [],
-      isLoggedIn: false
+      isLoggedIn: false,
+      userFirstName: '',
+      noActivitys: true,
+      oActivitys: false,
+      nameOfWorkout: 'Your Workout',
+      tempStore: []
     }
   },
   created () {
-    this.isLoggedIn = store.getters.getLoginStatus
+    this.checkLoggedIn()
+  },
+  updated () {
+    this.checkLoggedIn()
   },
   methods: {
+    checkLoggedIn () {
+      this.isLoggedIn = this.$store.getters.getLoginStatus
+      if (this.isLoggedIn === false) {
+        startupScript.checkLocalStorage()
+        this.isLoggedIn = true
+      }
+      this.userFirstName = this.$store.getters.getUserFirstName
+    },
     // Hide/show STARTS
     openAddActivity: function () {
       $('#activityContainer').show(100)
@@ -183,12 +218,13 @@ export default {
       // This gets the checked item and appends it to the vue data array
       if (e.target.checked === true) {
         v.workoutActivitys.push(e.target.name)
+        v.tempStore.push(e.target.name)
         v.workoutDefaultRefrence.push(e.target.value)
       } else {
 
       }
     },
-    confirmWorkoutChnages: function () {
+    confirmWorkoutChanges: function () {
       // Grbbing Vue
       const v = this
 
@@ -238,7 +274,16 @@ export default {
       }
     },
     goBackToCreateWorkout: function () {
+      var v = this
+
       $('#activityContainer').hide(100)
+      var array = v.workoutActivitys
+      if (array.length > 0) {
+        console.log('fasdasas')
+        console.log(array)
+        $('#noActivitysInWorkout').hide()
+        $('#').show()
+      }
     },
     search: function () {
       // Declare variables
@@ -259,9 +304,18 @@ export default {
         }
       }
     },
-    testFunction: function () {
-      // console.log(document.getElementById('dificultyOptions').value)
+    // Sophie's Code
+    navigate () {
+      var v = this
+      var tempArray = v.tempStore
+      localStorage.setItem('tempArray', JSON.stringify(tempArray))
+
+      function dgasjksa () {
+        router.push({ name: 'EditActivity' })
+      }
+      setTimeout(dgasjksa(), 2000)
     }
+    // Sophie's Code ENDS
   }
 }
 </script>
@@ -271,31 +325,47 @@ export default {
     text-align: left;
   }
 
+  .createWorkoutContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   input {
     border: none;
-    background-color: white;
-    font-size: 2em;
     border-bottom: 1px solid darkgrey;
+    background: transparent;
+    font-size: 1em;
+    padding: 0px 20px 12px 0px;
     margin-bottom: 10%;
+    width: 100%;
+    color: #000000;
+  }
+
+  label {
+    color: #000000;
   }
 
   select {
     border: none;
-    background-color: white;
+    background-color: inherit;
     font-size: 1.2em;
-    border-bottom: 1px solid darkgrey;
+    border-bottom: 2px solid #FE5864;
     margin-bottom: 10%;
   }
 
   button {
-    background-color: darkgrey;
-    color: white;
+    background-color: white;
+    color:#FE5864;
     border: 0;
     width: 80%;
     text-align: center;
     border-radius: 100px;
     font-size: 1.5em;
     margin-top: 5%;
+    -webkit-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
   }
 
   #confirmDeleteModal {
@@ -304,10 +374,6 @@ export default {
 
   .create-workout {
     padding: 5%;
-  }
-
-  .createWorkoutContainer {
-
   }
 
   .activityHeaders {
@@ -324,17 +390,34 @@ export default {
 
   .activityContent {
     width: 100%;
-    background-color: darkgrey;
-    padding: 5%;
-    border-radius: 0.5em;
+    background-color: white;
+    // padding: 5%;
+    border-radius: 1em;
     text-align: center;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
 
+    -webkit-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+    & .header-cont {
+      border-radius: 1em 1em 0 0;
+      background-color: #E65A6E;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 2% 0;
+      & h4 {
+        margin: 0;
+        color: #ffffff;
+      }
+    }
     h3 {
-      background-color: red;
+      background-color: blue;
       padding: 0;
       margin: 0;
       width: 100%;
@@ -348,16 +431,119 @@ export default {
       padding: 5%;
       border-radius: 1em;
     }
+
+    ul {
+      width: 100%;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    li {
+      background-color: #f6f6f6;
+      border-radius: 100px;
+      list-style: none;
+      font-size: 1.5em;
+      margin: 2%;
+      padding: 2%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      & .inner-cont {
+        flex-basis: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        & div.activityImage {
+          border-radius: 100%;
+          background: url('../assets/background.jpg') no-repeat center center;
+          background-size: cover;
+          width: 2em;
+          height: 2em;
+          margin-right: 10%;
+        }
+        & div.activityTitle {
+          & > * {
+            margin: 0;
+          }
+          & h5 {
+            font-size: 18px;
+            font-weight: 500;
+          }
+          & p {
+            font-size: 16px;
+            color: grey;
+          }
+        }
+      }
+      & > p {
+        flex-basis: 50%;
+        font-size: 16px;
+        color: grey;
+        text-align: right;
+      }
+      & > * {
+        // width: 100%;
+        margin: 0;
+      }
+    }
+
+    .add-activity-cont {
+      opacity: 1;
+      cursor: pointer;
+      margin: 5% 0;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      & svg {
+        font-size: 26px;
+        color: #2c3e50;
+        margin-right: 8px;
+      }
+      & h5 {
+        color: #2c3e50;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin: 0;
+      }
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    & #noActivitysInWorkout {
+      font-size: 16px;
+      color: lightgrey;
+    }
   }
 
   .buttons {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 
     button {
       width: 45%;
-      font-size: 1.4em;
+      font-size: 20px;
+      -webkit-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+      -moz-box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+      box-shadow: 10px 10px 19px -16px rgba(0,0,0,0.75);
+    }
+    & #confirmWorkoutButton {
+      background-color: #E65A6E;
+      color: white;
+    }
+    & #deleteWorkoutButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #343A40;
+      color: #ffffff;
+      font-size: 20px;
+      & > svg {
+        margin-right: 10px;
+        font-size: 18px;
+      }
     }
   }
 
@@ -382,12 +568,13 @@ export default {
     width: 100%;
     height: 100vh;
     overflow: scroll;
-    background-color: grey;
+    background-color: white;
     position: absolute;
     top: 0;
     left: 0;
     padding: 5%;
     display: none;
+    z-index: 10000;
   }
 
   .searchArea {
@@ -395,7 +582,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: darkgrey;
+    background-color: white;
     width: 100%;
 
     display: flex;
@@ -404,9 +591,72 @@ export default {
     button, input {
       margin:0;
       padding-right: 3%;
+      width: 40%;
+    }
+  }
+
+  #addButton {
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+  }
+
+  .addActivityModalContainer {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+  }
+
+  .addActivityModal {
+    width: 80%;
+    height: 90vh;
+    background-color: white;
+    margin: 10%;
+    overflow: scroll;
+    border-radius: 1em;
+    padding: 5%;
+
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: white;
+      opacity: 1; /* Firefox */
+    }
+  }
+
+  .searchArea {
+    display: flex;
+    justify-content: space-between;
+
+    button, input {
+      color: white;
+      background-color: #FE5864;
+      border: none;
+      font-size: 1.25em;
+      padding: 1%;
+      border-radius: 0.5em;
     }
   }
 
   .searchResults {
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style: none;
+      margin: 1%;
+      border-bottom: 2px solid pink;
+      font-size: 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      input {
+        zoom: 1.5;
+      }
+    }
   }
 </style>

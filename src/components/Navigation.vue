@@ -10,16 +10,20 @@
     </div>
     <div id="nav">
       <div class="nav-inner" v-bind:class="{isActive: hamIsActive}">
-        <span @click="navUpdateData('Dashboard')"><router-link to="/">Dashboard</router-link></span>
-        <span @click="navUpdateData('About')"><router-link to="/about">About</router-link></span>
-        <span @click="navUpdateData('Sign Up')"><router-link to="/sign-up">Sign Up</router-link></span>
         <span @click="navUpdateData('Login')"><router-link to="/login">Login</router-link></span>
-        <span @click="navUpdateData('Profile Setup')"><router-link to="/profile-setup">Profile Setup</router-link></span>
-        <span @click="navUpdateData('Create Workout')"><router-link to="/create-workout">Create Workout</router-link></span>
-        <span @click="navUpdateData('Edit Workout')"><router-link to="/edit-workout">Edit Workout</router-link></span>
-        <span @click="navUpdateData('Preview Workout')"><router-link to="/preview-workout">Preview Workout</router-link></span>
-        <span @click="navUpdateData('Active Workout')"><router-link to="/active-workout">Active Workout</router-link></span>
-        <span @click="navUpdateData('Workout List')"><router-link to="/workout-list">Workout List</router-link></span>
+        <span @click="navUpdateData('Sign Up')"><router-link to="/sign-up">Sign Up</router-link></span>
+        <span @click="navUpdateData('Dashboard')"><router-link to="/">Dashboard</router-link></span>
+        <!-- <span @click="navUpdateData('Create Workout')"><router-link to="/create-workout">Create Workout</router-link></span> -->
+        <span @click="navUpdateData('Profile Page')"><router-link to="/profile-page">Profile Page</router-link></span>
+        <!-- <span @click="navUpdateData('Landing')"><router-link to="/landing">Landing</router-link></span> -->
+        <!-- <span @click="navUpdateData('About')"><router-link to="/about">About</router-link></span> -->
+        <!-- <span @click="navUpdateData('Profile Setup')"><router-link to="/profile-setup">Profile Setup</router-link></span> -->
+        <!-- <span @click="navUpdateData('Edit Workout')"><router-link to="/edit-workout">Edit Workout</router-link></span> -->
+        <!-- <span @click="navUpdateData('Preview Workout')"><router-link to="/preview-workout">Preview Workout</router-link></span> -->
+        <!-- <span @click="navUpdateData('Active Workout')"><router-link to="/active-workout">Active Workout</router-link></span> -->
+        <!-- <span @click="navUpdateData('Workout List')"><router-link to="/workout-list">Workout List</router-link></span> -->
+        <!-- <span @click="navUpdateData('Preset Workout')"><router-link to="/preset-Workout">Preset Workout</router-link></span> -->
+        <!-- <span @click="navUpdateData('Play Workout')"><router-link to="/play-workout">Play Workout</router-link></span> -->
       </div>
     </div>
     <div @click="hamToggle" id="overlay" v-bind:class="{isActive: hamIsActive}"></div>
@@ -68,15 +72,15 @@ export default {
   top: 0;
   right: 0;
   width: 100%;
-  height: 100%;
+  height: 8.4vh;
   & > .inner {
     padding: 1% 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #E65A6E;
+    background: #ffffff;
     & > h1 {
-      color: white;
+      color: #E65A6E;
       font-size: 30px;
       margin: 0 0 0 5%;
     }

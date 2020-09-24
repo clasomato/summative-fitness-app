@@ -7,12 +7,12 @@
       <div class="row justify-content-center">
         <form class="col col-12">
           <div class="form-group text-left formTextStyle formPadding">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" placeholder="myfitness@gmail...">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" placeholder="Enter Email">
           </div>
           <div class="form-group text-left formTextStyle formPadding">
             <label for="password">Password</label>
-            <input type="password" class="form-control" placeholder="********">
+            <input type="password" class="form-control" placeholder="Password">
           </div>
           <button type="button" class="btn text-center">Continue</button>
         </form>

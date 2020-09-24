@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <Navigation/>
-    <router-view/>
+    <div id="mainContainer">
+      <Navigation/>
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -37,6 +39,7 @@ export default {
   max-width: 100vw;
   position: relative;
   min-height: 100vh;
+  background-color: #F0F4F7;
 }
 
 #nav {
@@ -55,7 +58,7 @@ export default {
   $hamburger-layer-width         : 40px !default;
   $hamburger-layer-height        : 4px !default;
   $hamburger-layer-spacing       : 6px !default;
-  $hamburger-layer-color         : #fff !default;
+  $hamburger-layer-color         : #E65A6E !default;
   $hamburger-layer-border-radius : 4px !default;
   $hamburger-hover-opacity       : 0.7 !default;
   $hamburger-active-layer-color  : #fff !default;
@@ -126,6 +129,13 @@ export default {
       transition-duration: 0.15s;
       transition-timing-function: ease;
     }
+
+    // .hamburger-inner {
+    &::before {
+      width: 30px !important;
+      right: 0;
+    }
+    // }
 
     &::before,
     &::after {

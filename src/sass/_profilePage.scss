@@ -1,0 +1,28 @@
+.highlightPoints {
+  font-size: $extraSmallText;
+  color: white;
+  text-align: center;
+}
+.boxes {
+  width: 100px;
+  height: 90px;
+  background-color: $thirdRed;
+}
+.highlightText {
+  font-size: $largeText;
+  padding-top: 7px;
+  margin: 0 auto;
+}
+.workoutList {
+  margin-top: 20px;
+  font-size: $smallText;
+}
+.fullBox {
+  height: auto;
+  background-color: white;
+}
+.workoutText {
+  font-size: $extraSmallText;
+  color: black;
+  margin: 0 auto;
+}

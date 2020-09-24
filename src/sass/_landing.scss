@@ -1,0 +1,44 @@
+.btnStyleLogin {
+  color: $offWhite;
+  background-color: $thirdRed;
+  width: 250px;
+}
+
+.btnStyleSignup {
+  color: $thirdRed;
+  background-color: $offWhite;
+  border-radius: 30px;
+  width: 250px;
+}
+
+.btnMargin {
+  margin-top: 5px;
+}
+
+.logo {
+  width: 250px;
+  height: auto;
+}
+
+.paraTextStyle {
+  font-family: 'Roboto', sans-serif;
+  color: $offWhite;
+  font-size: $smallText;
+}
+
+.justifyEvenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.container {
+  height: 100vh;
+}
+
+.bgStyle {
+  background-image: url(../assets/background.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
