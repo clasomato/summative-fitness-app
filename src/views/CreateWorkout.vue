@@ -2,7 +2,7 @@
   <div class="create-workout">
     <div v-if="isLoggedIn">
       <div class="specificNav">
-        <span><router-link to="/">Go Back</router-link></span>
+        <span @click="cleanLocalStorage()"><router-link to="/">Go Back</router-link></span>
       </div>
 
       <div class="createWorkoutContainer">
@@ -178,16 +178,25 @@ export default {
       userFirstName: '',
       noActivitys: true,
       oActivitys: false,
-      nameOfWorkout: 'Your Workout'
+      nameOfWorkout: 'Your Workout',
+      tempStore: []
     }
   },
   created () {
+    var v = this
     this.checkLoggedIn()
+    var retrievedData = localStorage.getItem('tempArray')
+    var tempStore = JSON.parse(retrievedData)
+    console.log(tempStore)
+    v.workoutActivitys = tempStore
   },
   updated () {
     this.checkLoggedIn()
   },
   methods: {
+    cleanLocalStorage: function () {
+      localStorage.removeItem('tempArray')
+    },
     checkLoggedIn () {
       this.isLoggedIn = this.$store.getters.getLoginStatus
       if (this.isLoggedIn === false) {
@@ -217,6 +226,7 @@ export default {
       // This gets the checked item and appends it to the vue data array
       if (e.target.checked === true) {
         v.workoutActivitys.push(e.target.name)
+        v.tempStore.push(e.target.name)
         v.workoutDefaultRefrence.push(e.target.value)
       } else {
 
@@ -304,7 +314,14 @@ export default {
     },
     // Sophie's Code
     navigate () {
-      router.push({ name: 'EditActivity' })
+      var v = this
+      var tempArray = v.tempStore
+      localStorage.setItem('tempArray', JSON.stringify(tempArray))
+
+      function goToEditActivity () {
+        router.push({ name: 'EditActivity' })
+      }
+      setTimeout(goToEditActivity(), 2000)
     }
     // Sophie's Code ENDS
   }
