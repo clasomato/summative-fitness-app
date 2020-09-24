@@ -2,20 +2,20 @@
   <div class="play-workout">
 
     <div class="progress-bar-section">
-
-      <progress-bar bar-color="#FA505B" size="large" v-bind:val="progressBarPercentage" v-bind:text="percentageValueWholeNumber"></progress-bar>
+      <progress-bar bar-color="#FA505B" size="large" v-bind:val="progressBarPercentage"></progress-bar>
+      <p class="progress-bar-text">Excercise {{indexReferenceCounter}}</p>
     </div>
 
     <div class="activity-section">
-      <h2 class="col-7 activity-name">Leg Lunges</h2>
+      <h2 class="activity-name">Barbell Lunges</h2>
       <div class="image-placeholder box-shadow"></div>
 
       <div class="button-section d-flex justify-content-around">
         <div class="rest-counter d-flex">
           <div class="countdown-timer custom-ctdwn-btn box-shadow">
-            <p>42s</p>
+            <p id="countdown">{{countdownValue}}</p>
           </div>
-          <div class="rest-button custom-rest-btn box-shadow">
+          <div @click="restCountdownOnClick()" class="rest-button custom-rest-btn box-shadow">
             <i class="far fa-clock fa-lg"></i>
             <p>Rest</p>
           </div>
@@ -24,7 +24,7 @@
           <i class="fas fa-pause fa-lg"></i>
           <p>Pause</p>
         </div>
-        <div @click="updateProgressBarPercentageOnClick(percentageValue)" class="next-button square-button border-radius box-shadow">
+        <div @click="updateProgressBarPercentageOnClick()" class="next-button square-button border-radius box-shadow">
           <i class="fas fa-arrow-right fa-lg"></i>
           <p>Next</p>
         </div>
@@ -62,7 +62,8 @@ export default {
       progressBarPercentage: false,
       percentageValueWholeNumber: false,
       percentageMultiplier: false,
-      indexReferenceCounter: 1
+      indexReferenceCounter: 1,
+      countdownValue: 30
     }
   },
   created () {
@@ -88,13 +89,12 @@ export default {
       v.calculateProgressBarPercentage()
     })
   },
+  // *********** Gabriel FIRST section of JavaScript code ENDS ******************
+  //
+  //
   // Incorporating ProgressBar plugin to the vue components
   components: {
     ProgressBar
-  },
-  // Creating new vue props and specifying the data values
-  props: {
-    text: [String]
   },
   methods: {
     checkLoggedIn () {
@@ -106,6 +106,8 @@ export default {
         this.$router.push('login')
       }
     },
+    // *********** Gabriel SECOND section of JavaScript code STARTS *************
+    //
     // This function calculates the progress bar percentage value,
     // it takes the active workout array and devides 100 by the length of the workout array
     calculateProgressBarPercentage () {
@@ -114,15 +116,14 @@ export default {
       var percentageValue = 100 / v.items[1].workouts.length
       // pushing the percentageValue variable to the vue object data "progressBarPercentage"
       v.progressBarPercentage = percentageValue
+      // pushing the percentageValue variable to the vue object data "percentageMultiplier",
+      // to use in the updateProgressBarPercentageOnClick method.
       v.percentageMultiplier = percentageValue
-      // pushing the percentageValue variable to the vue object data  "percentageValueWholeNumber",
-      // after the percentageValue has been rounded up to a whole number and converted into a string
-      v.percentageValueWholeNumber = Math.round(percentageValue).toString()
     },
     // This function incrementally changes the value of the progress bar percentage,
     // It takes the indexReferenceCounter to create a reference of the listNumber and mulitiplies that
     // number by the percentageMultiplier //
-    updateProgressBarPercentageOnClick (percentageValue) {
+    updateProgressBarPercentageOnClick () {
       const v = this
       // creating a variable that is equal to indexReferenceCounter + 1
       var listNumber = v.indexReferenceCounter + 1
@@ -130,8 +131,26 @@ export default {
       v.progressBarPercentage = listNumber * v.percentageMultiplier
       // increasing the indexReferenceCounter by adding a value of 1
       v.indexReferenceCounter = v.indexReferenceCounter + 1
-      console.log(v.progressBarPercentage)
+    },
+    // This function triggers a countown timer for the rest period after an ex cercsie has been completed,
+    // It takes the countdownValue from the vue object data, and starts a countdown timer to 0 if the countdownValue,
+    // is greater than 0.
+    restCountdownOnClick () {
+      const v = this
+      // creating a variable equal to the countdownValue data object
+      var seconds = v.countdownValue
+      // function method that clears the inerval value from the countdownValue vue object data, down to 0
+      var countdown = setInterval(function () {
+        // setting interval increments to seconds
+        seconds--
+        // making the seconds variable equal to countdownValue vue object data
+        v.countdownValue = seconds
+        // If statement, clearing the interval value to 0, if the seconds value is greater than 0
+        if (seconds <= 0) clearInterval(countdown)
+        // setting the interval value to countdown in seconds
+      }, 1000)
     }
+    // *********** Gabriel SECOND section of JavaScript code ENDS ***************
   }
 }
 
@@ -174,13 +193,16 @@ $largeText: 30px;
 // progressbar CSS
   .progress-bar-section {
     margin: 20px;
-    font-size: $extraSmallText;
   }
   .progress{
     margin-bottom: 10px;
   }
   .vue-simple-progress-bar {
     background: $firstRed !important;
+  }
+  .progress-bar-text{
+    font-size: $extraSmallText;
+    margin-top: 20px;
   }
 
   // activity Section css
