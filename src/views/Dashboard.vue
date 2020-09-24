@@ -12,7 +12,9 @@
           </router-link>
           <div v-for="item in items" :key="item.workoutName" class="card">
             <a class="editButton" @click="showWorkout($event, item.id, item.workoutName, item.workouts)">Edit</a>
+            <router-link to="/preset-workout">
             <h3>Workout <br> <span>{{ item.workoutName }}</span> </h3>
+            </router-link>
           </div>
         </div>
       </div>
@@ -432,6 +434,7 @@ span {
     // border-top-right-radius: 10em;
     // border-top-left-radius: 10em;
     color: white;
+    z-index: 10000;
   }
 
   #addButton {
