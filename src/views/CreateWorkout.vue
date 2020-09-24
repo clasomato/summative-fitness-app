@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="create-workout">
     <div v-if="isLoggedIn">
-      <!-- <div class="specificNav">
+      <div class="specificNav">
         <span><router-link to="/">Go Back</router-link></span>
-      </div> -->
+      </div>
 
       <div class="createWorkoutContainer">
         <h1>Create Workout</h1>
@@ -14,25 +14,14 @@
       </div>
 
       <div class="activitySection">
-        <!-- <div class="activityHeaders">
+        <div class="activityHeaders">
           <h3>Level</h3>
-          <div class="custom-select">
-
-            <div class="custom-select-wrapper">
-                <div class="custom-select">
-                    <div class="custom-select__trigger"><span>Tesla</span>
-                        <div class="arrow"></div>
-                    </div>
-                    <div class="custom-options">
-                        <span class="custom-option selected" data-value="tesla">Tesla</span>
-                        <span class="custom-option" data-value="volvo">Volvo</span>
-                        <span class="custom-option" data-value="mercedes">Mercedes</span>
-                    </div>
-                </div>
-            </div>
-
-          </div>
-        </div> -->
+          <select class="" name="options" id="dificultyOptions">
+            <option value="0">Beginner</option>
+            <option value="1">Intermediate</option>
+            <option value="2">Advanced</option>
+          </select>
+        </div>
 
         <div class="activityContent">
           <div class="header-cont">
@@ -72,7 +61,7 @@
         <div class="customModal">
           <h1>Are you sure you want to delete this?</h1>
 
-          <button type="button" name="button" @click="deleteCurrentItem()">Yes</button>
+          <button type="button" name="button" @click="deleteCurrentItem">Yes</button>
           <button type="button" name="button" @click="deleteModalGoBack">No</button>
         </div>
       </div>
@@ -80,27 +69,85 @@
       <!-- Search for new activity modal -->
       <div class="searchForActivity" id="activityContainer">
         <div class="searchArea">
-          <span class="searchInput">
-            <input type="text" id="myInput" placeholder="Search exercises" v-on:keyup="search()">
-            <i class="fas fa-search"></i>
-          </span>
-          <span class="exit" @click="goBackToCreateWorkout"><i class="fas fa-times"></i></span>
-          <div class="filters">
-            <button type="button">Strength</button>
-            <button type="button">Cardio</button>
-            <button type="button">At Home</button>
-          </div>
+          <button type="button" name="button" @click="goBackToCreateWorkout">Close</button>
+          <input type="text" id="myInput" name="" value="" v-on:keyup="search()">
         </div>
 
-        <div class="searchResults" style="margin-top:35%">
+        <div class="searchResults" style="margin-top:20%">
           <ul id="myUL">
-            <li v-for="(item, index) in activityList" :key="item.name">
-              <div class="activityImage" v-bind:style="{background: 'url(' + item.image + ') no-repeat center center'}"></div>
-              <div class="inner">
-                <label><a>{{item.name}}</a></label>
-                <label>Category</label>
-              </div>
-                <input type="checkbox" v-bind:name="item.name" :value="index" @click="bigger($event)">
+            <li>
+                <label for=""><a>Back Squat</a></label>
+                <input type="checkbox" name="Back Squat" id="check1" value="0" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Quail</a></label>
+              <input type="checkbox" name="Quail" id="check1" value="1" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Side Lunge</a></label>
+              <input type="checkbox" name="Side Lunge" id="check1" value="2" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Chest Press</a></label>
+              <input type="checkbox" name="Chest Press" id="check1" value="3" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Skipping</a></label>
+              <input type="checkbox" name="Skipping" id="check1" value="4" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Chest Fly</a></label>
+              <input type="checkbox" name="Chest Fly" id="check1" value="5" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Bicep Curl</a></label>
+              <input type="checkbox" name="Bicep Curl" id="check1" value="6" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Burpee</a></label>
+              <input type="checkbox" name="Burpee" id="check1" value="7" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Horizontal Row</a></label>
+              <input type="checkbox" name="Horizontal Row" id="check1" value="8" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Squat Jumps</a></label>
+              <input type="checkbox" name="Squat Jumps" id="check1" value="9" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Crunch</a></label>
+              <input type="checkbox" name="Crunch" id="check1" value="10" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Running the stairs</a></label>
+              <input type="checkbox" name="Running the stairs" id="check1" value="11" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Shoulder Press</a></label>
+              <input type="checkbox" name="Shoulder Press" id="check1" value="12" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Leg Raise</a></label>
+              <input type="checkbox" name="Leg Raise" id="check1" value="13" @click="bigger($event)"> <br>
+            </li>
+
+            <li>
+              <label for=""><a>Push Ups</a></label>
+              <input type="checkbox" name="Push Ups" id="check1" value="14" @click="bigger($event)"> <br>
             </li>
           </ul>
         </div>
@@ -115,8 +162,9 @@ import $ from 'jquery'
 import db from '../firebase.js'
 import store from '../store/index.js'
 import startupScript from '../startupScript.js'
-// console.log(db, store)
 import router from '../router'
+
+console.log(db, store)
 
 export default {
   name: 'CreateWorkout',
@@ -128,34 +176,26 @@ export default {
       workoutDefaultRefrence: [],
       isLoggedIn: false,
       userFirstName: '',
-      userEmail: this.$store.getters.getUserEmail,
       noActivitys: true,
       oActivitys: false,
       nameOfWorkout: 'Your Workout',
-      activityList: false
+      tempStore: []
     }
   },
   created () {
     this.checkLoggedIn()
-    var blankArray = []
-    const v = this
-    db.collection('preset-workouts').doc('activities').collection('list-of-activities').get().then(function (snapshot) {
-      snapshot.forEach(function (doc) {
-        const eachDoc = doc.data()
-        blankArray.push(eachDoc)
-      })
-      v.activityList = blankArray
-    })
+  },
+  updated () {
+    this.checkLoggedIn()
   },
   methods: {
     checkLoggedIn () {
-      const a = startupScript.checkLocalStorage()
-      if (a === true) {
+      this.isLoggedIn = this.$store.getters.getLoginStatus
+      if (this.isLoggedIn === false) {
+        startupScript.checkLocalStorage()
         this.isLoggedIn = true
-      } else {
-        this.isLoggedIn = false
-        this.$router.push('login')
       }
+      this.userFirstName = this.$store.getters.getUserFirstName
     },
     // Hide/show STARTS
     openAddActivity: function () {
@@ -167,49 +207,33 @@ export default {
     deleteModalGoBack: function () {
       $('#confirmDeleteModal').hide(100)
     }, // Hide/show ENDS
-    // ---- delete function for deleting a workout - Alex Bull's code STARTS ---
     deleteCurrentItem: function () {
-      // setting variables for function to grab
-      // var workoutName = document.getElementById('userNameOfWorkout').value
-      // var workoutName =
-      var user = store.getters.getUserEmail
-      // deleting the wokout that the user has created
-      db.collection('users').doc(user).collection('workouts').doc(this.nameOfWorkout).delete().then(function () {
-        //  consloe message commuincating that the workout has been deleted
-        console.log('Workout has been successfully deleted!')
-      }).catch(function (error) {
-        console.error('Error removing workout', error)
-        //  consloe catch message commuincating that there has been an error in deleting the workout
-        // --- Alex Bull's code ENDS -----
-      })
+      // console.log('delete please')
 
       $('#confirmDeleteModal').hide(100)
     },
     bigger: function (e) {
       // getting Vue
       var v = this
-      const name = e.target.name
-      const value = e.target.value
       // This gets the checked item and appends it to the vue data array
       if (e.target.checked === true) {
-        v.workoutActivitys.push(name)
-        v.workoutDefaultRefrence.push(value)
-      } else if (e.target.checked === false) {
-        v.workoutActivitys = v.workoutActivitys.filter(e => e !== name)
-        v.workoutDefaultRefrence = v.workoutDefaultRefrence.filter(e => e !== value)
+        v.workoutActivitys.push(e.target.name)
+        v.tempStore.push(e.target.name)
+        v.workoutDefaultRefrence.push(e.target.value)
+      } else {
+
       }
     },
     confirmWorkoutChanges: function () {
-      console.log('working')
       // Grbbing Vue
       const v = this
 
       // Getting the required variables
-      // var user = store.getters.getUserEmail
-      // var workoutName = document.getElementById('userNameOfWorkout').value
+      var user = store.getters.getUserEmail
+      var workoutName = document.getElementById('userNameOfWorkout').value
       var workoutDescripton = document.getElementById('userDescriptionOfWorkout').value
       var userWorkouts = v.workoutActivitys
-      // var userDifficultyChoice = document.getElementById('dificultyOptions').value
+      var userDifficultyChoice = document.getElementById('dificultyOptions').value
 
       function getRandomInt (max) {
         return Math.floor(Math.random() * Math.floor(max))
@@ -221,14 +245,14 @@ export default {
       // console.log(v)
 
       // Checking if the user has added the name and description
-      if (v.nameOfWorkout !== '' && workoutDescripton !== '') {
+      if (workoutName !== '' && workoutDescripton !== '') {
         // Adding the data to firebase
-        db.collection('users').doc(v.userEmail).collection('workouts').doc(v.nameOfWorkout).set({
+        db.collection('users').doc(user).collection('workouts').doc(workoutName).set({
           id: id,
-          workoutName: v.nameOfWorkout,
+          workoutName: workoutName,
           description: workoutDescripton,
           workouts: userWorkouts,
-          // userDifficultyChoice: userDifficultyChoice,
+          userDifficultyChoice: userDifficultyChoice,
           breakTime: 30,
           totalTime: (60 * 4) + (30 * (4 - 1))
         })
@@ -236,7 +260,7 @@ export default {
         var i
         var array = v.workoutActivitys
         for (i = 0; i < array.length; i++) {
-          db.collection('users').doc(v.userEmail).collection('workouts').doc(v.nameOfWorkout).collection('workoutDetails').doc(array[i]).set({
+          db.collection('users').doc(user).collection('workouts').doc(workoutName).collection('workoutDetails').doc(array[i]).set({
             picture: '',
             repetitions: 2,
             sets: 4,
@@ -245,9 +269,8 @@ export default {
             name: v.workoutActivitys[i]
           })
         }
-        this.$router.push('/')
       } else {
-        alert('You must add a name and description.')
+        alert('No mf name or desc')
       }
     },
     goBackToCreateWorkout: function () {
@@ -281,32 +304,18 @@ export default {
         }
       }
     },
-    dropdown: function () {
-      document.querySelector('.custom-select-wrapper').addEventListener('click', function () {
-        this.querySelector('.custom-select').classList.toggle('open')
-      })
-
-      for (const option of document.querySelectorAll('.custom-option')) {
-        option.addEventListener('click', function () {
-          if (!this.classList.contains('selected')) {
-            this.parentNode.querySelector('.custom-option.selected').classList.remove('selected')
-            this.classList.add('selected')
-            this.closest('.custom-select').querySelector('.custom-select__trigger span').textContent = this.textContent
-          }
-        })
-      }
-      window.addEventListener('click', function (e) {
-        const select = document.querySelector('.custom-select')
-        if (!select.contains(e.target)) {
-          select.classList.remove('open')
-        }
-      })
-    },
-    navigate () {
     // Sophie's Code
-      router.push({ name: 'EditActivity' })
-    // Sophie's Code ENDS
+    navigate () {
+      var v = this
+      var tempArray = v.tempStore
+      localStorage.setItem('tempArray', JSON.stringify(tempArray))
+
+      function dgasjksa () {
+        router.push({ name: 'EditActivity' })
+      }
+      setTimeout(dgasjksa(), 2000)
     }
+    // Sophie's Code ENDS
   }
 }
 </script>
@@ -330,119 +339,20 @@ export default {
     padding: 0px 20px 12px 0px;
     margin-bottom: 10%;
     width: 100%;
-    color: grey;
-    &:focus {
-      outline: none;
-      color: #000000;
-    }
+    color: #000000;
   }
 
   label {
     color: #000000;
-    font-size: 15px;
   }
 
-  .custom-select-wrapper {
-       position: relative;
-       user-select: none;
-       width: 100%;
+  select {
+    border: none;
+    background-color: inherit;
+    font-size: 1.2em;
+    border-bottom: 2px solid #FE5864;
+    margin-bottom: 10%;
   }
-   .custom-select {
-       position: relative;
-       display: flex;
-       flex-direction: column;
-       border-width: 0 2px 0 2px;
-       border-style: solid;
-       border-color: #394a6d;
-  }
-   .custom-select__trigger {
-       position: relative;
-       display: flex;
-       align-items: center;
-       justify-content: space-between;
-       padding: 0 22px;
-       font-size: 20px;
-       font-weight: 300;
-       color: #3b3b3b;
-       height: 60px;
-       line-height: 60px;
-       background: #ffffff;
-       cursor: pointer;
-       border-width: 2px 0 2px 0;
-       border-style: solid;
-       border-color: #394a6d;
-  }
-   .custom-options {
-       position: absolute;
-       display: block;
-       top: 100%;
-       left: 0;
-       right: 0;
-       border: 2px solid #394a6d;
-       border-top: 0;
-       background: #fff;
-       transition: all 0.5s;
-       opacity: 0;
-       visibility: hidden;
-       pointer-events: none;
-       z-index: 2;
-  }
-   .custom-select.open .custom-options {
-       opacity: 1;
-       visibility: visible;
-       pointer-events: all;
-  }
-   .custom-option {
-       position: relative;
-       display: block;
-       padding: 0 22px 0 22px;
-       font-size: 22px;
-       font-weight: 300;
-       color: #3b3b3b;
-       line-height: 60px;
-       cursor: pointer;
-       transition: all 0.5s;
-  }
-   .custom-option:hover {
-       cursor: pointer;
-       background-color: #b2b2b2;
-  }
-   .custom-option.selected {
-       color: #ffffff;
-       background-color: #305c91;
-  }
-
-.arrow {
-     position: relative;
-     height: 15px;
-     width: 15px;
-}
- .arrow::before, .arrow::after {
-     content: "";
-     position: absolute;
-     bottom: 0px;
-     width: 0.15rem;
-     height: 100%;
-     transition: all 0.5s;
-}
- .arrow::before {
-     left: -5px;
-     transform: rotate(45deg);
-     background-color: #394a6d;
-}
- .arrow::after {
-     left: 5px;
-     transform: rotate(-45deg);
-     background-color: #394a6d;
-}
- .open .arrow::before {
-     left: -5px;
-     transform: rotate(-45deg);
-}
- .open .arrow::after {
-     left: 5px;
-     transform: rotate(45deg);
-}
 
   button {
     background-color: white;
@@ -469,9 +379,9 @@ export default {
   .activityHeaders {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    // align-items: flex-start;\
     column-rule-color: green;
-    margin-bottom: 10%;
+
     h3 {
       padding: 0;
       margin: 0;
@@ -540,22 +450,19 @@ export default {
       justify-content: space-between;
       align-items: center;
       & .inner-cont {
-        flex: 1;
-        // flex-basis: 50%;
+        flex-basis: 50%;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         & div.activityImage {
-          border-radius: 100px;
+          border-radius: 100%;
           background: url('../assets/background.jpg') no-repeat center center;
           background-size: cover;
-          min-width: 2em;
+          width: 2em;
           height: 2em;
           margin-right: 10%;
-          flex: 0;
         }
         & div.activityTitle {
-          flex: 1;
           & > * {
             margin: 0;
           }
@@ -570,9 +477,7 @@ export default {
         }
       }
       & > p {
-        flex: 1;
-        max-width: 20%;
-        // flex-basis: 50%;
+        flex-basis: 50%;
         font-size: 16px;
         color: grey;
         text-align: right;
@@ -669,41 +574,24 @@ export default {
     left: 0;
     padding: 5%;
     display: none;
-    z-index: 50;
-    & > .searchResults {
-      & > ul {
-        & > li {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 5px;
-          & > .activityImage {
-            width: 40px;
-            height: 40px;
-            margin-right: 15px;
-            background-size: cover !important;
-          }
-          & > .inner {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            & > :last-child {
-              color: grey;
-            }
-            & > label {
-              font-size: 18px;
-              flex: 1;
-              margin: 0;
-            }
-          }
-          & > input {
-            flex: 0;
-            margin: 0;
-          }
-        }
-      }
+    z-index: 10000;
+  }
+
+  .searchArea {
+    padding:5%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    button, input {
+      margin:0;
+      padding-right: 3%;
+      width: 40%;
     }
   }
 
@@ -720,7 +608,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 50;
+    z-index: 10000;
   }
 
   .addActivityModal {
@@ -739,64 +627,16 @@ export default {
   }
 
   .searchArea {
-    padding:5%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: #FE5864;
-    width: 100%;
-
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
 
-    & > .searchInput {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      & > svg {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-      }
-      & > input {
-        border-radius: 100px;
-        padding: 6px 35px;
-        color: #000000;
-        background-color: #ffffff;
-        border: none;
-        margin: 0;
-     }
-    }
-    & > span.exit {
-      cursor: pointer;
-      &:hover > svg {
-        transform: rotate(180deg);
-      }
-      & > svg {
-        color: #ffffff;
-        font-size: 30px;
-        z-index: 10000;
-        transform: rotate(0deg);
-        transition: all 0.3s ease;
-      }
-    }
-    & > .filters {
-      flex-basis: 100%;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      flex-wrap: wrap;
-      & > button {
-        background: #FE5864;
-        color: white;
-        flex: 0 1 5em;
-        font-size: 16px;
-        padding: 2px 5px;
-        margin-right: 12px;
-      }
+    button, input {
+      color: white;
+      background-color: #FE5864;
+      border: none;
+      font-size: 1.25em;
+      padding: 1%;
+      border-radius: 0.5em;
     }
   }
 

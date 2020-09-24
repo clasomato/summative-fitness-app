@@ -209,6 +209,7 @@ export default {
       }
     },
     bigger: function (e) {
+      console.log('something happened')
       // getting Vue
       var v = this
       const name = e.target.name
