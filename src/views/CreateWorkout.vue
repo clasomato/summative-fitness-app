@@ -282,7 +282,6 @@ export default {
         console.log('fasdasas')
         console.log(array)
         $('#noActivitysInWorkout').hide()
-        $('#').show()
       }
     },
     search: function () {
