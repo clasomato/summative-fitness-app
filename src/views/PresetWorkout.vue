@@ -113,6 +113,7 @@
                     </div>
                   </div>
               </div>
+              <router-link to="/play-workout">
                 <div class="button">
                   <div class="PlayButton borderRadius boxShadow">
                     <div class="Play-button-content">
@@ -122,7 +123,8 @@
                       <p class="play-title">Play</p>
                     </div>
                   </div>
-              </div>
+                </div>
+              </router-link>
             </div>
           </div>
 </template>
