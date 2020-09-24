@@ -10,8 +10,10 @@ var storageObj = {
       store.default.commit('setUserFirstName', localStorage.getItem('userFirstName'))
       store.default.commit('setUserLastName', localStorage.getItem('userLastName'))
       store.default.commit('setUserEmail', localStorage.getItem('userEmail'))
+      return true
     } else {
-      this.$router.push('login')
+      // router.push('login')
+      return false
     }
   }
 }

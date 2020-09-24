@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class=" bgStyle">
+  <div class="bgStyle">
     <div class="container flex-column landing-page d-flex justifyEvenly">
       <div>
         <img src="../assets/core-logo-color.png" alt="" class="logo padding">
@@ -16,5 +16,9 @@
 </template>
 
 <style scoped lang="scss">
-
+.bgStyle, .container {
+  height: auto !important;
+  min-height: 91.6vh !important;
+  overflow: hidden;
+}
 </style>

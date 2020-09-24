@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard">
     <!-- <Navigation/> -->
-    <div v-if="isLoggedIn">
+    <div>
       <h1 style="">Choose your <br> workout today, {{userFirstName}}</h1>
       <div class="cards">
         <div class="inner" id="card-cont" v-bind:style="{ width: totalCards + 'px'}">
@@ -37,7 +37,6 @@
           <a @click="showAddNewActivity()"><i id="addButton" class="fas fa-plus-circle" style="color:#FE5864; font-size:3.5em; display:none"></i></a>
         </div>
       </div>
-      <p else>You must <router-link to="/login">Login</router-link> or <router-link to="/sign-up">Signup</router-link> to view this page.</p>
 
       <!-- <div class="addActivityModalContainer" style="display:none" id="activityContainerP">
         <div class="addActivityModal">
@@ -104,7 +103,7 @@ export default {
   name: 'Dashboard',
   data () {
     return {
-      userFirstName: false,
+      userFirstName: this.$store.getters.getUserFirstName,
       isLoggedIn: false,
       items: '',
       selectedWorkout: false,
@@ -131,9 +130,6 @@ export default {
       v.activityList = blankArray
     })
   },
-  // updated () {
-  //   this.checkLoggedIn()
-  // },
   mounted () {
     const v = this
     var data = []
@@ -146,18 +142,16 @@ export default {
       v.totalCards = (data.length + 1) * 155
     })
     v.items = data
-    // this.items = this.$store.getters.getUserWorkouts
-    // this.items = localStorage.getItem('userWorkouts')
-    // this.totalCards = (this.items.length + 1) * 155
   },
   methods: {
     checkLoggedIn () {
-      this.isLoggedIn = this.$store.getters.getLoginStatus
-      if (this.isLoggedIn === false) {
-        startupScript.checkLocalStorage()
+      const a = startupScript.checkLocalStorage()
+      if (a === true) {
         this.isLoggedIn = true
+      } else {
+        this.isLoggedIn = false
+        this.$router.push('login')
       }
-      this.userFirstName = this.$store.getters.getUserFirstName
     },
     showWorkout: function (e, id, workoutName, workouts) {
       const v = this

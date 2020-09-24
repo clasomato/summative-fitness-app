@@ -72,7 +72,7 @@ export default {
   top: 0;
   right: 0;
   width: 100%;
-  height: 10vh;
+  height: 8.4vh;
   & > .inner {
     padding: 1% 0;
     display: flex;

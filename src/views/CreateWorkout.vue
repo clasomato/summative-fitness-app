@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="create-workout">
     <div v-if="isLoggedIn">
-      <div class="specificNav">
+      <!-- <div class="specificNav">
         <span><router-link to="/">Go Back</router-link></span>
-      </div>
+      </div> -->
 
       <div class="createWorkoutContainer">
         <h1>Create Workout</h1>
@@ -14,7 +14,7 @@
       </div>
 
       <div class="activitySection">
-        <div class="activityHeaders">
+        <!-- <div class="activityHeaders">
           <h3>Level</h3>
           <div class="custom-select">
 
@@ -32,7 +32,7 @@
             </div>
 
           </div>
-        </div>
+        </div> -->
 
         <div class="activityContent">
           <div class="header-cont">
@@ -128,6 +128,7 @@ export default {
       workoutDefaultRefrence: [],
       isLoggedIn: false,
       userFirstName: '',
+      userEmail: this.$store.getters.getUserEmail,
       noActivitys: true,
       oActivitys: false,
       nameOfWorkout: 'Your Workout',
@@ -146,20 +147,15 @@ export default {
       v.activityList = blankArray
     })
   },
-  updated () {
-    this.checkLoggedIn()
-  },
   methods: {
     checkLoggedIn () {
-      this.isLoggedIn = this.$store.getters.getLoginStatus
-      if (this.isLoggedIn === false) {
-        startupScript.checkLocalStorage()
+      const a = startupScript.checkLocalStorage()
+      if (a === true) {
         this.isLoggedIn = true
       } else {
-        // console.log('not loggenin')
-        this.router.push('login')
+        this.isLoggedIn = false
+        this.$router.push('login')
       }
-      this.userFirstName = this.$store.getters.getUserFirstName
     },
     // Hide/show STARTS
     openAddActivity: function () {
@@ -204,15 +200,16 @@ export default {
       }
     },
     confirmWorkoutChanges: function () {
+      console.log('working')
       // Grbbing Vue
       const v = this
 
       // Getting the required variables
-      var user = store.getters.getUserEmail
-      var workoutName = document.getElementById('userNameOfWorkout').value
+      // var user = store.getters.getUserEmail
+      // var workoutName = document.getElementById('userNameOfWorkout').value
       var workoutDescripton = document.getElementById('userDescriptionOfWorkout').value
       var userWorkouts = v.workoutActivitys
-      var userDifficultyChoice = document.getElementById('dificultyOptions').value
+      // var userDifficultyChoice = document.getElementById('dificultyOptions').value
 
       function getRandomInt (max) {
         return Math.floor(Math.random() * Math.floor(max))
@@ -224,14 +221,14 @@ export default {
       // console.log(v)
 
       // Checking if the user has added the name and description
-      if (workoutName !== '' && workoutDescripton !== '') {
+      if (v.nameOfWorkout !== '' && workoutDescripton !== '') {
         // Adding the data to firebase
-        db.collection('users').doc(user).collection('workouts').doc(workoutName).set({
+        db.collection('users').doc(v.userEmail).collection('workouts').doc(v.nameOfWorkout).set({
           id: id,
-          workoutName: workoutName,
+          workoutName: v.nameOfWorkout,
           description: workoutDescripton,
           workouts: userWorkouts,
-          userDifficultyChoice: userDifficultyChoice,
+          // userDifficultyChoice: userDifficultyChoice,
           breakTime: 30,
           totalTime: (60 * 4) + (30 * (4 - 1))
         })
@@ -239,7 +236,7 @@ export default {
         var i
         var array = v.workoutActivitys
         for (i = 0; i < array.length; i++) {
-          db.collection('users').doc(user).collection('workouts').doc(workoutName).collection('workoutDetails').doc(array[i]).set({
+          db.collection('users').doc(v.userEmail).collection('workouts').doc(v.nameOfWorkout).collection('workoutDetails').doc(array[i]).set({
             picture: '',
             repetitions: 2,
             sets: 4,
@@ -248,8 +245,9 @@ export default {
             name: v.workoutActivitys[i]
           })
         }
+        this.$router.push('/')
       } else {
-        alert('No mf name or desc')
+        alert('You must add a name and description.')
       }
     },
     goBackToCreateWorkout: function () {

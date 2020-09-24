@@ -1,10 +1,8 @@
 <template lang="html">
   <div class="edit-workout">
-    <div v-if="isLoggedIn">
+    <div>
       <h1>Edit Workout</h1>
     </div>
-    <p else>You must <router-link to="/login">Login</router-link> or <router-link to="/sign-up">Signup</router-link> to view this page.</p>
-
     <div v-for="item in items" :key="item.workoutName" class="card" @click="editWorkout($event, item.id, item.workoutName, item.workouts)">
       <a class="editButton">Edit</a>
       <h3>Workout <br> <span>{{ item.workoutName }}</span> </h3>
@@ -37,8 +35,6 @@ import $ from 'jquery'
 import db from '../firebase.js'
 import startupScript from '../startupScript.js'
 
-// console.log(startupScript)
-
 export default {
   name: 'EditWorkout',
   data () {
@@ -67,12 +63,13 @@ export default {
       v.selectedWorkoutItems = blankArray
     },
     checkLoggedIn () {
-      this.isLoggedIn = this.$store.getters.getLoginStatus
-      if (this.isLoggedIn === false) {
-        startupScript.checkLocalStorage()
+      const a = startupScript.checkLocalStorage()
+      if (a === true) {
         this.isLoggedIn = true
+      } else {
+        this.isLoggedIn = false
+        this.$router.push('login')
       }
-      this.userFirstName = this.$store.getters.getUserFirstName
     }
   },
   created () {

@@ -53,9 +53,6 @@ import ProgressBar from 'vue-simple-progress'
 import store from '../store/index.js'
 import db from '../firebase.js'
 import startupScript from '../startupScript.js'
-// console.log(ProgressBar)
-// console.log(store)
-// console.log(db)
 
 export default {
   name: 'PlayWorkout',
@@ -69,9 +66,6 @@ export default {
     }
   },
   created () {
-    this.checkLoggedIn()
-  },
-  updated () {
     this.checkLoggedIn()
   },
   mounted () {
@@ -104,12 +98,13 @@ export default {
   },
   methods: {
     checkLoggedIn () {
-      this.isLoggedIn = this.$store.getters.getLoginStatus
-      if (this.isLoggedIn === false) {
-        startupScript.checkLocalStorage()
+      const a = startupScript.checkLocalStorage()
+      if (a === true) {
         this.isLoggedIn = true
+      } else {
+        this.isLoggedIn = false
+        this.$router.push('login')
       }
-      this.userFirstName = this.$store.getters.getUserFirstName
     },
     // This function calculates the progress bar percentage value,
     // it takes the active workout array and devides 100 by the length of the workout array

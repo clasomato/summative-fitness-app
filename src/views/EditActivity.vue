@@ -69,15 +69,29 @@
 
 <!-- Sophie's Javascript -->
 <script>
+import startupScript from '../startupScript.js'
+
 export default {
   name: 'EditActivity',
   data () {
     return {
-      activityName: 'Skipping'
+      activityName: 'Skipping',
+      isLoggedIn: false
     }
   },
   created () {
     this.checkLoggedIn()
+  },
+  methods: {
+    checkLoggedIn () {
+      const a = startupScript.checkLocalStorage()
+      if (a === true) {
+        this.isLoggedIn = true
+      } else {
+        this.isLoggedIn = false
+        this.$router.push('login')
+      }
+    }
   }
 }
 </script>

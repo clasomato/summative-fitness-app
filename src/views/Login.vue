@@ -80,9 +80,4 @@ html, body, #app {
 .container {
   height: 90vh;
 }
-
-// #mainContainer {
-//   max-height: 100vh;
-//   overflow: hidden;
-// }
 </style>
