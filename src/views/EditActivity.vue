@@ -78,12 +78,12 @@ export default {
   name: 'EditActivity',
   data () {
     return {
-      activityName: 'Skipping',
-      isLoggedIn: false
+      activityName: 'Skipping'
+      // isLoggedIn: false
     }
   },
   created () {
-    this.checkLoggedIn()
+    // this.checkLoggedIn()
   }
 }
 // Sophie's Javascript ENDS

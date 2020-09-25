@@ -2,7 +2,7 @@
   <div class="create-workout">
     <div v-if="isLoggedIn">
       <div class="specificNav">
-        <span><router-link to="/">Go Back</router-link></span>
+        <span @click="purgeLocalStorage()"><router-link to="/">Go Back</router-link></span>
       </div>
 
       <div class="createWorkoutContainer">
@@ -183,12 +183,18 @@ export default {
     }
   },
   created () {
+    var v = this
     this.checkLoggedIn()
+    var retrievedData = localStorage.getItem('tempArray')
+    v.workoutActivitys = JSON.parse(retrievedData)
   },
   updated () {
     this.checkLoggedIn()
   },
   methods: {
+    purgeLocalStorage: function () {
+      localStorage.removeItem('tempArray')
+    },
     checkLoggedIn () {
       this.isLoggedIn = this.$store.getters.getLoginStatus
       if (this.isLoggedIn === false) {
