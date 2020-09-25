@@ -147,7 +147,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped="">
+<style lang="scss" scoped>
 .adminPanel {
   text-align: left;
   padding: 5%;
