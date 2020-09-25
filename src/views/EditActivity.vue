@@ -62,15 +62,18 @@
       </div>
     </div>
     <div class="">
-      <button type="button" class="ralewaySemiBold btn text-center btnStyleAdd btnMargin borderRadius"> <i class="fas fa-plus"></i> Add</button>
+      <button type="button" class="ralewaySemiBold btn text-center btnStyleAdd btnMargin borderRadius" @click="$router.push('create-workout')"> <i class="fas fa-plus"></i> Add</button>
     </div>
   </div>
 </template>
 
-<!-- Sophie's Javascript -->
 <script>
+// Sophie's Javascript
 import startupScript from '../startupScript.js'
+if (startupScript === 'fds') {
 
+}
+//
 export default {
   name: 'EditActivity',
   data () {
@@ -81,17 +84,7 @@ export default {
   },
   created () {
     this.checkLoggedIn()
-  },
-  methods: {
-    checkLoggedIn () {
-      const a = startupScript.checkLocalStorage()
-      if (a === true) {
-        this.isLoggedIn = true
-      } else {
-        this.isLoggedIn = false
-        this.$router.push('login')
-      }
-    }
   }
 }
+// Sophie's Javascript ENDS
 </script>
